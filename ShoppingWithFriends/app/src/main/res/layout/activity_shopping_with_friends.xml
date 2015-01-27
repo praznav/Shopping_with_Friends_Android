@@ -14,9 +14,9 @@
         android:minHeight="40dp"
         android:textColor="#ff5e64ff"
         android:textSize="40dp"
+        android:layout_marginTop="84dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="87dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
