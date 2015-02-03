@@ -45,4 +45,9 @@ public class ShoppingWithFriends extends Activity {
         startActivity(intent);
     }
 
+    public void onRegistrationPress(View view) {
+        //Goes to registration page.  Handler for registration button
+        Intent intent = new Intent(this, registration.class);
+        startActivity(intent);
+    }
 }

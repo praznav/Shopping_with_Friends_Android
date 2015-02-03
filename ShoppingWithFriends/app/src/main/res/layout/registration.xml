@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent"
-    android:weightSum="1">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1"
+    tools:context="com.example.pranav.shoppingwithfriends.Registration"
+    android:onClick="onReturnPress">
+    <!--tools:context="com.example.pranav.shoppingwithfriends.registration-->
 
 
     <TextView
@@ -13,8 +18,8 @@
         android:textColor="#ff5e64ff"
         android:textSize="40dp"
         android:layout_marginTop="84dp"
-        android:layout_x="84dp"
-        android:layout_y="143dp" />
+        android:layout_x="81dp"
+        android:layout_y="59dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,8 +27,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Email:"
         android:id="@+id/textView2"
-        android:layout_x="5dp"
-        android:layout_y="269dp" />
+        android:layout_x="31dp"
+        android:layout_y="203dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,15 +37,15 @@
         android:text="Username:"
         android:id="@+id/textView3"
         android:layout_marginTop="41dp"
-        android:layout_x="3dp"
-        android:layout_y="333dp" />
+        android:layout_x="29dp"
+        android:layout_y="267dp" />
 
     <EditText
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:layout_x="105dp"
-        android:layout_y="254dp" />
+        android:layout_x="129dp"
+        android:layout_y="188dp" />
 
     <EditText
         android:layout_width="193dp"
@@ -48,7 +53,24 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editText2"
-        android:layout_x="108dp"
-        android:layout_y="316dp" />
+        android:layout_x="133dp"
+        android:layout_y="250dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/regButton"
+        android:layout_x="1dp"
+        android:layout_y="337dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Return"
+        android:id="@+id/retButton"
+        android:layout_x="-2dp"
+        android:layout_y="405dp"
+        android:onClick="onReturnPress" />
 
 </AbsoluteLayout>

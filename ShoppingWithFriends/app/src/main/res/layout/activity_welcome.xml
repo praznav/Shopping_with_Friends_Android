@@ -33,5 +33,6 @@
         android:id="@+id/register_button"
         android:layout_below="@+id/login_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp" />
+        android:layout_marginTop="31dp"
+        android:onClick="onRegistrationPress" />
 </RelativeLayout>
