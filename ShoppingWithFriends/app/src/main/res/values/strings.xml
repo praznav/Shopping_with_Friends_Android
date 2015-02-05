@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_welcome">WelcomeActivity</string>
     <string name="prompt_user">Username</string>
+    <string name="title_activity_main_screen">MainScreenActivity</string>
 
 </resources>
