@@ -15,4 +15,6 @@
     <color name="buttonTextTwo">#000806</color>
     <color name="otherTwoOne">#1B362F</color>
 
+    <color name="testBackground">#017530</color>
+    <color name="testText">#ffc2c2c2</color>
 </resources>
