@@ -5,7 +5,8 @@
     android:layout_height="fill_parent"
     android:weightSum="1"
     tools:context="com.example.pranav.shoppingwithfriends.Registration"
-    android:onClick="onReturnPress">
+    android:onClick="onReturnPress"
+    android:id="@+id/">
     <!--tools:context="com.example.pranav.shoppingwithfriends.registration-->
 
 
