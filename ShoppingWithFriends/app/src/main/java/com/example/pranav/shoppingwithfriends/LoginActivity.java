@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -124,7 +125,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             cancel = true;
         }
 
-        // Check for a valid email address.
+        // Check for a valid username
         if (TextUtils.isEmpty(email)) {
             mEmailView.setError(getString(R.string.error_field_required));
             focusView = mEmailView;
@@ -226,6 +227,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
+    public void onCorrectCredentials()
+    {
+        Intent intent = new Intent(this, MainScreenActivity.class);
+        startActivity(intent);
+    }
+
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -280,7 +287,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
 
             // TODO: register the new account here.
-            return true;
+            return false;
         }
 
         @Override
@@ -289,6 +296,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
+                onCorrectCredentials();
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

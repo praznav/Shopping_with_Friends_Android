@@ -32,6 +32,11 @@
             android:name=".registration"
             android:label="registration"
             android:windowSoftInputMode="stateVisible|adjustPan" >
+	</activity>
+
+        <activity
+            android:name=".MainScreenActivity"
+            android:label="@string/title_activity_main_screen" >
         </activity>
     </application>
 
