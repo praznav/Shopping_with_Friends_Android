@@ -46,7 +46,9 @@ public class registration extends Activity {
         String username = usernameIn.getText().toString();
 
         Person newPerson = new User(firstName, lastName, username, password, email);
-
+        Processor pro = ((Processor)getApplicationContext());
+        pro.addPerson(newPerson);
+        finish();
     }
 
 }

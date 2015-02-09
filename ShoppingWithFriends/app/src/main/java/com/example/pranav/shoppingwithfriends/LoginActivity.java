@@ -62,6 +62,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
+//        Processor pro = ((Processor)getApplicationContext());
+ //       DUMMY_CREDENTIALS = pro.getPeeps();
+
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
