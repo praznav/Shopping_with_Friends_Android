@@ -70,7 +70,8 @@
         android:text="Register"
         android:id="@+id/regButton"
         android:layout_x="0dp"
-        android:layout_y="390dp" />
+        android:layout_y="390dp"
+        android:onClick="onRegisterPress" />
 
     <Button
         android:layout_width="fill_parent"

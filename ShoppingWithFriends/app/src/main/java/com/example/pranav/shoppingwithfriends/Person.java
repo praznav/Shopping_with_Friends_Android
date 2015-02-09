@@ -1,4 +1,4 @@
-package CS2340;
+package com.example.pranav.shoppingwithfriends;
 
 public abstract class Person {
 	protected final int DEFAULT_NUM_FRIENDS = 5;

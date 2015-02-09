@@ -1,4 +1,4 @@
-package CS2340;
+package com.example.pranav.shoppingwithfriends;
 
 public class User extends Person {
 	protected int numSales;
