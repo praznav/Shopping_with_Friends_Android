@@ -39,7 +39,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
+    private static String[] DUMMY_CREDENTIALS = new String[]{
             "user:pass"
     };
     /**
@@ -62,8 +62,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
-//        Processor pro = ((Processor)getApplicationContext());
- //       DUMMY_CREDENTIALS = pro.getPeeps();
+        Processor pro = ((Processor)getApplicationContext());
+        DUMMY_CREDENTIALS = pro.getPeeps();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -285,6 +285,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
+                    System.out.println("yoyoyo");
+                    System.out.println(mEmail);
+                    System.out.println(mPassword);
                     return pieces[1].equals(mPassword);
                 }
             }
