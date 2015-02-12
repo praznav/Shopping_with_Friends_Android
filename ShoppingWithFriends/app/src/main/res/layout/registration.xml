@@ -5,7 +5,6 @@
     android:layout_height="fill_parent"
     android:weightSum="1"
     tools:context="com.example.pranav.shoppingwithfriends.Registration"
-    android:onClick="onReturnPress"
     android:background="@color/testBackground"
     android:touchscreenBlocksFocus="false">
     <!--tools:context="com.example.pranav.shoppingwithfriends.registration-->
@@ -56,7 +55,6 @@
     <EditText
         android:layout_width="230dp"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_x="120dp"
