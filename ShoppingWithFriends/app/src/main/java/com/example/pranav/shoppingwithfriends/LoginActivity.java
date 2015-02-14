@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +28,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,7 +127,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         boolean cancel = false;
         View focusView = null;
-
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -270,12 +279,21 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
+            Log.d("https", "Check that method is being called");
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet httpget = new HttpGet("http://teamkevin.me/Users/Login?username=" + "user" + "&password=" + "pass");
+                HttpResponse response = client.execute(httpget);
+                Log.d("https", response.getStatusLine().toString());
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    Log.i("https", line);
+                }
+
+            } catch (Exception e) {
+                Log.d("https", e.getMessage());
                 return false;
             }
 
@@ -287,7 +305,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 }
             }
 
-            // TODO: register the new account here.
             return false;
         }
 
