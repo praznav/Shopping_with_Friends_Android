@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="red">#ffff0000</color>
-    <color name="green">#00BF03</color>
+    // color scheme one
+    <color name="backgroundOne">#05070D</color>
+    <color name="textOne">#8399D5</color>
+    <color name="buttonOne">#474F64</color>
+    <color name="buttonTextOne">#000000</color>
+    <color name="otherOneOne">#303B5B</color>
+    <color name="otherOneTwo">#8A8D96</color>
+
+    // color scheme two
+    <color name="backgroundTwo">#081612</color>
+    <color name="textTwo">#828E8A</color>
+    <color name="buttonTwo">#036E51</color>
+    <color name="buttonTextTwo">#000806</color>
+    <color name="otherTwoOne">#1B362F</color>
+
+    <color name="testBackground">#017530</color>
+    <color name="testText">#ffc2c2c2</color>
 </resources>

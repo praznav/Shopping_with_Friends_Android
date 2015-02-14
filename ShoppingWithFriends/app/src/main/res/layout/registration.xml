@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="fill_parent"
-    android:weightSum="1">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="1"
+    tools:context="com.example.pranav.shoppingwithfriends.Registration"
+    android:background="@color/testBackground"
+    android:touchscreenBlocksFocus="false">
+    <!--tools:context="com.example.pranav.shoppingwithfriends.registration-->
 
 
     <TextView
@@ -10,11 +16,11 @@
         android:id="@+id/textView"
         android:text="Registration"
         android:minHeight="40dp"
-        android:textColor="#ff5e64ff"
+        android:textColor="#ffc2c2c2"
         android:textSize="40dp"
         android:layout_marginTop="84dp"
-        android:layout_x="84dp"
-        android:layout_y="143dp" />
+        android:layout_x="78dp"
+        android:layout_y="16dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,8 +28,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Email:"
         android:id="@+id/textView2"
-        android:layout_x="5dp"
-        android:layout_y="269dp" />
+        android:layout_x="10dp"
+        android:layout_y="75dp"
+        android:textColor="#ffc2c2c2" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,23 +39,125 @@
         android:text="Username:"
         android:id="@+id/textView3"
         android:layout_marginTop="41dp"
-        android:layout_x="3dp"
-        android:layout_y="333dp" />
+        android:layout_x="10dp"
+        android:layout_y="130dp"
+        android:textColor="#ffc2c2c2" />
 
     <EditText
-        android:layout_width="190dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:layout_x="105dp"
-        android:layout_y="254dp" />
+        android:layout_x="120dp"
+        android:layout_y="70dp"
+        android:textColor="#ffc2c2c2"
+        android:nestedScrollingEnabled="true" />
 
     <EditText
-        android:layout_width="193dp"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_x="120dp"
+        android:layout_y="125dp"
+        android:textColor="#ffc2c2c2"
+        android:nestedScrollingEnabled="true" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/regButton"
+        android:layout_x="0dp"
+        android:layout_y="390dp"
+        android:onClick="onRegisterPress" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Return"
+        android:id="@+id/retButton"
+        android:layout_x="0dp"
+        android:layout_y="450dp"
+        android:onClick="onReturnPress" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:id="@+id/textView4"
+        android:layout_x="10dp"
+        android:layout_y="185dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffc2c2c2" />
+
+    <EditText
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
-        android:layout_x="108dp"
-        android:layout_y="316dp" />
+        android:id="@+id/editText3"
+        android:layout_x="120dp"
+        android:layout_y="180dp"
+        android:textColor="#ffc2c2c2"
+        android:nestedScrollingEnabled="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Confirm:"
+        android:id="@+id/textView5"
+        android:layout_x="10dp"
+        android:layout_y="240dp"
+        android:textColor="#ffc2c2c2" />
+
+    <EditText
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/editText4"
+        android:layout_x="120dp"
+        android:layout_y="235dp"
+        android:textColor="#ffc2c2c2"
+        android:nestedScrollingEnabled="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="First Name:"
+        android:id="@+id/textView6"
+        android:layout_x="10dp"
+        android:layout_y="295dp"
+        android:textColor="#ffc2c2c2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Last Name:"
+        android:id="@+id/textView7"
+        android:layout_x="10dp"
+        android:layout_y="350dp"
+        android:textColor="#ffc2c2c2" />
+
+    <EditText
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText5"
+        android:layout_x="120dp"
+        android:layout_y="290dp"
+        android:textColor="#ffc2c2c2"
+        android:nestedScrollingEnabled="true" />
+
+    <EditText
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText6"
+        android:layout_x="120dp"
+        android:layout_y="345dp"
+        android:textColor="#ffc2c2c2"
+        android:nestedScrollingEnabled="true" />
 
 </AbsoluteLayout>

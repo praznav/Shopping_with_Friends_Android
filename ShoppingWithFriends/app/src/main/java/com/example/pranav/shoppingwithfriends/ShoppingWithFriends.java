@@ -13,7 +13,7 @@ public class ShoppingWithFriends extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.welcome);
     }
 
 
@@ -45,4 +45,9 @@ public class ShoppingWithFriends extends Activity {
         startActivity(intent);
     }
 
+    public void onRegistrationPress(View view) {
+        //Goes to registration page.  Handler for registration button
+        Intent intent = new Intent(this, registration.class);
+        startActivity(intent);
+    }
 }

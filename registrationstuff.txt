@@ -1,0 +1,3 @@
+send http post request to teamkevin.me/Users/Registration
+http variables: username, password(encrypted), email, firstName, lastName
+xml response

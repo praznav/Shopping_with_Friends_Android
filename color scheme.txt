@@ -1,0 +1,19 @@
+Dark Blue Scheme
+------------------
+background: 05070D
+text color: 8399D5
+button color: 474F64
+for text on buttons, use background color (or black)
+other colors that fit in our scheme:
+303B5B
+8A8D96
+
+
+Dark Green Scheme
+-------------------
+background: 081612
+text color: 828E8A
+button color: 036E51
+text on button color: 000806
+other colors that fits:
+1B362F
