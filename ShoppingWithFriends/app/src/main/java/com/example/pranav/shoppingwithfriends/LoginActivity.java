@@ -5,9 +5,12 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -239,8 +242,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
-    public void onCorrectCredentials()
+    public void onCorrectCredentials(String username, String password)
     {
+        //add the user's username and password to the shared preferences
+        SharedPreferences.Editor prefs = getSharedPreferences("com.example.pranav.shoppingwithfriends", Context.MODE_PRIVATE).edit();
+        prefs.putString("Current_User", username);
+        prefs.putString("Current_Pass", password);
+        prefs.apply();
+
+        //go to main app
         Intent intent = new Intent(this, MainScreenActivity.class);
         startActivity(intent);
     }
@@ -285,13 +295,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             Log.d("https", "Check that method is being called");
             try {
                 DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet httpget = new HttpGet("http://teamkevin.me/Users/Login?username=" + "user" + "&password=" + "pass");
+                HttpGet httpget = new HttpGet("http://teamkevin.me/Users/Login?username=" + mEmail + "&password=" + mPassword);
                 HttpResponse response = client.execute(httpget);
                 Log.d("https", response.getStatusLine().toString());
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 String line = "";
                 while ((line = rd.readLine()) != null) {
                     Log.i("https", line);
+                    if (line.contains("success")) return true;
                 }
 
             } catch (Exception e) {
@@ -299,17 +310,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 return false;
             }
 
+            /*
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
-                    System.out.println("yoyoyo");
-                    System.out.println(mEmail);
-                    System.out.println(mPassword);
                     return pieces[1].equals(mPassword);
                 }
             }
-
+            */
             return false;
         }
 
@@ -319,7 +328,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                onCorrectCredentials();
+                onCorrectCredentials(mEmail, mPassword);
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
