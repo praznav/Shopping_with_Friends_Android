@@ -1,20 +1,25 @@
 package com.example.pranav.shoppingwithfriends;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.widget.Button;
 
 public class MainScreenActivity extends ActionBarActivity {
+    private Button mViewFriends;
+    private Button mLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-    }
 
+        mViewFriends = (Button) findViewById(R.id.view_friends_button);
+        mLogout = (Button) findViewById(R.id.logout_button);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,6 +41,11 @@ public class MainScreenActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void viewFriends(View view) {
+        Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(), FriendsList.class);
+        startActivity(intent);
     }
 
     public void onReturnPress(View view)

@@ -11,6 +11,7 @@ public class Processor extends Application{
     ArrayList<Person> allUsers;
     public  Processor() {
         allUsers = new ArrayList<Person>();
+        allUsers.add(new User("test", "test", "test", "test", "test@gmail.com"));
     }
 
     public void addPerson(Person a) {

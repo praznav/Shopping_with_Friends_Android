@@ -5,13 +5,14 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -52,6 +53,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button mRegisterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +89,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        // Open registration activity when register button is clicked
+        mRegisterButton = (Button) findViewById(R.id.register_button2);
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this.getApplicationContext(), registration.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void onReturnPress(View view)
@@ -233,6 +245,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     public void onCorrectCredentials()
     {
         Intent intent = new Intent(this, MainScreenActivity.class);
+
+        // Adds the user/pass that the user entered at log in time to shared preferences
+        // Allows this information to be accessed throughout the application
+        SharedPreferences prefs = getSharedPreferences("USER_LOGIN_INFO", Context.MODE_WORLD_WRITEABLE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Username", mEmailView.getText().toString());
+        editor.putString("Password", mPasswordView.getText().toString());
+        editor.apply();
+
         startActivity(intent);
     }
 
@@ -285,9 +306,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     // Account exists, return true if the password matches.
-                    System.out.println("yoyoyo");
-                    System.out.println(mEmail);
-                    System.out.println(mPassword);
                     return pieces[1].equals(mPassword);
                 }
             }
