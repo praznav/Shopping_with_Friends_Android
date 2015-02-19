@@ -10,11 +10,9 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -31,9 +29,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -65,6 +60,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Button mRegisterButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,14 +240,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     public void onCorrectCredentials(String username, String password)
     {
-        //add the user's username and password to the shared preferences
-        SharedPreferences.Editor prefs = getSharedPreferences("com.example.pranav.shoppingwithfriends", Context.MODE_PRIVATE).edit();
-        prefs.putString("Current_User", username);
-        prefs.putString("Current_Pass", password);
-        prefs.apply();
-
-        //go to main app
+        // Go to main app
         Intent intent = new Intent(this, MainScreenActivity.class);
+
+        // Adds the user/pass that the user entered at log in time to shared preferences
+        // Allows this information to be accessed throughout the application
+        SharedPreferences prefs = getSharedPreferences("USER_LOGIN_INFO", Context.MODE_WORLD_WRITEABLE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Username", mEmailView.getText().toString());
+        editor.putString("Password", mPasswordView.getText().toString());
+        editor.apply();
+
         startActivity(intent);
     }
 
@@ -276,6 +275,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     /**
+     * Called when register button is clicked
+     */
+    public void register(View v) {
+        Intent intent = new Intent(LoginActivity.this.getApplicationContext(), registration.class);
+        startActivity(intent);
+    }
+
+    /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
@@ -292,12 +299,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            Log.d("https", "Check that method is being called");
             try {
                 DefaultHttpClient client = new DefaultHttpClient();
                 HttpGet httpget = new HttpGet("http://teamkevin.me/Users/Login?username=" + mEmail + "&password=" + mPassword);
                 HttpResponse response = client.execute(httpget);
-                Log.d("https", response.getStatusLine().toString());
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 String line = "";
                 while ((line = rd.readLine()) != null) {
@@ -309,16 +314,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                 Log.d("https", e.getMessage());
                 return false;
             }
-
-            /*
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-            */
             return false;
         }
 
@@ -343,6 +338,3 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 }
-
-
-
