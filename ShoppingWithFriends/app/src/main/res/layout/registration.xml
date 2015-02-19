@@ -45,7 +45,7 @@
                 android:textColor="#ffc2c2c2" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/editText"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/textView3"
@@ -67,7 +67,7 @@
                 android:textColor="#ffc2c2c2" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/editText2"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/textView3"
@@ -90,7 +90,7 @@
                 android:textColor="#ffc2c2c2" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/editText3"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/textView4"
@@ -113,7 +113,7 @@
                 android:textColor="#ffc2c2c2" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/editText4"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/textView6"
@@ -134,7 +134,7 @@
                 android:textColor="#ffc2c2c2" />
 
             <EditText
-                android:id="@+id/editText6"
+                android:id="@+id/editText5"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/textView6"
@@ -155,7 +155,7 @@
                 android:textColor="#ffc2c2c2" />
 
             <EditText
-                android:id="@+id/editText7"
+                android:id="@+id/editText6"
                 android:layout_width="230dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/textView7"
