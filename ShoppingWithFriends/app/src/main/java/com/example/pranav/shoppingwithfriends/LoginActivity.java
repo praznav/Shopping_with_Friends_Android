@@ -245,7 +245,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         // Adds the user/pass that the user entered at log in time to shared preferences
         // Allows this information to be accessed throughout the application
-        SharedPreferences prefs = getSharedPreferences("USER_LOGIN_INFO", Context.MODE_WORLD_WRITEABLE);
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("Username", mEmailView.getText().toString());
         editor.putString("Password", mPasswordView.getText().toString());

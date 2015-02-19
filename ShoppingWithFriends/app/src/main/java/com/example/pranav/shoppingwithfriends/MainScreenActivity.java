@@ -1,6 +1,8 @@
 package com.example.pranav.shoppingwithfriends;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -50,6 +52,13 @@ public class MainScreenActivity extends ActionBarActivity {
 
     public void onReturnPress(View view)
     {
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Username", "");
+        editor.putString("Password", "");
+        editor.apply();
+        Intent loginIntent = new Intent(this, LoginActivity.class);
+        startActivity(loginIntent);
         finish();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.pranav.shoppingwithfriends;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -49,9 +50,11 @@ public class FriendsList extends ActionBarActivity {
         friendsList = new ArrayList<String>();
 
         // Gets username and password for current user from shared preferences
-        SharedPreferences prefs = getSharedPreferences("USER_LOGIN_INFO", 0);
-        username = prefs.getString("Username", "\n");
-        password = prefs.getString("Password", "\n");
+        SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
+        username = prefs.getString("Username", "");
+        password = prefs.getString("Password", "");
+        Log.d("Username", "Got username of: " + username);
+        Log.d("Password", "Got password of: " + password);
 
         // Loads friend list
         mGetFriendsTask = new GetFriendsTask(username, password);
@@ -131,7 +134,7 @@ public class FriendsList extends ActionBarActivity {
             try {
                 friendsList = new ArrayList<String>();
                 DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet httpget = new HttpGet("http://teamkevin.me/Friends/List?username=" + "user" + "&password=" + "pass");
+                HttpGet httpget = new HttpGet("http://teamkevin.me/Friends/List?username=" + username + "&password=" + password);
                 HttpResponse response = client.execute(httpget);
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 String line;

@@ -35,5 +35,6 @@
     <string name="error_field_required">This field is required</string>
     <string name="title_activity_friends_list">FriendsList</string>
     <string name="hello_world">Hello world!</string>
+    <string name="credential_preference_string">me.teamkevin.shoppingWithFriends.USER_LOGIN_INFO</string>
 
 </resources>
