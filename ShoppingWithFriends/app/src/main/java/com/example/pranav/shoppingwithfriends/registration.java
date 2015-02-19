@@ -19,7 +19,6 @@ public class registration extends Activity {
         setContentView(R.layout.registration);
         Button reg = (Button) findViewById(R.id.regButton);
         Button ret = (Button) findViewById(R.id.retButton);
-
     }
 
     public void onReturnPress(View view)
