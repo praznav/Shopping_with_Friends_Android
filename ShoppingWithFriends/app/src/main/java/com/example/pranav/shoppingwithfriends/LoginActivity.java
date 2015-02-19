@@ -10,6 +10,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -17,6 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +29,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,7 +132,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         boolean cancel = false;
         View focusView = null;
-
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
@@ -232,8 +242,15 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
-    public void onCorrectCredentials()
+    public void onCorrectCredentials(String username, String password)
     {
+        //add the user's username and password to the shared preferences
+        SharedPreferences.Editor prefs = getSharedPreferences("com.example.pranav.shoppingwithfriends", Context.MODE_PRIVATE).edit();
+        prefs.putString("Current_User", username);
+        prefs.putString("Current_Pass", password);
+        prefs.apply();
+
+        //go to main app
         Intent intent = new Intent(this, MainScreenActivity.class);
 
         // Adds the user/pass that the user entered at log in time to shared preferences
@@ -291,15 +308,26 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
+            Log.d("https", "Check that method is being called");
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet httpget = new HttpGet("http://teamkevin.me/Users/Login?username=" + mEmail + "&password=" + mPassword);
+                HttpResponse response = client.execute(httpget);
+                Log.d("https", response.getStatusLine().toString());
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                String line = "";
+                while ((line = rd.readLine()) != null) {
+                    Log.i("https", line);
+                    if (line.contains("success")) return true;
+                }
+
+            } catch (Exception e) {
+                Log.d("https", e.getMessage());
                 return false;
             }
 
+            /*
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
@@ -307,8 +335,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     return pieces[1].equals(mPassword);
                 }
             }
-
-            // TODO: register the new account here.
+            */
             return false;
         }
 
@@ -318,7 +345,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             showProgress(false);
 
             if (success) {
-                onCorrectCredentials();
+                onCorrectCredentials(mEmail, mPassword);
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
