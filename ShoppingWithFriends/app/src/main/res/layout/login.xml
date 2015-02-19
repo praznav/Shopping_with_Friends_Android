@@ -11,31 +11,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.pranav.shoppingwithfriends.LoginActivity">
 
-    <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone" />
-
-
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
-
-
         android:text="Welcome to Shopping with Friends"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/testText" />
+        android:textColor="@color/testText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <ScrollView
         android:id="@+id/login_form"
-        android:layout_marginTop="150dp"
+        android:layout_below="@+id/titleTextView"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -86,10 +75,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/register"
+                android:onClick="register"
                 android:textStyle="bold" />
         </LinearLayout>
-
     </ScrollView>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/login_progress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone" />
+
 </RelativeLayout>
 
 

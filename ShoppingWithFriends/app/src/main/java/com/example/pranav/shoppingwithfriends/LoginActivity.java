@@ -89,16 +89,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-
-        // Open registration activity when register button is clicked
-        mRegisterButton = (Button) findViewById(R.id.register_button2);
-        mRegisterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this.getApplicationContext(), registration.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void onReturnPress(View view)
@@ -278,6 +268,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
     /**
+     * Called when register button is clicked
+     */
+    public void register(View v) {
+        Intent intent = new Intent(LoginActivity.this.getApplicationContext(), registration.class);
+        startActivity(intent);
+    }
+
+    /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
@@ -335,6 +333,3 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 }
-
-
-

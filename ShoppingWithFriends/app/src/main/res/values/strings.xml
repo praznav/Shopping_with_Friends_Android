@@ -10,6 +10,8 @@
     <string name="view_friends">View Friends</string>
     <string name="return_homepage">Return to home page</string>
     <string name="register">Register</string>
+    <string name="enter_friend_username">Enter friend username...</string>
+    <string name="enter_friend_email">Enter friend email...</string>
 
     <!-- Strings used on registration page -->
     <string name="registration">Registration</string>

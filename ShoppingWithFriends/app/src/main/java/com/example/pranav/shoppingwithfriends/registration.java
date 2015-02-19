@@ -28,12 +28,12 @@ public class registration extends Activity {
     }
 
     public void onRegisterPress(View view) {
-        TextView firstNameIn = (TextView) findViewById(R.id.editText5);
-        TextView lastNameIn = (TextView) findViewById(R.id.editText6);
-        TextView emailIn = (TextView) findViewById(R.id.editText);
-        TextView usernameIn = (TextView) findViewById(R.id.editText2);
-        TextView passwordIn = (TextView) findViewById(R.id.editText3);
-        TextView confirmIn = (TextView) findViewById(R.id.editText4);
+        TextView firstNameIn = (TextView) findViewById(R.id.editText6);
+        TextView lastNameIn = (TextView) findViewById(R.id.editText7);
+        TextView emailIn = (TextView) findViewById(R.id.editText2);
+        TextView usernameIn = (TextView) findViewById(R.id.editText3);
+        TextView passwordIn = (TextView) findViewById(R.id.editText4);
+        TextView confirmIn = (TextView) findViewById(R.id.editText5);
 
         String password = passwordIn.getText().toString();
         String confirm = confirmIn.getText().toString();
