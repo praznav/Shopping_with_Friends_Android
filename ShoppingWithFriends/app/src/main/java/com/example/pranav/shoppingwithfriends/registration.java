@@ -19,6 +19,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import android.util.Log;
 import android.widget.Toast;
+import android.app.ProgressDialog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,6 +41,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 
 /**
@@ -48,6 +51,7 @@ import org.xml.sax.InputSource;
 public class registration extends Activity {
 
     private UserRegisterTask mRegisterTask = null;
+    private ProgressDialog mSpinner = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +62,27 @@ public class registration extends Activity {
 
     }
 
-    public void onReturnPress(View view)
-    {
+    /**
+     * Called whenever the user presses the return button.
+     * @param view The view of the button that was pressed.
+     */
+    public void onReturnPress(View view) {
+        // Dismiss the spinner if it is open and finish the activity
+        onLoadingComplete();
         finish();
     }
 
+    /**
+     * Called whenever the user presses the register button.
+     * @param view The view of the button that was pressed.
+     */
     public void onRegisterPress(View view) {
+        // If we are currently registering the user, return
         if (mRegisterTask != null) {
             return;
         }
 
-        Log.d("HTTP", "Register pressed");
+        // Get the registration fields and reset the errors on each EditText box
         TextView emailIn = (TextView) findViewById(R.id.editText);
         emailIn.setError(null);
         TextView usernameIn = (TextView) findViewById(R.id.editText2);
@@ -81,10 +95,11 @@ public class registration extends Activity {
         firstNameIn.setError(null);
         TextView lastNameIn = (TextView) findViewById(R.id.editText6);
         lastNameIn.setError(null);
-
         String password = passwordIn.getText().toString();
         String confirm = confirmIn.getText().toString();
         if (!(password.equals(confirm) ) ) {
+            // If the passwords do not match, show an error and let the user know before ever trying
+            // to contact the server
             passwordIn.setError("Password does not match confirmation password.");
             confirmIn.setError("Confirmation password does not match password.");
             Toast.makeText(getApplicationContext(), "Your password and confirmation password do not match. Please correct them and try again.", Toast.LENGTH_SHORT).show();
@@ -95,16 +110,36 @@ public class registration extends Activity {
         String email = emailIn.getText().toString();
         String username = usernameIn.getText().toString();
 
+        // Create a new registration async task using the given registration fields and execute it
         mRegisterTask = new UserRegisterTask(username, email, password, firstName, lastName);
         mRegisterTask.execute((Void) null);
-
-    // stuff to get rid of:
-        // Person newPerson = new User(firstName, lastName, username, password, email);
-        // Processor pro = ((Processor)getApplicationContext());
-        // pro.addPerson(newPerson);
-        // finish();
     }
 
+    /**
+     * Private helper function to create the ProgressDialog spinner and show it when we start
+     * registering the user.
+     */
+    private void onLoadingBegin() {
+        mSpinner = new ProgressDialog(this);
+        mSpinner.setMessage("Registering user...");
+        mSpinner.show();
+    }
+
+    /**
+     * Private helper function to dismiss and destroy the ProgressDialog spinner when we are done
+     * with it
+     */
+    private void onLoadingComplete() {
+        if (mSpinner != null) {
+            mSpinner.dismiss();
+            mSpinner = null;
+        }
+    }
+
+    /**
+     * User registration async task. Runs in the background and handles sending and receiving a
+     * response from the backend server.
+     */
     private class UserRegisterTask extends AsyncTask<Void, Void, Boolean> {
         private final String mUsername;
         private final String mEmail;
@@ -112,6 +147,14 @@ public class registration extends Activity {
         private final String mFirstName;
         private final String mLastName;
 
+        /**
+         * Creates a new UserRegisterTask.
+         * @param username The username the user requested.
+         * @param email The email the user entered.
+         * @param password The password the user entered.
+         * @param firstName The first name the user entered.
+         * @param lastName The last name the user entered.
+         */
         UserRegisterTask(String username, String email, String password, String firstName, String lastName) {
             mUsername = username;
             mEmail = email;
@@ -122,53 +165,68 @@ public class registration extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
+            // Set up the HTTP post request
             String url = "http://teamkevin.me/Users/Register";
             HttpClient client = new DefaultHttpClient();
             HttpPost post = new HttpPost(url);
 
+            // Add the post parameters to the request
             List<NameValuePair> parameters = new ArrayList<NameValuePair>(5);
             parameters.add(new BasicNameValuePair("username", mUsername));
             parameters.add(new BasicNameValuePair("password", mPassword));
             parameters.add(new BasicNameValuePair("email", mEmail));
             parameters.add(new BasicNameValuePair("firstName", mFirstName));
             parameters.add(new BasicNameValuePair("lastName", mLastName));
-
             try {
                 post.setEntity(new UrlEncodedFormEntity(parameters));
             } catch (UnsupportedEncodingException e) {
-                System.out.println("encoding exception");
+                System.out.println("Error encoding POST parameters");
                 System.out.println(e.getMessage());
             }
+
+
             HttpResponse response;
             HttpEntity entity = null;
             try {
-                Log.d("https", "Executing post...");
+                // Execute the POST request and save the response
                 response = client.execute(post);
-                Log.d("https", "Post executed");
+
+                // Read the full response and create a string out of it that can be parsed with
+                // an XML parser
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 String line = "";
                 StringBuilder sb = new StringBuilder();
                 while ((line = rd.readLine()) != null) {
-                    Log.i("https", line);
                     sb.append(line);
                 }
-                Log.d("https", "Full xml output is: " + sb.toString());
                 try {
+                    // Create a new DomDocument out of the XML
                     InputSource is = new InputSource();
                     is.setCharacterStream(new StringReader(sb.toString()));
                     DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                     DocumentBuilder builder = factory.newDocumentBuilder();
                     Document doc = builder.parse(is);
+
+                    // Try and get the status from the response
                     NodeList statusList = doc.getElementsByTagName("status");
                     if (statusList.getLength() < 1) {
                         return false;
                     }
                     Element statusElement = (Element) statusList.item(0);
-                    Log.d("https", "Status is: " + ((CharacterData) statusElement.getFirstChild()).getData());
                     String status = ((CharacterData) statusElement.getFirstChild()).getData();
+
                     if (status.equals("success")) {
+                        // If the status was success, registration was too
+                        runOnUiThread(new Runnable() {
+                            public void run() {
+                                // Show a toast to let the user know
+                                Toast.makeText(getApplicationContext(), "User successfully registered. Please login with your new user now.", Toast.LENGTH_LONG).show();
+                            }
+                        });
                         return true;
                     } else if (status.equals("taken")) {
+                        // Username already taken, set the username error appropriately and show a
+                        // toast to let the user know
                         Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
                         final String usernameError = ((CharacterData) messageElement.getFirstChild()).getData();
                         runOnUiThread(new Runnable() {
@@ -180,6 +238,7 @@ public class registration extends Activity {
                         });
                         return false;
                     } else if (status.equals("error")) {
+                        // Server error occurred, show a toast with the contents of the message
                         Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
                         final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
                         runOnUiThread(new Runnable() {
@@ -189,23 +248,28 @@ public class registration extends Activity {
                         });
                         return false;
                     } else if (status.equals("invalid")) {
+                        // One of the fields the user entered was invalid, go through each one
+                        // and check for validation errors
                         NodeList usernameErrors = doc.getElementsByTagName("usernameErrors");
                         if (usernameErrors.getLength() > 0) {
-                           NodeList usernameChildren = usernameErrors.item(0).getChildNodes();
-                           for (int i = 0; i < usernameChildren.getLength(); i++) {
-                               if (usernameChildren.item(i) instanceof Element) {
-                                   final String usernameError = usernameChildren.item(i).getLastChild().getTextContent().trim();
-                                   runOnUiThread(new Runnable() {
-                                       public void run() {
-                                           EditText usernameText = (EditText) findViewById(R.id.editText2);
-                                           usernameText.setError(usernameError);
-                                       }
-                                   });
-                               }
-                           }
+                            // There were username errors
+                            NodeList usernameChildren = usernameErrors.item(0).getChildNodes();
+                            for (int i = 0; i < usernameChildren.getLength(); i++) {
+                                if (usernameChildren.item(i) instanceof Element) {
+                                    final String usernameError = usernameChildren.item(i).getLastChild().getTextContent().trim();
+                                    runOnUiThread(new Runnable() {
+                                        public void run() {
+                                            EditText usernameText = (EditText) findViewById(R.id.editText2);
+                                            usernameText.setError(usernameError);
+                                        }
+                                    });
+                                }
+                            }
                         }
+
                         NodeList emailErrors = doc.getElementsByTagName("emailErrors");
                         if (emailErrors.getLength() > 0) {
+                            // There were email errors
                             NodeList emailChildren = emailErrors.item(0).getChildNodes();
                             for (int i = 0; i < emailChildren.getLength(); i++) {
                                 if (emailChildren.item(i) instanceof Element) {
@@ -219,8 +283,10 @@ public class registration extends Activity {
                                 }
                             }
                         }
+
                         NodeList passwordErrors = doc.getElementsByTagName("passwordErrors");
                         if (passwordErrors.getLength() > 0) {
+                            // There were password errors
                             NodeList passwordChildren = passwordErrors.item(0).getChildNodes();
                             for (int i = 0; i < passwordChildren.getLength(); i++) {
                                 if (passwordChildren.item(i) instanceof Element) {
@@ -234,8 +300,10 @@ public class registration extends Activity {
                                 }
                             }
                         }
+
                         NodeList firstNameErrors = doc.getElementsByTagName("firstNameErrors");
                         if (firstNameErrors.getLength() > 0) {
+                            // There were first name errors
                             NodeList firstNameChildren = firstNameErrors.item(0).getChildNodes();
                             for (int i = 0; i < firstNameChildren.getLength(); i++) {
                                 if (firstNameChildren.item(i) instanceof Element) {
@@ -249,8 +317,10 @@ public class registration extends Activity {
                                 }
                             }
                         }
+
                         NodeList lastNameErrors = doc.getElementsByTagName("lastNameErrors");
                         if (lastNameErrors.getLength() > 0) {
+                            // There were last name errors
                             NodeList lastNameChildren = lastNameErrors.item(0).getChildNodes();
                             for (int i = 0; i < lastNameChildren.getLength(); i++) {
                                 if (lastNameChildren.item(i) instanceof Element) {
@@ -271,6 +341,7 @@ public class registration extends Activity {
                         });
                         return false;
                     } else {
+                        // The server response was unrecognized, let the user know
                         runOnUiThread(new Runnable() {
                             public void run() {
                                 Toast.makeText(getApplicationContext(), "Unrecognized server response.", Toast.LENGTH_SHORT).show();
@@ -278,9 +349,10 @@ public class registration extends Activity {
                         });
                         return false;
                     }
-                } catch (Exception e) {
-
-                    Log.d("Caught Exception", "Caught exception with message: " + e.getMessage());
+                } catch (ParserConfigurationException e) {
+                    Log.e("XML Exception", "Caught a parser configuration exception while creating the document builder", e);
+                } catch (SAXException e) {
+                    Log.e("XML Exception", "Caught a SAX exception while parsing the XML response", e);
                 }
                 return true;
             } catch (IOException e){
@@ -291,16 +363,25 @@ public class registration extends Activity {
         }
 
         @Override
+        protected void onPreExecute() {
+            onLoadingBegin();
+        }
+
+        @Override
         protected void onPostExecute(final Boolean status) {
-            Log.d("https", "Done executing...");
+            // Dismiss the ProgressDialog and destroy the async task
+            onLoadingComplete();
             mRegisterTask = null;
             if (status) {
+                // If we registered successfully, finish the activity
                 finish();
             }
         }
 
         @Override
         protected void onCancelled() {
+            // If we cancelled loading, dismiss the ProgressDialog and destroy the async task
+            onLoadingComplete();
             mRegisterTask = null;
         }
     }
