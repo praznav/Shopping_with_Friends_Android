@@ -1,5 +1,6 @@
 package com.example.pranav.shoppingwithfriends;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -35,7 +37,7 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class FriendsList extends ActionBarActivity {
+public class FriendsList extends Activity {
     private ListView mFriendsList;
     private ArrayList<String> friendsList;
     private GetFriendsTask mGetFriendsTask;
@@ -46,6 +48,7 @@ public class FriendsList extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_friends_list);
         friendsList = new ArrayList<String>();
 
