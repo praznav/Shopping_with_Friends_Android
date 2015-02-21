@@ -13,8 +13,8 @@
         android:id="@+id/registration_form_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_above="@+id/textView9"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:id="@+id/registration_form"
@@ -163,25 +163,33 @@
                 android:nestedScrollingEnabled="true"
                 android:textColor="#ffc2c2c2" />
 
-            <Button
-                android:id="@+id/regButton"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:onClick="onRegisterPress"
-                android:layout_below="@id/textView7"
-                android:text="@string/register" />
-
-            <Button
-                android:id="@+id/retButton"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="10dp"
-                android:layout_below="@id/regButton"
-                android:onClick="onReturnPress"
-                android:text="@string/return_homepage" />
-
         </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/retButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onReturnPress"
+        android:text="Home"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/regButton" />
+
+    <Button
+        android:id="@+id/regButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="onRegisterPress"
+        android:text="@string/register"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/textView9" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView9"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
