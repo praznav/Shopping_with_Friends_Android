@@ -1,3 +1,14 @@
+/*
+    **
+    * @version 1.0
+    * @team kevin
+    * @teamNumber 1
+    * @author Pranav Shenoy
+    * @author Kevin Han
+    * @author Zachary Peterson
+    * @author Neil Vohra
+ */
+
 package com.example.pranav.shoppingwithfriends;
 
 public abstract class Person {

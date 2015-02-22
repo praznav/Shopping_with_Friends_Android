@@ -1,3 +1,15 @@
+/*
+    **
+    * @version 1.0
+    * @team kevin
+    * @teamNumber 1
+    * @author Pranav Shenoy
+    * @author Kevin Han
+    * @author Zachary Peterson
+    * @author Neil Vohra
+ */
+
+
 package com.example.pranav.shoppingwithfriends;
 
 import android.app.Activity;
@@ -12,7 +24,9 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainScreenActivity extends Activity {
+    /** mVeiwFriends is a button that redirects to the FriendsList page */
     private Button mViewFriends;
+    /** mLogout is a button that logs out the user and returns him to the login screen*/
     private Button mLogout;
 
     @Override

@@ -1,3 +1,14 @@
+/*
+    **
+    * @version 1.0
+    * @team kevin
+    * @teamNumber 1
+    * @author Pranav Shenoy
+    * @author Kevin Han
+    * @author Zachary Peterson
+    * @author Neil Vohra
+ */
+
 package com.example.pranav.shoppingwithfriends;
 
 import android.app.Activity;
@@ -6,7 +17,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,11 +50,17 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class FriendsList extends Activity {
+    /** ListView containing all the friends of the logged in User. attributes are clickable */
     private ListView mFriendsList;
+    /** an ArrayList storing all the friends */
     private ArrayList<String> friendsList;
+    /** GetFriendsTask executes on creation and gets friends */
     private GetFriendsTask mGetFriendsTask;
+    /** mAddFriendTask executes when user clicks add friend. Uses fields to add friend. */
     private AddFriendTask mAddFriendTask;
+    /** username and password are required for the database requests/posts */
     String username, password;
+    /** adapter */
     private ArrayAdapter<String> adapter;
 
     @Override
@@ -73,9 +89,9 @@ public class FriendsList extends Activity {
         mFriendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                System.out.println("nuuuuu");
-                Intent i = new Intent(FriendsList.this, friend.class);
+                Intent i = new Intent(FriendsList.this, Friend.class);
                 startActivity(i);
+                System.out.println("nuuuuu");
             }
         });
     }

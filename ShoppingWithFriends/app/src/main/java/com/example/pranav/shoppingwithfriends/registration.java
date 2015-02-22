@@ -1,3 +1,14 @@
+/*
+    **
+    * @version 1.0
+    * @team kevin
+    * @teamNumber 1
+    * @author Pranav Shenoy
+    * @author Kevin Han
+    * @author Zachary Peterson
+    * @author Neil Vohra
+ */
+
 package com.example.pranav.shoppingwithfriends;
 
 import android.app.Activity;
@@ -41,8 +52,9 @@ import org.xml.sax.SAXException;
  * Created by Pranav on 2/3/2015.
  */
 public class registration extends Activity {
-
+    /** UserRegisterTask used to register a user. Exectues on Register press */
     private UserRegisterTask mRegisterTask = null;
+    /** ProgressDialog shows on screen when the registration is loading */
     private ProgressDialog mSpinner = null;
 
     @Override
