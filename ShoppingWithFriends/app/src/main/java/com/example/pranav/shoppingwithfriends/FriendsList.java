@@ -2,6 +2,7 @@ package com.example.pranav.shoppingwithfriends;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -67,6 +69,15 @@ public class FriendsList extends Activity {
         mFriendsList = (ListView) findViewById(R.id.friends_list_view);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
         mFriendsList.setAdapter(adapter);
+
+        mFriendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                System.out.println("nuuuuu");
+                Intent i = new Intent(FriendsList.this, friend.class);
+                startActivity(i);
+            }
+        });
     }
 
     public void thatMethod() {
