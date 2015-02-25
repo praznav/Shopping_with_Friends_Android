@@ -73,7 +73,6 @@
                 android:layout_alignBottom="@+id/textView3"
                 android:layout_alignParentEnd="true"
                 android:ems="10"
-                android:inputType="textPassword"
                 android:nestedScrollingEnabled="true"
                 android:textColor="#ffc2c2c2" />
 
@@ -119,6 +118,7 @@
                 android:layout_above="@+id/textView6"
                 android:layout_alignStart="@+id/editText6"
                 android:nestedScrollingEnabled="true"
+                android:inputType="textPassword"
                 android:textColor="#ffc2c2c2" />
 
 
