@@ -8,6 +8,8 @@ import java.util.List;
  * Created by Zach on 2/20/2015.
  */
 public interface ServerConnection {
+    boolean RegisterUser(User newUser) throws ConnectionFailedException, UsernameTakenException,
+            InvalidDataException, InternalServerErrorException, UnrecognizedResponseException;
     User AuthenticateUser(String username, String password) throws ConnectionFailedException,
             InvalidCredentialsException, InternalServerErrorException;
     List<User> GetFriendsList(User myUser) throws ConnectionFailedException,
