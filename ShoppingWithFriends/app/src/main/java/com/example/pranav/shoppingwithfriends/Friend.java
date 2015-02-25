@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -99,8 +100,8 @@ public class Friend extends Activity{
                 // put get request here with username, password, friendusername,
                 final String url = "http://teamkevin.me/Friends/Remove";
                 DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet httpget = new HttpGet(url + "?username=" + username + "&password=" + password + "&friendUsername=" + friendsUsername);
-                HttpResponse response = client.execute(httpget);
+                HttpDelete httpdel = new HttpDelete(url + "?username=" + username + "&password=" + password + "&friendUsername=" + friendsUsername);
+                HttpResponse response = client.execute(httpdel);
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuilder sb = new StringBuilder();
                 while ((line = rd.readLine()) != null)
