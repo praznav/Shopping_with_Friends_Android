@@ -44,7 +44,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
+import java.net.URLEncoder;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -87,11 +90,17 @@ public class FriendsList extends Activity {
         mFriendsList.setAdapter(adapter);
 
         mFriendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Intent i = new Intent(FriendsList.this, Friend.class);
-                startActivity(i);
-                System.out.println("nuuuuu");
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String things = friendsList.get(position);
+                String friendusername = things.substring(things.indexOf(" --- ") + 5);
+
+
+                getFriendInfo getter = new getFriendInfo(friendusername);
+                getter.execute((Void) null);
+
+
+
             }
         });
     }
@@ -145,6 +154,78 @@ public class FriendsList extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public class getFriendInfo extends AsyncTask<Void, Void, Boolean> {
+
+        private final String friendusername;
+        private String line;
+        boolean success;
+
+        getFriendInfo(String in) {
+            friendusername = in;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            line = "";
+            try {
+                // put get request here with username, password, friendusername,
+                final String url = "http://teamkevin.me/Friends/Get";
+                DefaultHttpClient client = new DefaultHttpClient();
+                HttpGet httpget = new HttpGet(url + "?username=" + username + "&password=" + password + "&friendUsername=" + friendusername);
+                HttpResponse response = client.execute(httpget);
+                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+                StringBuilder sb = new StringBuilder();
+                while ((line = rd.readLine()) != null)
+                    sb.append(line);
+                line = sb.toString();
+                rd.close();
+            } catch (IOException e) {
+                Log.d("Error", e.getMessage());
+            }
+            Log.d("LINE", line.substring(line.indexOf("response") + 11));
+            if (line.contains("<satus>success</satus>")) {
+                success = true;
+                line = line.substring(line.indexOf("<satus>success</satus>") + 22);
+                Log.d("LINE",line);
+                return true;
+            } else {
+                success = false;
+                return false;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean Success) {
+            if (Success == true) {
+                // parse line and get all the values
+                String friendsUsername = line.substring(line.indexOf("<friendUsername>") + 16, line.indexOf("</friendUsername>"));
+                String friendFirstName = line.substring(line.indexOf("<friendFirstName>") + 17, line.indexOf("</friendFirstName>"));
+                String friendLastName = line.substring(line.indexOf("<friendLastName>") + 16, line.indexOf("</friendLastName>"));
+                String friendEmail = line.substring(line.indexOf("<friendEmail>") + 13, line.indexOf("</friendEmail>"));
+                String friendRating = line.substring(line.indexOf("<friendRating>") + 14, line.indexOf("</friendRating>"));
+                String friendReportCount = line.substring(line.indexOf("<friendReportCount>") + 19, line.indexOf("</friendReportCount>"));
+
+
+
+
+                Intent i = new Intent(FriendsList.this, Friend.class);
+                i.putExtra("friendsUsername", friendsUsername);
+                i.putExtra("friendFirstName", friendFirstName);
+                i.putExtra("friendLastName", friendLastName);
+                i.putExtra("friendEmail", friendEmail);
+                i.putExtra("friendRating", friendRating);
+                i.putExtra("friendReportCount", friendReportCount);
+
+                startActivity(i);
+            } else {
+                // error message here
+                // toast or something
+            }
+        }
+    }
+
 
     /**
      * Asynchronous task that loads friends list from server
