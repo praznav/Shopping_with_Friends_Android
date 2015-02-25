@@ -217,6 +217,8 @@ public class FriendsList extends Activity {
                 i.putExtra("friendEmail", friendEmail);
                 i.putExtra("friendRating", friendRating);
                 i.putExtra("friendReportCount", friendReportCount);
+                i.putExtra("username", username);
+                i.putExtra("password", password);
 
                 startActivity(i);
             } else {
