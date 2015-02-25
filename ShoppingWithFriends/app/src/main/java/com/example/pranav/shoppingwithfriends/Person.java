@@ -20,16 +20,16 @@ public abstract class Person {
 	protected String emailAddress;
 	// How will rating work?
 
-	public String getfName() {
+	public String getFirstName() {
 		return fName;
 	}
-	public void setfName(String fName) {
+	public void setFirstName(String fName) {
 		this.fName = fName;
 	}
-	public String getlName() {
+	public String getLastName() {
 		return lName;
 	}
-	public void setlName(String lName) {
+	public void setLastName(String lName) {
 		this.lName = lName;
 	}
 	public String getUsername() {
@@ -44,6 +44,8 @@ public abstract class Person {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+    public String getEmailAddress() { return emailAddress; }
+    public void setEmailAddress(String emailAddress) { this.emailAddress = emailAddress; }
 
 	public boolean isPasswordValid(String password) {
 		return (this.password.equals(password));
