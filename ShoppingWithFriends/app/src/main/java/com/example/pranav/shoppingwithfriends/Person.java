@@ -13,6 +13,7 @@ package com.example.pranav.shoppingwithfriends;
 
 public abstract class Person {
 	protected final int DEFAULT_NUM_FRIENDS = 5;
+    // atributes of a person
 	protected String fName;
 	protected String lName;
 	protected String username;

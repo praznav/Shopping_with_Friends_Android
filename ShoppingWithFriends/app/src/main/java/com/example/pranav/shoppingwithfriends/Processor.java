@@ -25,10 +25,19 @@ public class Processor extends Application{
         allUsers.add(new User("test", "test", "test", "test", "test@gmail.com"));
     }
 
+    /**
+     * adds a person
+     * @param a
+     */
     public void addPerson(Person a) {
         allUsers.add(a);
     }
 
+    /**
+     * checks if a person is registered
+     * @param a
+     * @return  true if a is regsitered
+     */
     public boolean isRegistered(Person a) {
         for (Person b : allUsers) {
             if (b.getUsername().equals(a.getUsername())) {

@@ -31,6 +31,8 @@ import java.io.InputStreamReader;
  * Created by Pranav on 2/22/2015.
  */
 public class Friend extends Activity{
+    // these are the variables describing the friend's attirbutes
+    // all are passed in as Extras
     String friendsUsername;
     String friendFirstName;
     String friendLastName;
