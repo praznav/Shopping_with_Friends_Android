@@ -55,13 +55,7 @@ import java.util.List;
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static String[] DUMMY_CREDENTIALS = new String[]{
-            "user:pass"
-    };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -84,7 +78,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         populateAutoComplete();
 
         Processor pro = ((Processor)getApplicationContext());
-        DUMMY_CREDENTIALS = pro.getPeeps();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -110,11 +103,18 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    /**
+     * Event handler for mouse press on return button
+     * @param view current view
+     */
     public void onReturnPress(View view)
     {
         finish();
     }
 
+    /**
+     * Gets list for autcompleting edit texts
+     */
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
     }
@@ -172,10 +172,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         }
     }
 
+    /**
+     * Tests for if email is valid
+     * @param email email to test for validity
+     * @return returns true if valid
+     */
     private boolean isEmailValid(String email) {
         return true;
     }
 
+    /**
+     * Tests if password is valid
+     * @param password password to test for validity
+     * @return returns true if valid
+     */
     private boolean isPasswordValid(String password) {
         return password.length() > 2;
     }
@@ -250,6 +260,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     }
 
+    /**
+     * Method that runs when credentials are correct.  Adds them to shared preferences for usage in all later methods
+     * @param username username for correct credentials
+     * @param password password for correct credentials
+     */
     public void onCorrectCredentials(String username, String password)
     {
         // Go to main app
@@ -266,6 +281,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         startActivity(intent);
     }
 
+    /**
+     * Provides profile support
+     */
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
@@ -277,6 +295,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     }
 
 
+    /**
+     * Method to add things to the autocomplete list when users type in anything
+     * @param emailAddressCollection current collection
+     */
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
