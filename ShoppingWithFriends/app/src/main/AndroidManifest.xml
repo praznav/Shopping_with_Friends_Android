@@ -3,7 +3,7 @@
     package="com.example.pranav.shoppingwithfriends" >
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -19,9 +19,9 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-            <intent-filter
-                android:label="Shopping With Friends" >
+            <intent-filter android:label="Shopping With Friends" >
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,6 +38,10 @@
         <activity
             android:name=".FriendsList"
             android:label="@string/title_activity_friends_list" >
+        </activity>
+        <activity
+            android:name=".RegisterInterestActivity"
+            android:label="@string/title_activity_register_interest" >
         </activity>
     </application>
 
