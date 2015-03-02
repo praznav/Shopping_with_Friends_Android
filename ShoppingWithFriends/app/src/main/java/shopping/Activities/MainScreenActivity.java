@@ -1,17 +1,33 @@
-package com.example.pranav.shoppingwithfriends;
+/*
+    **
+    * @version 1.0
+    * @team kevin
+    * @teamNumber 1
+    * @author Pranav Shenoy
+    * @author Kevin Han
+    * @author Zachary Peterson
+    * @author Neil Vohra
+ */
 
+
+package shopping.Activities;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class MainScreenActivity extends ActionBarActivity {
+import shopping.R;
+
+public class MainScreenActivity extends Activity {
+    /** mVeiwFriends is a button that redirects to the FriendsList page */
     private Button mViewFriends;
+    /** mLogout is a button that logs out the user and returns him to the login screen*/
     private Button mLogout;
 
     @Override
@@ -46,7 +62,7 @@ public class MainScreenActivity extends ActionBarActivity {
     }
 
     public void viewFriends(View view) {
-        Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(), FriendsList.class);
+        Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(), FriendsListActivity.class);
         startActivity(intent);
     }
 

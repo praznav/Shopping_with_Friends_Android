@@ -1,23 +1,43 @@
-package com.example.pranav.shoppingwithfriends;
+/*
+    **
+    * @version 1.0
+    * @team kevin
+    * @teamNumber 1
+    * @author Pranav Shenoy
+    * @author Kevin Han
+    * @author Zachary Peterson
+    * @author Neil Vohra
+ */
+
+package shopping.Activities;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.os.AsyncTask;
+import android.widget.Toast;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import android.util.Log;
-import android.widget.Toast;
-import android.app.ProgressDialog;
+import org.w3c.dom.CharacterData;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,28 +45,27 @@ import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.w3c.dom.CharacterData;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
+
+import shopping.R;
 
 
 /**
  * Created by Pranav on 2/3/2015.
  */
-public class registration extends Activity {
-
+public class RegistrationActivity extends Activity {
+    /** UserRegisterTask used to register a user. Exectues on Register press */
     private UserRegisterTask mRegisterTask = null;
+    /** ProgressDialog shows on screen when the registration is loading */
     private ProgressDialog mSpinner = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.registration);
         Button reg = (Button) findViewById(R.id.regButton);
         Button ret = (Button) findViewById(R.id.retButton);

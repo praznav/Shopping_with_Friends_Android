@@ -4,7 +4,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.example.pranav.shoppingwithfriends.MainScreenActivity">
+    tools:context="shopping.Activities.MainScreenActivity">
 
     <Button
         android:layout_width="wrap_content"
@@ -13,7 +13,8 @@
         android:id="@+id/logout_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:onClick="onReturnPress" />
+        android:onClick="onReturnPress"
+        android:layout_toEndOf="@+id/textView10" />
 
     <Button
         android:layout_width="wrap_content"
@@ -22,6 +23,24 @@
         android:id="@+id/view_friends_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:onClick="viewFriends"/>
+        android:onClick="viewFriends"
+        android:layout_alignEnd="@+id/textView10" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView10"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Deals"
+        android:id="@+id/textView11"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textSize="50dp" />
 
 </RelativeLayout>

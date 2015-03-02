@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.pranav.shoppingwithfriends.LoginActivity">
+    tools:context="shopping.Activities.LoginActivity">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -66,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in_short"
+                android:onClick="onLoginClick"
                 android:textStyle="bold" />
 
             <Button
@@ -75,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/register"
-                android:onClick="register"
+                android:onClick="onRegisterClick"
                 android:textStyle="bold" />
         </LinearLayout>
     </ScrollView>

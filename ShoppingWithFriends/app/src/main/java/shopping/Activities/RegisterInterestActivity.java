@@ -1,4 +1,4 @@
-package com.example.pranav.shoppingwithfriends;
+package shopping.Activities;
 
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
@@ -29,8 +29,8 @@ public class RegisterInterestActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_interest);
-        final EditText txtEdit = (EditText) findViewById(R.id.price_edit_text);
+        setContentView(com.example.pranav.shoppingwithfriends.R.layout.activity_register_interest);
+        final EditText txtEdit = (EditText) findViewById(com.example.pranav.shoppingwithfriends.R.id.price_edit_text);
 
         txtEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -48,7 +48,7 @@ public class RegisterInterestActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register_interest, menu);
+        getMenuInflater().inflate(com.example.pranav.shoppingwithfriends.R.menu.menu_register_interest, menu);
         return true;
     }
 
@@ -60,7 +60,7 @@ public class RegisterInterestActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == com.example.pranav.shoppingwithfriends.R.id.action_settings) {
             return true;
         }
 
@@ -85,8 +85,8 @@ public class RegisterInterestActivity extends ActionBarActivity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            EditText interest = (EditText) findViewById(R.id.interest_edit_text);
-            EditText maxPrice = (EditText) findViewById(R.id.price_edit_text);
+            EditText interest = (EditText) findViewById(com.example.pranav.shoppingwithfriends.R.id.interest_edit_text);
+            EditText maxPrice = (EditText) findViewById(com.example.pranav.shoppingwithfriends.R.id.price_edit_text);
 
             itemOfInterest = interest.getText().toString();
             price = Double.parseDouble(maxPrice.getText().toString());
