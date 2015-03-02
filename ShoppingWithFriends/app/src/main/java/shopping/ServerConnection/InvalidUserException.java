@@ -1,4 +1,4 @@
-package ServerConnection;
+package shopping.ServerConnection;
 
 /**
  * Created by Zach on 2/20/2015.

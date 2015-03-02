@@ -9,7 +9,7 @@
     * @author Neil Vohra
  */
 
-package com.example.pranav.shoppingwithfriends;
+package shopping.Model;
 
 public class User extends Person {
     /** numSales is a growing counter of the sales performed by the user */

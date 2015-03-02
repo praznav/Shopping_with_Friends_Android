@@ -1,11 +1,6 @@
-package ServerConnection;
+package shopping.ServerConnection;
 
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.example.pranav.shoppingwithfriends.R;
-import com.example.pranav.shoppingwithfriends.User;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -33,6 +28,8 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import shopping.Model.User;
 
 /**
  * Created by Zach on 2/20/2015.

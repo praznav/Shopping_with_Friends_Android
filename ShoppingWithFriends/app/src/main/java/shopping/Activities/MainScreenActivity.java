@@ -10,18 +10,19 @@
  */
 
 
-package com.example.pranav.shoppingwithfriends;
+package shopping.Activities;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import shopping.R;
 
 public class MainScreenActivity extends Activity {
     /** mVeiwFriends is a button that redirects to the FriendsList page */
@@ -61,7 +62,7 @@ public class MainScreenActivity extends Activity {
     }
 
     public void viewFriends(View view) {
-        Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(), FriendsList.class);
+        Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(), FriendsListActivity.class);
         startActivity(intent);
     }
 

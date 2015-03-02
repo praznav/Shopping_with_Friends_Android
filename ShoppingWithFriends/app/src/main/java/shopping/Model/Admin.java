@@ -9,7 +9,7 @@
     * @author Neil Vohra
  */
 
-package com.example.pranav.shoppingwithfriends;
+package shopping.Model;
 
 public class Admin extends Person {
 	public Admin(String fName, String lName, String username, String password, String emailAddress) {

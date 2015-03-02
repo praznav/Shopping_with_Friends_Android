@@ -1,8 +1,8 @@
-package ServerConnection;
-
-import com.example.pranav.shoppingwithfriends.User;
+package shopping.ServerConnection;
 
 import java.util.List;
+
+import shopping.Model.User;
 
 /**
  * Created by Zach on 2/20/2015.
