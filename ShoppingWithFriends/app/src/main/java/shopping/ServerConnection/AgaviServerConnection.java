@@ -204,4 +204,6 @@ public class AgaviServerConnection implements ServerConnection {
     public boolean AddFriend(User myUser, String friendUsername) throws ConnectionFailedException, InvalidCredentialsException, InvalidUserException, InternalServerErrorException, AlreadyFriendsException {
         return false;
     }
+
+
 }

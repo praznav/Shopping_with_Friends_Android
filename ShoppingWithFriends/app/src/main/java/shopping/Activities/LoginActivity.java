@@ -33,7 +33,10 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;import java.util.ArrayList;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import shopping.Controller.LoginController;
@@ -89,7 +92,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         editor.apply();
     }
 
-    public void displayError(String s) {}
+    public void displayError(String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+    }
 
     public String getEmail() {
         return mEmailView.getText().toString();
@@ -105,19 +110,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     public void onLoginClick(View v) {
         cont.onLoginClick();
     }
-
-    ///// add toast///// add toast///// add toast///// add toast
-
-    ///// add toast///// add toast///// add toast///// add toast
-    ///// add toast
-    ///// add toast
-    ///// add toast
-    ///// add toast
-    ///// add toast
-    ///// add toast for error
-
-
-
 
 
 

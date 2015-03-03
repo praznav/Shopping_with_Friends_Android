@@ -29,14 +29,9 @@ public class LoginController {
         String message = model.attemptLogin();
         if (message.equals("Success"))
             onCorrectCredentials(email, password);
-        else {}
-            ////// toast
-        ////// toast
-        ////// toast
-        ////// toast
-        ////// toast
-        ////// toast
-        ////// toast////// toast
+        else {
+            view.displayError(message);
+        }
 
     }
 

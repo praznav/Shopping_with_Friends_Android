@@ -43,4 +43,14 @@
         android:layout_alignParentStart="true"
         android:textSize="50dp" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register Interest"
+        android:id="@+id/register_interest_button"
+        android:onClick="onRegisterInterestPress"
+        android:layout_above="@+id/logout_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="153dp" />
+
 </RelativeLayout>

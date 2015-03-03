@@ -10,6 +10,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.concurrent.TimeUnit;
 
 import shopping.Controller.LoginController;
 
@@ -24,7 +25,7 @@ public class LoginTask {
 
     public LoginTask(LoginController c) {
         cont = c;
-        message = "Success";
+        message = "";
     }
 
     public void setEmail(String email) {
@@ -47,6 +48,7 @@ public class LoginTask {
      * errors are presented and no actual login attempt is made.
      */
     public String attemptLogin() {
+        message = "In Progress";
         if (mAuthTask != null) {
             message = "Attempting log in";
             return message;
@@ -67,7 +69,13 @@ public class LoginTask {
             return message;
         }
         mAuthTask = new UserLoginTask();
-        mAuthTask.execute((Void) null);
+        try {
+            mAuthTask.execute((Void) null).get();
+        }
+        catch(Exception e)
+        {
+            message = "Timed out";
+        }
         return message;
     }
 
@@ -97,23 +105,25 @@ public class LoginTask {
                 String line = "";
                 while ((line = rd.readLine()) != null) {
                     Log.i("https", line);
-                    if (line.contains("success")) return true;
+                    if (line.contains("success"))
+                    {
+                        message = "Success";
+                        return true;
+                    }
                 }
 
             } catch (Exception e) {
                 Log.d("https", e.getMessage());
                 return false;
             }
+            message = "Incorrect username or password";
+            Log.i("https", "No success");
             return false;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
-
-            if (!success) {
-                message = "Incorrect username or password.";
-            }
         }
 
         @Override

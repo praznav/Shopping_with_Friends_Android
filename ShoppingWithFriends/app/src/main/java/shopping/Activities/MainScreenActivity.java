@@ -77,4 +77,9 @@ public class MainScreenActivity extends Activity {
         startActivity(loginIntent);
         finish();
     }
+
+    public void onRegisterInterestPress(View view) {
+        Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(),RegisterInterestActivity.class);
+        startActivity(intent);
+    }
 }
