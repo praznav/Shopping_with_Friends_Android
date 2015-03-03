@@ -9,7 +9,7 @@
     * @author Neil Vohra
  */
 
-package com.example.pranav.shoppingwithfriends;
+package shopping.Activities;
 
 import android.app.Activity;
 import android.content.Context;
@@ -44,15 +44,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-
-import java.net.URLEncoder;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class FriendsList extends Activity {
+import shopping.Model.Friend;
+import shopping.R;
+
+public class FriendsListActivity extends Activity {
     /** ListView containing all the friends of the logged in User. attributes are clickable */
     private ListView mFriendsList;
     /** an ArrayList storing all the friends */
@@ -210,7 +210,7 @@ public class FriendsList extends Activity {
 
 
 
-                Intent i = new Intent(FriendsList.this, Friend.class);
+                Intent i = new Intent(FriendsListActivity.this, Friend.class);
                 i.putExtra("friendsUsername", friendsUsername);
                 i.putExtra("friendFirstName", friendFirstName);
                 i.putExtra("friendLastName", friendLastName);

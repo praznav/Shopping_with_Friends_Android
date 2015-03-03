@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pranav.shoppingwithfriends" >
+    package="shopping" >
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
-        android:name=".Processor"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light" >
         <activity
-            android:name=".LoginActivity"
+            android:name="shopping.Activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
-            <intent-filter
-                android:label="Shopping With Friends" >
+            <intent-filter android:label="Shopping With Friends" >
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".registration"
-            android:label="registration"
+            android:name="shopping.Activities.RegistrationActivity"
+            android:label="@string/title_activity_registration"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         <activity
-            android:name=".MainScreenActivity"
+            android:name="shopping.Activities.MainScreenActivity"
             android:label="@string/title_activity_main_screen"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name=".FriendsList"
+            android:name="shopping.Activities.FriendsListActivity"
             android:label="@string/title_activity_friends_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Friend" android:label="friend"></activity>
+        <activity
+            android:name="shopping.Activities.RegisterInterestActivity"
+            android:label="@string/title_activity_register_interest" >
+        </activity>
+        <activity android:name="shopping.Model.Friend" android:label="friend"></activity>
     </application>
-
 </manifest>
