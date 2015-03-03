@@ -1,4 +1,4 @@
-package ServerConnection;
+package shopping.ServerConnection;
 
 import java.util.HashMap;
 
