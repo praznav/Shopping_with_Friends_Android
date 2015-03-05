@@ -278,7 +278,7 @@ public class AgaviServerConnection implements ServerConnection {
                     Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
                     final String invalidProductError = ((CharacterData) messageElement.getFirstChild()).getData();
                     throw new InvalidProductNameException(invalidProductError);
-                } else if (status.equals("invalidProductPrice")) {
+                } else if (status.equals("invalidPrice")) {
                     // Product price was invalid
                     Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
                     final String invalidPriceError = ((CharacterData) messageElement.getFirstChild()).getData();
