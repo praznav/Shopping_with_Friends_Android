@@ -31,7 +31,9 @@ public class RegisterInterestController {
     {
         model.setUsername(view.getUsername());
         model.setPassword(view.getPassword());
-        view.displayError(model.postInterest(view.getItem(), view.getPrice()));
+        String message = model.postInterest(view.getItem(), view.getPrice());
+        view.displayError(message);
+        if (message.equals("Successfully registered interest"))  view.clearFields();
     }
 
     /**

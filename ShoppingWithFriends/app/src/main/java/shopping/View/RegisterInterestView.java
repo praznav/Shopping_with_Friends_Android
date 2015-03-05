@@ -16,4 +16,5 @@ public interface RegisterInterestView {
     public void displayError(String error);
     public void startNewActivity(Intent i);
     public void finish();
+    public void clearFields();
 }

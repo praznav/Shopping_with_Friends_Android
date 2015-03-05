@@ -176,6 +176,15 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
     }
 
     /**
+     * Clears the fields for new entries
+     */
+    public void clearFields()
+    {
+        ((EditText)(findViewById(R.id.interest_edit_text))).setText("");
+        ((EditText)(findViewById(R.id.price_edit_text))).setText("");
+    }
+
+    /**
      * Rounds the price field so that it is at a dollar value
      */
     private void roundPrice()
