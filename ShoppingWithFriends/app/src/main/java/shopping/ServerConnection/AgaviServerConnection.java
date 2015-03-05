@@ -38,8 +38,10 @@ public class AgaviServerConnection implements ServerConnection {
     private String mConnectionUrl = "http://teamkevin.me";
     private String mUsersUrl = "/Users";
     private String mRegisterUrl = "/Register";
+    private String mSalesUrl = "/Sales";
+    private String mRegisterInterestUrl = "/RegisterInterest";
 
-    private AgaviServerConnection() {
+    public AgaviServerConnection() {
     }
 
     @Override
@@ -205,5 +207,107 @@ public class AgaviServerConnection implements ServerConnection {
         return false;
     }
 
+    @Override
+    public boolean AddInterest(User myUser, String productName, double maxPrice) throws UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException, InvalidPriceException, InvalidUserException, RegisteredInterestAlreadyExistsException, UnrecognizedResponseException {
+        HttpClient client;
+        HttpPost post;
+        ArrayList<NameValuePair> postParameters;
+        client = new DefaultHttpClient();
+        post = new HttpPost(mConnectionUrl + mSalesUrl + mRegisterInterestUrl);
 
+        String username = myUser.getUsername();
+        String password = myUser.getPassword();
+        postParameters = new ArrayList<NameValuePair>();
+        postParameters.add(new BasicNameValuePair("username", username));
+        postParameters.add(new BasicNameValuePair("password", password));
+        postParameters.add(new BasicNameValuePair("productName", productName));
+        postParameters.add(new BasicNameValuePair("maxPrice","" + maxPrice));
+        try {
+            post.setEntity(new UrlEncodedFormEntity(postParameters));
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("Error encoding POST parameters");
+            System.out.println(e.getMessage());
+        }
+
+
+        HttpResponse response;
+        HttpEntity entity = null;
+        try {
+            // Execute the POST request and save the response
+            response = client.execute(post);
+
+            // Read the full response and create a string out of it that can be parsed with
+            // an XML parser
+            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String line = "";
+            StringBuilder sb = new StringBuilder();
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+            try {
+                // Create a new DomDocument out of the XML
+                InputSource is = new InputSource();
+                is.setCharacterStream(new StringReader(sb.toString()));
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document doc = builder.parse(is);
+
+                // Try and get the status from the response
+                NodeList statusList = doc.getElementsByTagName("status");
+                if (statusList.getLength() < 1) {
+                    return false;
+                }
+                Element statusElement = (Element) statusList.item(0);
+                String status = ((CharacterData) statusElement.getFirstChild()).getData();
+
+                if (status.equals("success")) {
+                    // If the status was success, register interest succeeded
+                    return true;
+                } else if (status.equals("notAuthorized")) {
+                    // User not authorized
+                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                    final String authError = ((CharacterData) messageElement.getFirstChild()).getData();
+                    throw new UserNotAuthorizedException(authError);
+                } else if (status.equals("error")) {
+                    // Server error occurred, show a toast with the contents of the message
+                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                    final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
+                    throw new InternalServerErrorException(serverError);
+                } else if (status.equals("invalidProductName")) {
+                    // Product name was invalid
+                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                    final String invalidProductError = ((CharacterData) messageElement.getFirstChild()).getData();
+                    throw new InvalidProductNameException(invalidProductError);
+                } else if (status.equals("invalidProductPrice")) {
+                    // Product price was invalid
+                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                    final String invalidPriceError = ((CharacterData) messageElement.getFirstChild()).getData();
+                    throw new InvalidPriceException(invalidPriceError);
+                } else if (status.equals("invalidUser")) {
+                    // User somehow became invalid, possibly due to deletion from database, etc.
+                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                    final String invalidUserError = ((CharacterData) messageElement.getFirstChild()).getData();
+                    throw new InvalidUserException(invalidUserError);
+                } else if (status.equals("alreadyExists")) {
+                    // The attempted item is already in the database
+                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                    final String alreadyExistsError = ((CharacterData) messageElement.getFirstChild()).getData();
+                    throw new RegisteredInterestAlreadyExistsException(alreadyExistsError);
+                } else {
+                    // The server response was unrecognized
+                    throw new UnrecognizedResponseException();
+                }
+            } catch (ParserConfigurationException e) {
+                Log.e("XML Exception", "Caught a parser configuration exception while creating the document builder", e);
+            } catch (SAXException e) {
+                Log.e("XML Exception", "Caught a SAX exception while parsing the XML response", e);
+            }
+            return false;
+        } catch (IOException e){
+            System.out.println("IO Exception");
+            System.out.println(e.getMessage());
+        }
+        return false;
+
+    }
 }

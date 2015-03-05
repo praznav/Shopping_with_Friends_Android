@@ -5,7 +5,7 @@ package shopping.ServerConnection;
  */
 public class UserNotAuthorizedException extends Exception {
     public UserNotAuthorizedException() {
-        super("You have already registered interest in that product");
+        super("You are not logged in");
     }
 
     public UserNotAuthorizedException(String message) {

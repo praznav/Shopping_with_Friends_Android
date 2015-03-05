@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 import shopping.Controller.RegisterInterestController;
 import shopping.R;
+import shopping.ServerConnection.AgaviServerConnection;
+import shopping.ServerConnection.ServerConnection;
 
 /**
  * Created by Keshanz on 3/2/2015.
@@ -33,24 +35,40 @@ public class RegisterInterestModel {
     private double maxPrice;
     private String item;
     private RegisterInterestTask mInterestTask;
+    private ServerConnection serv;
 
     public RegisterInterestModel(RegisterInterestController c)
     {
         cont = c;
         message = "";
+        serv = new AgaviServerConnection();
 
     }
 
+    /**
+     * Sets the username for the model
+     * @param u The username to set
+     */
     public void setUsername(String u)
     {
         username = u;
     }
 
+    /**
+     * Sets the password for the model
+     * @param p The password to set
+     */
     public void setPassword(String p)
     {
         password = p;
     }
 
+    /**
+     * Method called by the controller to post an interest
+     * @param i The product name to post
+     * @param p The max price to post
+     * @return Message to display to the user
+     */
     public String postInterest(String i, double p)
     {
         message = "Failed to post";
@@ -67,45 +85,23 @@ public class RegisterInterestModel {
         return message;
     }
 
-    public class RegisterInterestTask extends AsyncTask<Void, Void, Boolean> {
+    /**
+     * AsyncTask for registering interest.  Uses server connection class to post item and price into the database
+     */
+    private class RegisterInterestTask extends AsyncTask<Void, Void, Boolean> {
 
 
         @Override
         protected Boolean doInBackground(Void... params) {
-
-
-            HttpClient httpclient;
-            HttpPost httppost;
-            ArrayList<NameValuePair> postParameters;
-            httpclient = new DefaultHttpClient();
-            httppost = new HttpPost("http://teamkevin.me/Sales/RegisterInterest");
-
-            postParameters = new ArrayList<NameValuePair>();
-            postParameters.add(new BasicNameValuePair("username", username));
-            postParameters.add(new BasicNameValuePair("password", password));
-            postParameters.add(new BasicNameValuePair("productName", item));
-            postParameters.add(new BasicNameValuePair("maxPrice","" + maxPrice));
-
-            try {
-                httppost.setEntity(new UrlEncodedFormEntity(postParameters));
-                HttpResponse response = httpclient.execute(httppost);
-                BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                String line;
-                StringBuilder sb = new StringBuilder();
-
-                while ((line = rd.readLine()) != null)
-                    sb.append(line);
-                line = sb.toString();
-                rd.close();
-
-                Log.d("https", "msg" + line);
-                if (line.contains("success"))
-                {
-                    message = "Successfully registered interest";
-                    return true;
-                }
-            } catch (IOException e) {
-                Log.d("HTTP post error", "" + e.getMessage());
+            try
+            {
+                boolean b = serv.AddInterest(new User("" ,"" ,username ,password ,""), item, maxPrice);
+                message = "Successfully registered interest";
+                return b;
+            }
+            catch(Exception e)
+            {
+                message = e.getMessage();
             }
             return false;
         }

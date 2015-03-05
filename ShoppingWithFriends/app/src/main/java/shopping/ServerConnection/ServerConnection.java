@@ -17,4 +17,8 @@ public interface ServerConnection {
     boolean AddFriend(User myUser, String friendUsername) throws ConnectionFailedException,
             InvalidCredentialsException, InvalidUserException, InternalServerErrorException,
             AlreadyFriendsException;
-}
+    boolean AddInterest(User myUser, String productName, double maxPrice) throws
+            UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException,
+            InvalidPriceException, InvalidUserException, RegisteredInterestAlreadyExistsException,
+            UnrecognizedResponseException ;
+    }

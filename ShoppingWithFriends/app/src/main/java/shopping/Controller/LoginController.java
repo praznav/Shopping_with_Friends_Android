@@ -21,6 +21,11 @@ public class LoginController {
         model = new LoginTask(this);
     }
 
+    /**
+     * Handler for login being clicked
+     * Passes email and password to model
+     * Authenticates and returns whether or not it was successful
+     */
     public void onLoginClick() {
         String email = view.getEmail();
         String password = view.getPassword();
@@ -35,6 +40,11 @@ public class LoginController {
 
     }
 
+    /**
+     * Called when credentials are legitimate.  Sets the shared preferences and starts the next activity
+     * @param username The correct username
+     * @param password The correct password
+     */
     public void onCorrectCredentials(String username, String password)
     {
         // Go to main app

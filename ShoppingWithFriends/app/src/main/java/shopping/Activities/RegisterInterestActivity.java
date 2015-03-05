@@ -86,11 +86,19 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Gets the text in the item edit text
+     * @return The string found in the item edit text
+     */
     public String getItem()
     {
         return ((EditText)(findViewById(R.id.interest_edit_text))).getText().toString();
     }
 
+    /**
+     * Gets the price found in the price edit text
+     * @return The price converted to a double value
+     */
     public double getPrice()
     {
         double d = -1;
@@ -104,41 +112,72 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
         return d;
     }
 
+    /**
+     * Gets the current user's username
+     * @return username
+     */
     public String getUsername()
     {
         return username;
     }
 
+    /**
+     * Gets the current user's password
+     * @return current user's password
+     */
     public String getPassword()
     {
         return password;
     }
 
+    /**
+     * Handler for when confirm button is clicked. Calls controller's version
+     * @param view current view
+     */
     public void onConfirmClick(View view)
     {
         roundPrice();
         cont.onConfirmClick();
     }
 
+
+    /**
+     * Handler for when return button is clicked.  Calls controller's version
+     * @param view current view
+     */
     public void onReturnClick(View view)
     {
         cont.onReturnClick();
     }
 
+    /**
+     * Displays a toast
+     * @param s the message to display
+     */
     public void displayError(String s)
     {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Finishes the current activity
+     */
     public void finish()
     {
         finish();
     }
 
+    /**
+     * Starts a new activity
+     * @param i the intent of the new activity to start
+     */
     public void startNewActivity(Intent i) {
         startActivity(i);
     }
 
+    /**
+     * Rounds the price field so that it is at a dollar value
+     */
     private void roundPrice()
     {
         final EditText txtEdit = (EditText) findViewById(R.id.price_edit_text);

@@ -5,7 +5,7 @@ package shopping.ServerConnection;
  */
 public class InvalidProductNameException extends Exception {
     public InvalidProductNameException() {
-        super("You have already registered interest in that product");
+        super("The product name inputted is invalid");
     }
 
     public InvalidProductNameException(String message) {

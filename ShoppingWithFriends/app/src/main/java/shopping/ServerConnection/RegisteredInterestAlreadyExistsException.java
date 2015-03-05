@@ -1,11 +1,11 @@
 package shopping.ServerConnection;
 
 /**
- * Created by Zach on 2/20/2015.
+ * Created by Kevin on 3/4/2015
  */
 public class RegisteredInterestAlreadyExistsException extends Exception {
     public RegisteredInterestAlreadyExistsException() {
-        super("The specified user is invalid");
+        super("You have already registered interest in that product");
     }
 
     public RegisteredInterestAlreadyExistsException(String message) {

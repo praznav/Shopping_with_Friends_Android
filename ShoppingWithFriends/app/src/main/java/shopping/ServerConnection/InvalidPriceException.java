@@ -5,7 +5,7 @@ package shopping.ServerConnection;
  */
 public class InvalidPriceException extends Exception {
     public InvalidPriceException() {
-        super("You have already registered interest in that product");
+        super("The price entered is invalid");
     }
 
     public InvalidPriceException(String message) {
