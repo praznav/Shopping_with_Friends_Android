@@ -25,7 +25,7 @@
             <ListView
                 android:id="@+id/friends_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="393dp" />
+                android:layout_height="438dp" />
 
         </LinearLayout>
     </ScrollView>
@@ -66,16 +66,4 @@
         android:inputType="textPersonName"
         android:layout_above="@+id/back_button"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:id="@+id/friend_email_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="@string/enter_friend_email"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/friend_username_edit_text"
-        android:layout_alignParentLeft="true" />
-
-
 </RelativeLayout>
