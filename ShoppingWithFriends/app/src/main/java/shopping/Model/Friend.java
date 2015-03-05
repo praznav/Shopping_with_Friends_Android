@@ -43,7 +43,6 @@ public class Friend extends Activity{
     /** user's password */
     String password;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,19 +71,23 @@ public class Friend extends Activity{
 
     }
 
+    /**
+     * Method to call when the "RETURN" button is clicked
+     * @param view current view
+     */
     public void onReturnPress(View view) {
         // Dismiss the spinner if it is open and finish the activity
         finish();
     }
 
+    /**
+     * Method to call when the "REMOVE" button is clicked
+     * @param view current view
+     */
     public void onRemovePress (View view) {
         removeFriend remover = new removeFriend();
         remover.execute((Void) null);
     }
-
-
-
-
 
     public class removeFriend extends AsyncTask<Void, Void, Boolean> {
 

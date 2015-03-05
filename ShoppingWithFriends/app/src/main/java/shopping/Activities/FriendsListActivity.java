@@ -105,6 +105,9 @@ public class FriendsListActivity extends Activity {
         });
     }
 
+    /**
+     * Creates the new adapter for the list view and fills its contents
+     */
     public void thatMethod() {
         adapter = null;
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
@@ -129,6 +132,10 @@ public class FriendsListActivity extends Activity {
         mFriendsList.setAdapter(adapter);
     }
 
+    /**
+     * Method called when "RETURN" button is clicked
+     * @param v current view
+     */
     public void goBack(View v) {
         finish();
     }
@@ -162,6 +169,10 @@ public class FriendsListActivity extends Activity {
         private String line;
         boolean success;
 
+        /**
+         * Method to set which friend we are getting info for
+         * @param in The friend to get info for
+         */
         getFriendInfo(String in) {
             friendusername = in;
         }

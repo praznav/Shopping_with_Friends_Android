@@ -140,7 +140,6 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
         cont.onConfirmClick();
     }
 
-
     /**
      * Handler for when return button is clicked.  Calls controller's version
      * @param view current view

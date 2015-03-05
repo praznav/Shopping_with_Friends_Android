@@ -61,11 +61,19 @@ public class MainScreenActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Method called when the "VIEW FRIENDS" button is clicked
+     * @param view current view
+     */
     public void viewFriends(View view) {
         Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(), FriendsListActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * Method called when the "RETURN" button is clicked
+     * @param view current view
+     */
     public void onReturnPress(View view)
     {
         SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
@@ -78,6 +86,10 @@ public class MainScreenActivity extends Activity {
         finish();
     }
 
+    /**
+     * Method called when the "REGISTER INTEREST" button is clicked
+     * @param view current view
+     */
     public void onRegisterInterestPress(View view) {
         Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(),RegisterInterestActivity.class);
         startActivity(intent);
