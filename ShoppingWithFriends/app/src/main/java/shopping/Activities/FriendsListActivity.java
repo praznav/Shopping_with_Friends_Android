@@ -207,9 +207,6 @@ public class FriendsListActivity extends Activity {
                 String friendRating = line.substring(line.indexOf("<friendRating>") + 14, line.indexOf("</friendRating>"));
                 String friendReportCount = line.substring(line.indexOf("<friendReportCount>") + 19, line.indexOf("</friendReportCount>"));
 
-
-
-
                 Intent i = new Intent(FriendsListActivity.this, Friend.class);
                 i.putExtra("friendsUsername", friendsUsername);
                 i.putExtra("friendFirstName", friendFirstName);
@@ -318,7 +315,6 @@ public class FriendsListActivity extends Activity {
         private final String mEmail;
         private final String mPassword;
         private String friendUsername;
-        private String friendEmail;
 
         /**
          * Constructor to create add friend task
@@ -334,10 +330,8 @@ public class FriendsListActivity extends Activity {
         protected Boolean doInBackground(Void... params) {
             friendsList = new ArrayList<String>();
             EditText user = (EditText) findViewById(R.id.friend_username_edit_text);
-            EditText email = (EditText) findViewById(R.id.friend_email_edit_text);
 
             friendUsername = user.getText().toString();
-            friendEmail = email.getText().toString();
 
             HttpClient httpclient;
             HttpPost httppost;
@@ -349,7 +343,6 @@ public class FriendsListActivity extends Activity {
             postParameters.add(new BasicNameValuePair("username", username));
             postParameters.add(new BasicNameValuePair("password", password));
             postParameters.add(new BasicNameValuePair("friendUsername", friendUsername));
-            postParameters.add(new BasicNameValuePair("friendEmail", friendEmail));
 
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(postParameters));
