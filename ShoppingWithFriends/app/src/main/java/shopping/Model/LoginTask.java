@@ -28,10 +28,18 @@ public class LoginTask {
         message = "";
     }
 
+    /**
+     * Sets the model's user data value
+     * @param email The user to set
+     */
     public void setEmail(String email) {
         mEmail = email;
     }
 
+    /**
+     * Sets the model's pass data value
+     * @param pass The password to set
+     */
     public void setPassword(String pass) {
         mPassword = pass;
     }
@@ -79,14 +87,24 @@ public class LoginTask {
         return message;
     }
 
+    /**
+     * Determines if username is valid
+     * @param email The username to evaluate
+     * @return if it is valid
+     */
     private boolean isEmailValid(String email) {
         // Add conditions later
         return true;
     }
 
+    /**
+     * Determines if password is valid.  Valid passwords are at least length 3
+     * @param password The password to evaluate
+     * @return if it is valid
+     */
     private boolean isPasswordValid(String password) {
         // Add conditions later
-        return password.length() > 2;
+        return password.length() > 3;
     }
 
     /**

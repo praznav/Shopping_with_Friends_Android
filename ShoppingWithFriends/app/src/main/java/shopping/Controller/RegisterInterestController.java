@@ -21,6 +21,12 @@ public class RegisterInterestController {
         model = new RegisterInterestModel(this);
     }
 
+    /**
+     * Actual handler for confirm being clicked.
+     * Passes in the username and password from view to the model
+     * Attempts to post the interest
+     * Displays any errors on the view
+     */
     public void onConfirmClick()
     {
         model.setUsername(view.getUsername());
@@ -28,6 +34,10 @@ public class RegisterInterestController {
         view.displayError(model.postInterest(view.getItem(), view.getPrice()));
     }
 
+    /**
+     * Handler for return being clicked
+     * Finishes the activity
+     */
     public void onReturnClick()
     {
         view.finish();

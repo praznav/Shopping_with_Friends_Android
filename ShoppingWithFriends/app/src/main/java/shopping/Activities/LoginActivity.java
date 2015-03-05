@@ -82,6 +82,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    /**
+     * Sets the shared preferences for credentials. Called after authentication complete
+     * @param username The current username to put in
+     * @param password The current user's password to put in
+     */
     public void setSharedPreferences(String username, String password) {
         // Adds the user/pass that the user entered at log in time to shared preferences
         // Allows this information to be accessed throughout the application
@@ -92,14 +97,26 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         editor.apply();
     }
 
+    /**
+     * Display a toast
+     * @param s The message to display
+     */
     public void displayError(String s) {
         Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Gets the email from the approrpriate text field
+     * @return email
+     */
     public String getEmail() {
         return mEmailView.getText().toString();
     }
 
+    /**
+     * Gets the password from the appropriate text field
+     * @return password from text field
+     */
     public String getPassword() {
         return mPasswordView.getText().toString();
     }
@@ -121,15 +138,27 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         startActivity(intent);
     }
 
+    /**
+     * Handler for return being pressed.  Finishes the current activity.
+     * DEPRECATED
+     * @param view
+     */
     public void onReturnPress(View view)
     {
         finish();
     }
 
+    /**
+     * Populates autocomplete
+     */
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
     }
 
+    /**
+     * Starts a new activity. Called by controller
+     * @param i The intent to start
+     */
     public void startNewActivity(Intent i) {
         startActivity(i);
     }
