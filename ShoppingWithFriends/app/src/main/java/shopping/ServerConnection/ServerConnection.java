@@ -62,6 +62,21 @@ public interface ServerConnection {
     boolean AddFriend(User myUser, String friendUsername) throws ConnectionFailedException,
             InvalidCredentialsException, InvalidUserException, InternalServerErrorException,
             AlreadyFriendsException;
+
+    /**
+     * Attempts to register interest in a product for the user.
+     * @param myUser The user to register interest for.
+     * @param productName The name of the product to register interest for.
+     * @param maxPrice The maximum price of the product when matching sales.
+     * @return Whether or not the interest was successfully registered for the product.
+     * @throws UserNotAuthorizedException
+     * @throws InternalServerErrorException
+     * @throws InvalidProductNameException
+     * @throws InvalidPriceException
+     * @throws InvalidUserException
+     * @throws RegisteredInterestAlreadyExistsException
+     * @throws UnrecognizedResponseException
+     */
     boolean AddInterest(User myUser, String productName, double maxPrice) throws
             UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException,
             InvalidPriceException, InvalidUserException, RegisteredInterestAlreadyExistsException,

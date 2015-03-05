@@ -35,13 +35,11 @@ public class RegisterInterestModel {
     private double maxPrice;
     private String item;
     private RegisterInterestTask mInterestTask;
-    private ServerConnection serv;
 
     public RegisterInterestModel(RegisterInterestController c)
     {
         cont = c;
         message = "";
-        serv = new AgaviServerConnection();
 
     }
 
@@ -95,7 +93,7 @@ public class RegisterInterestModel {
         protected Boolean doInBackground(Void... params) {
             try
             {
-                boolean b = serv.AddInterest(new User("" ,"" ,username ,password ,""), item, maxPrice);
+                boolean b = AgaviServerConnection.GetInstance().AddInterest(new User("" ,"" ,username ,password ,""), item, maxPrice);
                 message = "Successfully registered interest";
                 return b;
             }

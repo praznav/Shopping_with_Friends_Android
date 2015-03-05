@@ -44,7 +44,7 @@ public class AgaviServerConnection implements ServerConnection {
     private String mSalesUrl = "/Sales";
     private String mRegisterInterestUrl = "/RegisterInterest";
 
-    private AgaviServerConnection mInstance;
+    private static AgaviServerConnection mInstance;
 
     private AgaviServerConnection() {
     }
@@ -53,7 +53,7 @@ public class AgaviServerConnection implements ServerConnection {
      * Gets the instance of this AgaviServerConnection.
      * @return The singleton instance of this AgaviServerConnection.
      */
-    public AgaviServerConnection GetInstance() {
+    public static AgaviServerConnection GetInstance() {
         if (mInstance == null) {
             mInstance = new AgaviServerConnection();
         }
