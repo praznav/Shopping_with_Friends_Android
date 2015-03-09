@@ -93,17 +93,17 @@ public class RegistrationActivity extends Activity {
         }
 
         // Get the registration fields and reset the errors on each EditText box
-        TextView emailIn = (TextView) findViewById(R.id.editText);
+        TextView emailIn = (TextView) findViewById(R.id.emailEditText);
         emailIn.setError(null);
-        TextView usernameIn = (TextView) findViewById(R.id.editText2);
+        TextView usernameIn = (TextView) findViewById(R.id.usernameEditText);
         usernameIn.setError(null);
-        TextView passwordIn = (TextView) findViewById(R.id.editText3);
+        TextView passwordIn = (TextView) findViewById(R.id.passwordEditText);
         passwordIn.setError(null);
-        TextView confirmIn = (TextView) findViewById(R.id.editText4);
+        TextView confirmIn = (TextView) findViewById(R.id.confirmEditText);
         confirmIn.setError(null);
-        TextView firstNameIn = (TextView) findViewById(R.id.editText5);
+        TextView firstNameIn = (TextView) findViewById(R.id.firstNameEditText);
         firstNameIn.setError(null);
-        TextView lastNameIn = (TextView) findViewById(R.id.editText6);
+        TextView lastNameIn = (TextView) findViewById(R.id.lastNameEditText);
         lastNameIn.setError(null);
         String password = passwordIn.getText().toString();
         String confirm = confirmIn.getText().toString();
@@ -241,7 +241,7 @@ public class RegistrationActivity extends Activity {
                         final String usernameError = ((CharacterData) messageElement.getFirstChild()).getData();
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                EditText usernameText = (EditText) findViewById(R.id.editText2);
+                                EditText usernameText = (EditText) findViewById(R.id.usernameEditText);
                                 usernameText.setError(usernameError);
                                 Toast.makeText(getApplicationContext(), usernameError, Toast.LENGTH_LONG).show();
                             }
@@ -269,7 +269,7 @@ public class RegistrationActivity extends Activity {
                                     final String usernameError = usernameChildren.item(i).getLastChild().getTextContent().trim();
                                     runOnUiThread(new Runnable() {
                                         public void run() {
-                                            EditText usernameText = (EditText) findViewById(R.id.editText2);
+                                            EditText usernameText = (EditText) findViewById(R.id.usernameEditText);
                                             usernameText.setError(usernameError);
                                         }
                                     });
@@ -286,7 +286,7 @@ public class RegistrationActivity extends Activity {
                                     final String emailError = emailChildren.item(i).getLastChild().getTextContent().trim();
                                     runOnUiThread(new Runnable() {
                                         public void run() {
-                                            EditText emailText = (EditText) findViewById(R.id.editText);
+                                            EditText emailText = (EditText) findViewById(R.id.emailEditText);
                                             emailText.setError(emailError);
                                         }
                                     });
@@ -303,7 +303,7 @@ public class RegistrationActivity extends Activity {
                                     final String passwordError = passwordChildren.item(i).getLastChild().getTextContent().trim();
                                     runOnUiThread(new Runnable() {
                                         public void run() {
-                                            EditText passwordText = (EditText) findViewById(R.id.editText3);
+                                            EditText passwordText = (EditText) findViewById(R.id.passwordEditText);
                                             passwordText.setError(passwordError);
                                         }
                                     });
@@ -320,7 +320,7 @@ public class RegistrationActivity extends Activity {
                                     final String firstNameError = firstNameChildren.item(i).getLastChild().getTextContent().trim();
                                     runOnUiThread(new Runnable() {
                                         public void run() {
-                                            EditText firstNameText = (EditText) findViewById(R.id.editText5);
+                                            EditText firstNameText = (EditText) findViewById(R.id.firstNameEditText);
                                             firstNameText.setError(firstNameError);
                                         }
                                     });
@@ -337,7 +337,7 @@ public class RegistrationActivity extends Activity {
                                     final String lastNameError = lastNameChildren.item(i).getLastChild().getTextContent().trim();
                                     runOnUiThread(new Runnable() {
                                         public void run() {
-                                            EditText lastNameText = (EditText) findViewById(R.id.editText6);
+                                            EditText lastNameText = (EditText) findViewById(R.id.lastNameEditText);
                                             lastNameText.setError(lastNameError);
                                         }
                                     });
