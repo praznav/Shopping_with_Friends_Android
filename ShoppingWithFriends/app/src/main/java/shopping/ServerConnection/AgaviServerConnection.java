@@ -32,10 +32,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import shopping.Model.User;
 
 /**
- * Agavi based implementation of the ServerConnection. Makes all requests to the teamkevin.me Agavi
- * based server.
- *
- * @author Zachary Peterson
+ * Created by Zach on 2/20/2015.
  */
 public class AgaviServerConnection implements ServerConnection {
     private String mConnectionUrl = "http://teamkevin.me";
@@ -44,22 +41,7 @@ public class AgaviServerConnection implements ServerConnection {
     private String mSalesUrl = "/Sales";
     private String mRegisterInterestUrl = "/RegisterInterest";
 
-
-    private AgaviServerConnection mInstance;
-
-    private AgaviServerConnection() {
-
-    }
-
-    /**
-     * Gets the instance of this AgaviServerConnection.
-     * @return The singleton instance of this AgaviServerConnection.
-     */
-    public AgaviServerConnection GetInstance() {
-        if (mInstance == null) {
-            mInstance = new AgaviServerConnection();
-        }
-        return mInstance;
+    public AgaviServerConnection() {
     }
 
     @Override
