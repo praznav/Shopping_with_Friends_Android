@@ -8,7 +8,7 @@
     * @author Zachary Peterson
     * @author Neil Vohra
  */
-package shopping.Model;
+package shopping.Activities;
 
 import android.app.Activity;
 import android.os.AsyncTask;

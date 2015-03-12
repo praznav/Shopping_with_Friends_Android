@@ -35,6 +35,11 @@
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
+            android:name="shopping.Activities.PostSaleActivity"
+            android:label="@string/title_activity_main_screen"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
             android:name="shopping.Activities.FriendsListActivity"
             android:label="@string/title_activity_friends_list" >
             <intent-filter>
@@ -46,6 +51,6 @@
             android:name="shopping.Activities.RegisterInterestActivity"
             android:label="@string/title_activity_register_interest" >
         </activity>
-        <activity android:name="shopping.Model.Friend" android:label="friend"></activity>
+        <activity android:name=".Activities.Friend" android:label="friend"></activity>
     </application>
 </manifest>

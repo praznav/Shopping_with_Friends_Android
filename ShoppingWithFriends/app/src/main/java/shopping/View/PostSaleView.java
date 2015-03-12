@@ -6,7 +6,7 @@ import android.view.View;
 /**
  * Created by Keshanz on 3/2/2015.
  */
-public interface RegisterInterestView {
+public interface PostSaleView {
     /**
      * Called when the confirm button is clicked
      * @param v The view that was clicked
@@ -20,14 +20,20 @@ public interface RegisterInterestView {
     public void onReturnClick(View v);
 
     /**
-     * Gets the item that the user wants to register interest for
-     * @return The item name that the user wants to register interest for
+     * Gets the item that the user wants to register sale for
+     * @return The item name that the user wants to post sale for
      */
     public String getItem();
 
     /**
-     * Gets the maximum price that the user wants the item for
-     * @return The maximum price that the user wants the item for
+     * Gets the location from the text field
+     * @return The location of the item
+     */
+    public String getLocation();
+
+    /**
+     * Gets the price that the user found
+     * @return The price the user found
      */
     public double getPrice();
 
@@ -48,12 +54,6 @@ public interface RegisterInterestView {
      * @param error The error message to display
      */
     public void displayError(String error);
-
-    /**
-     * Starts a new intent
-     * @param i The intent to start
-     */
-    public void startNewActivity(Intent i);
 
 
     /**

@@ -74,11 +74,11 @@ public interface ServerConnection {
      * @throws InvalidProductNameException
      * @throws InvalidPriceException
      * @throws InvalidUserException
-     * @throws RegisteredInterestAlreadyExistsException
+     * @throws RegisteredItemAlreadyExistsException
      * @throws UnrecognizedResponseException
      */
     boolean AddInterest(User myUser, String productName, double maxPrice) throws
             UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException,
-            InvalidPriceException, InvalidUserException, RegisteredInterestAlreadyExistsException,
+            InvalidPriceException, InvalidUserException, RegisteredItemAlreadyExistsException,
             UnrecognizedResponseException ;
     }

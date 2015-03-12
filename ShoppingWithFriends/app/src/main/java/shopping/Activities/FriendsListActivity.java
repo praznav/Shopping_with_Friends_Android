@@ -49,7 +49,6 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import shopping.Model.Friend;
 import shopping.R;
 
 public class FriendsListActivity extends Activity {

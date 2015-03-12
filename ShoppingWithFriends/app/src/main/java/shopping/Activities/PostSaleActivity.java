@@ -3,10 +3,8 @@ package shopping.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,36 +12,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 
-import shopping.Controller.RegisterInterestController;
+import shopping.Controller.PostSaleController;
 import shopping.R;
-import shopping.View.RegisterInterestView;
+import shopping.View.PostSaleView;
 
 
-public class RegisterInterestActivity extends ActionBarActivity implements RegisterInterestView{
+public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
 
-    private RegisterInterestController cont;
+    private PostSaleController cont;
     private String username;
     private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_interest);
-        cont = new RegisterInterestController(this);
+        setContentView(R.layout.activity_post_sale);
+        cont = new PostSaleController(this);
 
         SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
         username = prefs.getString("Username", "");
@@ -64,35 +50,13 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register_interest, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * Gets the text in the item edit text
      * @return The string found in the item edit text
      */
     public String getItem()
     {
-        return ((EditText)(findViewById(R.id.interest_edit_text))).getText().toString();
+        return ((EditText)(findViewById(R.id.item_edit_text))).getText().toString();
     }
 
     /**
@@ -110,6 +74,11 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
         {
         }
         return d;
+    }
+
+    public String getLocation()
+    {
+        return ((EditText)(findViewById(R.id.location_edit_text))).getText().toString();
     }
 
     /**
@@ -159,22 +128,15 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
     }
 
 
-
-    /**
-     * Starts a new activity
-     * @param i the intent of the new activity to start
-     */
-    public void startNewActivity(Intent i) {
-        startActivity(i);
-    }
-
     /**
      * Clears the fields for new entries
      */
     public void clearFields()
     {
-        ((EditText)(findViewById(R.id.interest_edit_text))).setText("");
+        ((EditText)(findViewById(R.id.item_edit_text))).setText("");
         ((EditText)(findViewById(R.id.price_edit_text))).setText("");
+        ((EditText)(findViewById(R.id.location_edit_text))).setText("");
+
     }
 
     /**

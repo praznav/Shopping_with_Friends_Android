@@ -36,12 +36,4 @@ public class RegisterInterestController {
         if (message.equals("Successfully registered interest"))  view.clearFields();
     }
 
-    /**
-     * Handler for return being clicked
-     * Finishes the activity
-     */
-    public void onReturnClick()
-    {
-        view.finish();
-    }
 }
