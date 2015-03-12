@@ -228,7 +228,10 @@ public class AgaviServerConnection implements ServerConnection {
     }
 
     @Override
-    public boolean AddInterest(User myUser, String productName, double maxPrice) throws UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException, InvalidPriceException, InvalidUserException, RegisteredItemAlreadyExistsException, UnrecognizedResponseException {
+    public boolean AddInterest(User myUser, String productName, double maxPrice) throws
+            UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException,
+            InvalidPriceException, InvalidUserException, RegisteredItemAlreadyExistsException,
+            UnrecognizedResponseException {
         HttpClient client;
         HttpPost post;
         ArrayList<NameValuePair> postParameters;
@@ -331,8 +334,12 @@ public class AgaviServerConnection implements ServerConnection {
 
     }
 
-    public boolean PostSale(User myUser, String productName, double price, String location) throws UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException, InvalidPriceException, InvalidUserException, UnrecognizedResponseException, RegisteredItemAlreadyExistsException
-        {
+    @Override
+    public boolean PostSale(User myUser, String productName, double price, String location) throws
+            UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException,
+            InvalidPriceException, InvalidUserException, UnrecognizedResponseException,
+            RegisteredItemAlreadyExistsException
+    {
         HttpClient client;
         HttpPost post;
         ArrayList<NameValuePair> postParameters;
@@ -436,7 +443,9 @@ public class AgaviServerConnection implements ServerConnection {
         return false;
     }
 
-    public List<Sale> GetSales(User myUser) throws UserNotAuthorizedException, InternalServerErrorException, UnrecognizedResponseException
+    @Override
+    public List<Sale> GetSales(User myUser) throws UserNotAuthorizedException,
+            InternalServerErrorException, UnrecognizedResponseException
     {
         HttpClient client;
         HttpGet get;

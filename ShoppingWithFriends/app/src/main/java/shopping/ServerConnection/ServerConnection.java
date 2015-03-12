@@ -2,6 +2,7 @@ package shopping.ServerConnection;
 
 import java.util.List;
 
+import shopping.Model.Sale;
 import shopping.Model.User;
 
 /**
@@ -80,5 +81,36 @@ public interface ServerConnection {
     boolean AddInterest(User myUser, String productName, double maxPrice) throws
             UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException,
             InvalidPriceException, InvalidUserException, RegisteredItemAlreadyExistsException,
-            UnrecognizedResponseException ;
-    }
+            UnrecognizedResponseException;
+
+    /**
+     * Attempts to post a new sale for the user.
+     * @param myUser The user to post the sale for.
+     * @param productName The name of the product involved in the sale.
+     * @param price The price of the product on sale.
+     * @param location The location of the item on sale.
+     * @return Whether or not the sale was successfully registered for the product.
+     * @throws UserNotAuthorizedException
+     * @throws InternalServerErrorException
+     * @throws InvalidProductNameException
+     * @throws InvalidPriceException
+     * @throws InvalidUserException
+     * @throws UnrecognizedResponseException
+     * @throws RegisteredItemAlreadyExistsException
+     */
+    public boolean PostSale(User myUser, String productName, double price, String location) throws
+            UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException,
+            InvalidPriceException, InvalidUserException, UnrecognizedResponseException,
+            RegisteredItemAlreadyExistsException;
+
+    /**
+     * Retrieves the list of available sales for the given user.
+     * @param myUser The user to retrieve sales for.
+     * @return The list of sales available for this user.
+     * @throws UserNotAuthorizedException
+     * @throws InternalServerErrorException
+     * @throws UnrecognizedResponseException
+     */
+    public List<Sale> GetSales(User myUser) throws UserNotAuthorizedException,
+            InternalServerErrorException, UnrecognizedResponseException;
+}
