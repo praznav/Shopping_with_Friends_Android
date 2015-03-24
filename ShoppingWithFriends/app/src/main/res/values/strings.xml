@@ -12,8 +12,10 @@
     <string name="register">Register</string>
     <string name="enter_friend_username">Enter friend username...</string>
     <string name="enter_friend_email">Enter friend email...</string>
-    <string name="enter_interest">Enter item of interest...</string>
+    <string name="enter_interest">Enter item...</string>
     <string name="enter_price">Enter max price to pay...</string>
+    <string name="enter_item_location">Enter location of item... </string>
+    <string name="enter_found_price">Enter price of item... </string>
 
     <!-- Strings used on registration page -->
     <string name="registration">Registration</string>

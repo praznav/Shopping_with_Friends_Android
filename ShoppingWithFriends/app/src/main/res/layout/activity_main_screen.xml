@@ -37,11 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Deals"
+        android:text="Current Deals"
         android:id="@+id/textView11"
+        android:textSize="30dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:textSize="50dp" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -49,8 +49,27 @@
         android:text="Register Interest"
         android:id="@+id/register_interest_button"
         android:onClick="onRegisterInterestPress"
+        android:layout_above="@+id/view_friends_button"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/view_friends_button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post Sale"
+        android:id="@+id/post_sale_button"
+        android:onClick="onPostSalePress"
         android:layout_above="@+id/logout_button"
+        android:layout_alignEnd="@+id/logout_button"
+        android:layout_toEndOf="@+id/textView10"
+        android:nestedScrollingEnabled="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sales_list_view"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="153dp" />
+        android:layout_above="@+id/register_interest_button"
+        android:layout_below="@+id/textView11" />
 
 </RelativeLayout>

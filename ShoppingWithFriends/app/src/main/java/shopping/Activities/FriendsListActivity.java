@@ -49,7 +49,6 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import shopping.Model.Friend;
 import shopping.R;
 
 public class FriendsListActivity extends Activity {
@@ -105,6 +104,9 @@ public class FriendsListActivity extends Activity {
         });
     }
 
+    /**
+     * Creates the new adapter for the list view and fills its contents
+     */
     public void thatMethod() {
         adapter = null;
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
@@ -129,6 +131,10 @@ public class FriendsListActivity extends Activity {
         mFriendsList.setAdapter(adapter);
     }
 
+    /**
+     * Method called when "RETURN" button is clicked
+     * @param v current view
+     */
     public void goBack(View v) {
         finish();
     }
@@ -162,6 +168,10 @@ public class FriendsListActivity extends Activity {
         private String line;
         boolean success;
 
+        /**
+         * Method to set which friend we are getting info for
+         * @param in The friend to get info for
+         */
         getFriendInfo(String in) {
             friendusername = in;
         }
@@ -206,9 +216,6 @@ public class FriendsListActivity extends Activity {
                 String friendEmail = line.substring(line.indexOf("<friendEmail>") + 13, line.indexOf("</friendEmail>"));
                 String friendRating = line.substring(line.indexOf("<friendRating>") + 14, line.indexOf("</friendRating>"));
                 String friendReportCount = line.substring(line.indexOf("<friendReportCount>") + 19, line.indexOf("</friendReportCount>"));
-
-
-
 
                 Intent i = new Intent(FriendsListActivity.this, Friend.class);
                 i.putExtra("friendsUsername", friendsUsername);
@@ -318,7 +325,6 @@ public class FriendsListActivity extends Activity {
         private final String mEmail;
         private final String mPassword;
         private String friendUsername;
-        private String friendEmail;
 
         /**
          * Constructor to create add friend task
@@ -334,10 +340,8 @@ public class FriendsListActivity extends Activity {
         protected Boolean doInBackground(Void... params) {
             friendsList = new ArrayList<String>();
             EditText user = (EditText) findViewById(R.id.friend_username_edit_text);
-            EditText email = (EditText) findViewById(R.id.friend_email_edit_text);
 
             friendUsername = user.getText().toString();
-            friendEmail = email.getText().toString();
 
             HttpClient httpclient;
             HttpPost httppost;
@@ -349,7 +353,6 @@ public class FriendsListActivity extends Activity {
             postParameters.add(new BasicNameValuePair("username", username));
             postParameters.add(new BasicNameValuePair("password", password));
             postParameters.add(new BasicNameValuePair("friendUsername", friendUsername));
-            postParameters.add(new BasicNameValuePair("friendEmail", friendEmail));
 
             try {
                 httppost.setEntity(new UrlEncodedFormEntity(postParameters));
