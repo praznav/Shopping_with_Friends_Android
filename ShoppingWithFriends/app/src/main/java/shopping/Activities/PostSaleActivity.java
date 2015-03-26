@@ -167,9 +167,6 @@ public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
     public void onButtonPress(View view) {
         Intent intent = new Intent(PostSaleActivity.this.getApplicationContext(),MapsActivity.class);
         EditText location = (EditText) findViewById(R.id.location_edit_text);
-        if (!location.getText().equals("3648 Post Oak Tritt rd.")) {
-            finish();
-        }
         intent.putExtra("address", location.getText().toString());
         startActivity(intent);
     }

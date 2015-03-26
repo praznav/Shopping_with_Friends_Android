@@ -194,7 +194,6 @@ public class FriendsListActivity extends Activity {
             } catch (IOException e) {
                 Log.d("Error", e.getMessage());
             }
-            Log.d("LINE", line.substring(line.indexOf("response") + 11));
             if (line.contains("<satus>success</satus>")) {
                 success = true;
                 line = line.substring(line.indexOf("<satus>success</satus>") + 22);
