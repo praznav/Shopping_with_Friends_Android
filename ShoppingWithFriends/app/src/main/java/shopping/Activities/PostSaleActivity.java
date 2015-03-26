@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,8 @@ public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("location: ", "yoyoyo");
         setContentView(R.layout.activity_post_sale);
         cont = new PostSaleController(this);
 
@@ -156,6 +159,19 @@ public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
         }
         price = (Math.round(price * 100))/100.0;
         txtEdit.setText("" + price, TextView.BufferType.EDITABLE);
+    }
+    /**
+     * Method called when the "REGISTER INTEREST" button is clicked
+     * @param view current view
+     */
+    public void onButtonPress(View view) {
+        Intent intent = new Intent(PostSaleActivity.this.getApplicationContext(),MapsActivity.class);
+        EditText location = (EditText) findViewById(R.id.location_edit_text);
+        if (!location.getText().equals("3648 Post Oak Tritt rd.")) {
+            finish();
+        }
+        intent.putExtra("address", location.getText().toString());
+        startActivity(intent);
     }
 
 }

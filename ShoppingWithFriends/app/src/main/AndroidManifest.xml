@@ -8,14 +8,33 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="com.ram.googlemapsv2.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <!--
+ The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but are recommended.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-library android:name="com.google.android.maps"/>
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
-            android:name="shopping.Activities.LoginActivity"
+            android:name=".Activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter android:label="Shopping With Friends" >
@@ -25,32 +44,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="shopping.Activities.RegistrationActivity"
+            android:name=".Activities.RegistrationActivity"
             android:label="@string/title_activity_registration"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         <activity
-            android:name="shopping.Activities.MainScreenActivity"
+            android:name=".Activities.MainScreenActivity"
             android:label="@string/title_activity_main_screen"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name="shopping.Activities.PostSaleActivity"
+            android:name=".Activities.PostSaleActivity"
             android:label="@string/title_activity_main_screen"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name="shopping.Activities.FriendsListActivity"
+            android:name=".Activities.FriendsListActivity"
             android:label="@string/title_activity_friends_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="shopping.Activities.RegisterInterestActivity"
+            android:name=".Activities.RegisterInterestActivity"
             android:label="@string/title_activity_register_interest" >
         </activity>
-        <activity android:name=".Activities.Friend" android:label="friend"></activity>
+        <activity
+            android:name=".Activities.Friend"
+            android:label="friend" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".Activities.MapsActivity"
+            android:label="@string/title_activity_maps" >
+        </activity>
     </application>
+
 </manifest>
