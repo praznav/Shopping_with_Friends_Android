@@ -66,7 +66,10 @@ public class MainScreenActivity extends Activity implements MainScreenView {
         mSalesList = (ListView) findViewById(R.id.sales_list_view);
 
         cont.refreshList();
-
+        /**
+         * click listener for the SalersLIst
+         * a click takes you to the map which shows the location
+         */
         mSalesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

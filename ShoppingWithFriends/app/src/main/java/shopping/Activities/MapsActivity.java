@@ -15,9 +15,17 @@ import java.util.List;
 
 import shopping.R;
 
+/**
+ * Created by Pranav on 3/26/2015.
+ *
+ * MapActivity is the inapp Google maps view
+ */
 public class MapsActivity extends FragmentActivity {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    // This is the location that is passed into this activity by the previous activity as an extra
+    // this should be the location of the sale
+    // this activity handles nulls
     String location;
 
     @Override
@@ -80,7 +88,14 @@ public class MapsActivity extends FragmentActivity {
         }
     }
 
-    public Address getLocationFromAddress(String strAddress) {
+    /**
+     * The purpose of this method is to take an address as a string and output a form
+     * that we can use to get Latitude and Longitude
+     *
+     * @param strAddress        this is the address in string form
+     * @return  an Address object of the address passed in
+     */
+    private Address getLocationFromAddress(String strAddress) {
 
         Geocoder coder = new Geocoder(this);
         List<Address> address;

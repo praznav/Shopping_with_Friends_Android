@@ -19,7 +19,17 @@ import shopping.Controller.PostSaleController;
 import shopping.R;
 import shopping.View.PostSaleView;
 
-
+/**
+ * This is the activity for the post sale page
+ * summary:
+ *      includes an
+ *          enter item editText
+ *          enter price editText
+ *          location of item editTtext
+ *          confirm button - enters into database
+ *          return button - returns
+ *          view on map button - takes you to a map showing teh location
+ */
 public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
 
     private PostSaleController cont;
