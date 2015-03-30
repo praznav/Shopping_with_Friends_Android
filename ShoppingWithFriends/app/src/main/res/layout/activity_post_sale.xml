@@ -16,7 +16,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:weightSum="1">
 
             <TextView
@@ -25,8 +25,6 @@
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Post Sale"
                 android:id="@+id/post_sale_text_view"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal" />
 
             <EditText
@@ -35,9 +33,6 @@
                 android:id="@+id/item_edit_text"
                 android:layout_marginTop="47dp"
                 android:hint="@string/enter_interest"
-                android:layout_below="@+id/post_sale_text_view"
-                android:layout_alignParentStart="true"
-                android:editable="true"
                 android:focusable="true"
                 android:inputType="text"
                 android:enabled="true"
@@ -51,9 +46,6 @@
                 android:id="@+id/price_edit_text"
                 android:layout_marginTop="30dp"
                 android:hint="@string/enter_found_price"
-                android:layout_below="@+id/item_edit_text"
-                android:layout_alignParentStart="true"
-                android:editable="false"
                 android:enabled="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true" />
@@ -66,9 +58,6 @@
                 android:id="@+id/location_edit_text"
                 android:layout_marginTop="30dp"
                 android:hint="@string/enter_item_location"
-                android:layout_below="@+id/item_edit_text"
-                android:layout_alignParentStart="true"
-                android:editable="false"
                 android:enabled="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true" />
