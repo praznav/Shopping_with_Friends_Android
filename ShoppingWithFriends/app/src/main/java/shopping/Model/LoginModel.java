@@ -17,13 +17,13 @@ import shopping.Controller.LoginController;
 /**
  * Created by Kevin on 2/25/15.
  */
-public class LoginTask {
+public class LoginModel {
     private String mEmail = "";
     private String mPassword = "";
     private LoginController cont;
     private String message;
 
-    public LoginTask(LoginController c) {
+    public LoginModel(LoginController c) {
         cont = c;
         message = "";
     }
