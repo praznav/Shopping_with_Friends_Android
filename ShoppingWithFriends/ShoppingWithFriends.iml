@@ -7,7 +7,11 @@
       </configuration>
     </facet>
   </component>
+<<<<<<< HEAD
   <component name="NewModuleRootManager" inherit-compiler-output="false">
+=======
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+>>>>>>> adb037a0fdfa50f3b70327153a35e8b8f61d037e
     <output url="file://$MODULE_DIR$/build/classes/main" />
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
     <exclude-output />

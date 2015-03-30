@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/testBackground"
     android:touchscreenBlocksFocus="false"
     android:weightSum="1"
     tools:context="com.example.pranav.shoppingwithfriends.Registration">
@@ -20,8 +19,7 @@
         <RelativeLayout
             android:id="@+id/registration_form"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/Registration"
@@ -32,7 +30,7 @@
                 android:text="@string/registration"
                 android:textColor="#ffc2c2c2"
                 android:layout_centerHorizontal="true"
-                android:textSize="40dp" />
+                android:textSize="40sp" />
 
 
 
