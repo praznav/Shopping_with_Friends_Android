@@ -34,10 +34,7 @@ import shopping.Model.Sale;
 import shopping.Model.User;
 
 /**
- * Agavi based implementation of the ServerConnection. Makes all requests to the teamkevin.me Agavi
- * based server.
- *
- * @author Zachary Peterson
+ * Created by Zach on 2/20/2015.
  */
 public class AgaviServerConnection implements ServerConnection {
     private String mConnectionUrl = "http://teamkevin.me";
@@ -47,6 +44,7 @@ public class AgaviServerConnection implements ServerConnection {
     private String mRegisterInterestUrl = "/RegisterInterest";
     private String mPostSaleUrl = "/RegisterSale";
     private String mGetSaleUrl = "/Get";
+
 
     private static AgaviServerConnection mInstance;
 
@@ -334,12 +332,14 @@ public class AgaviServerConnection implements ServerConnection {
 
     }
 
+
     @Override
     public boolean PostSale(User myUser, String productName, double price, String location) throws
             UserNotAuthorizedException, InternalServerErrorException, InvalidProductNameException,
             InvalidPriceException, InvalidUserException, UnrecognizedResponseException,
             RegisteredItemAlreadyExistsException
     {
+
         HttpClient client;
         HttpPost post;
         ArrayList<NameValuePair> postParameters;

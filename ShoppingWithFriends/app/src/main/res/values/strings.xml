@@ -41,5 +41,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="credential_preference_string">me.teamkevin.shoppingWithFriends.USER_LOGIN_INFO</string>
     <string name="title_activity_register_interest">RegisterInterestActivity</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

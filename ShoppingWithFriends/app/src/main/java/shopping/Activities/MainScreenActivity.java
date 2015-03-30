@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -38,6 +39,10 @@ public class MainScreenActivity extends Activity implements MainScreenView {
     private Button mViewFriends;
     /** mLogout is a button that logs out the user and returns him to the login screen*/
     private Button mLogout;
+    /** ListView containing all the Sales pertaining to the logged in User. attributes are clickable */
+    private ListView mSalesList;
+
+    List<Sale> salesList;
 
     private MainScreenController cont;
 
@@ -49,7 +54,7 @@ public class MainScreenActivity extends Activity implements MainScreenView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-
+        salesList = null;
         cont = new MainScreenController(this);
 
         SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
@@ -58,8 +63,22 @@ public class MainScreenActivity extends Activity implements MainScreenView {
 
         mViewFriends = (Button) findViewById(R.id.view_friends_button);
         mLogout = (Button) findViewById(R.id.logout_button);
+        mSalesList = (ListView) findViewById(R.id.sales_list_view);
 
         cont.refreshList();
+        /**
+         * click listener for the SalersLIst
+         * a click takes you to the map which shows the location
+         */
+        mSalesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Sale thing = salesList.get(position);
+                Intent intent = new Intent(MainScreenActivity.this.getApplicationContext(),MapsActivity.class);
+                intent.putExtra("address", thing.getLocation());
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -96,6 +115,7 @@ public class MainScreenActivity extends Activity implements MainScreenView {
     @Override
     public void displaySales(List<Sale> salesList)
     {
+        this.salesList = salesList;
         List<String> sales = new ArrayList<String>();
         for(int i = 0; i < salesList.size(); i++)
         {

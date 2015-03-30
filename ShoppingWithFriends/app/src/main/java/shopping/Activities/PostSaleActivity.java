@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +19,17 @@ import shopping.Controller.PostSaleController;
 import shopping.R;
 import shopping.View.PostSaleView;
 
-
+/**
+ * This is the activity for the post sale page
+ * summary:
+ *      includes an
+ *          enter item editText
+ *          enter price editText
+ *          location of item editTtext
+ *          confirm button - enters into database
+ *          return button - returns
+ *          view on map button - takes you to a map showing teh location
+ */
 public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
 
     private PostSaleController cont;
@@ -28,6 +39,8 @@ public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("location: ", "yoyoyo");
         setContentView(R.layout.activity_post_sale);
         cont = new PostSaleController(this);
 
@@ -156,6 +169,16 @@ public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
         }
         price = (Math.round(price * 100))/100.0;
         txtEdit.setText("" + price, TextView.BufferType.EDITABLE);
+    }
+    /**
+     * Method called when the "REGISTER INTEREST" button is clicked
+     * @param view current view
+     */
+    public void onButtonPress(View view) {
+        Intent intent = new Intent(PostSaleActivity.this.getApplicationContext(),MapsActivity.class);
+        EditText location = (EditText) findViewById(R.id.location_edit_text);
+        intent.putExtra("address", location.getText().toString());
+        startActivity(intent);
     }
 
 }
