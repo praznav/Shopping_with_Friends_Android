@@ -44,11 +44,11 @@ import shopping.R;
 import shopping.View.LoginView;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via username/password.
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, LoginView {
     // UI references.
-    private AutoCompleteTextView mEmailView;
+    private AutoCompleteTextView mUsernameView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -64,7 +64,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         cont = new LoginController(this);
 
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -92,6 +92,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         // Allows this information to be accessed throughout the application
         SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
+        //Should change to user object
         editor.putString("Username", username);
         editor.putString("Password", password);
         editor.apply();
@@ -106,11 +107,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     }
 
     /**
-     * Gets the email from the approrpriate text field
-     * @return email
+     * Gets the username from the approrpriate text field
+     * @return username
      */
-    public String getEmail() {
-        return mEmailView.getText().toString();
+    public String getUsername() {
+        return mUsernameView.getText().toString();
     }
 
     /**
@@ -253,6 +254,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-        mEmailView.setAdapter(adapter);
+        mUsernameView.setAdapter(adapter);
     }
 }
