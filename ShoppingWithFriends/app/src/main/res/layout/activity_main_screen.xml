@@ -39,7 +39,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Current Deals"
         android:id="@+id/textView11"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
