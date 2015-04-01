@@ -57,7 +57,7 @@ import shopping.R;
  * Created by Pranav on 2/3/2015.
  */
 public class RegistrationActivity extends Activity {
-    /** UserRegisterTask used to register a user. Exectues on Register press */
+    /** UserRegisterTask used to register a user. Executes on Register press */
     private UserRegisterTask mRegisterTask = null;
     /** ProgressDialog shows on screen when the registration is loading */
     private ProgressDialog mSpinner = null;
@@ -67,8 +67,6 @@ public class RegistrationActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.registration);
-        Button reg = (Button) findViewById(R.id.regButton);
-        Button ret = (Button) findViewById(R.id.retButton);
 
     }
 
@@ -181,7 +179,7 @@ public class RegistrationActivity extends Activity {
             HttpPost post = new HttpPost(url);
 
             // Add the post parameters to the request
-            List<NameValuePair> parameters = new ArrayList<NameValuePair>(5);
+            List<NameValuePair> parameters = new ArrayList<>(5);
             parameters.add(new BasicNameValuePair("username", mUsername));
             parameters.add(new BasicNameValuePair("password", mPassword));
             parameters.add(new BasicNameValuePair("email", mEmail));
@@ -196,7 +194,6 @@ public class RegistrationActivity extends Activity {
 
 
             HttpResponse response;
-            HttpEntity entity = null;
             try {
                 // Execute the POST request and save the response
                 response = client.execute(post);
@@ -204,7 +201,7 @@ public class RegistrationActivity extends Activity {
                 // Read the full response and create a string out of it that can be parsed with
                 // an XML parser
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                String line = "";
+                String line;
                 StringBuilder sb = new StringBuilder();
                 while ((line = rd.readLine()) != null) {
                     sb.append(line);
@@ -225,139 +222,142 @@ public class RegistrationActivity extends Activity {
                     Element statusElement = (Element) statusList.item(0);
                     String status = ((CharacterData) statusElement.getFirstChild()).getData();
 
-                    if (status.equals("success")) {
-                        // If the status was success, registration was too
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                // Show a toast to let the user know
-                                Toast.makeText(getApplicationContext(), "User successfully registered. Please login with your new user now.", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        return true;
-                    } else if (status.equals("taken")) {
-                        // Username already taken, set the username error appropriately and show a
-                        // toast to let the user know
-                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                        final String usernameError = ((CharacterData) messageElement.getFirstChild()).getData();
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                EditText usernameText = (EditText) findViewById(R.id.usernameEditText);
-                                usernameText.setError(usernameError);
-                                Toast.makeText(getApplicationContext(), usernameError, Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        return false;
-                    } else if (status.equals("error")) {
-                        // Server error occurred, show a toast with the contents of the message
-                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                        final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), serverError, Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        return false;
-                    } else if (status.equals("invalid")) {
-                        // One of the fields the user entered was invalid, go through each one
-                        // and check for validation errors
-                        NodeList usernameErrors = doc.getElementsByTagName("usernameErrors");
-                        if (usernameErrors.getLength() > 0) {
-                            // There were username errors
-                            NodeList usernameChildren = usernameErrors.item(0).getChildNodes();
-                            for (int i = 0; i < usernameChildren.getLength(); i++) {
-                                if (usernameChildren.item(i) instanceof Element) {
-                                    final String usernameError = usernameChildren.item(i).getLastChild().getTextContent().trim();
-                                    runOnUiThread(new Runnable() {
-                                        public void run() {
-                                            EditText usernameText = (EditText) findViewById(R.id.usernameEditText);
-                                            usernameText.setError(usernameError);
-                                        }
-                                    });
+                    switch (status) {
+                        case "success":
+                            // If the status was success, registration was too
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    // Show a toast to let the user know
+                                    Toast.makeText(getApplicationContext(), "User successfully registered. Please login with your new user now.", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            return true;
+                        case "taken": {
+                            // Username already taken, set the username error appropriately and show a
+                            // toast to let the user know
+                            Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                            final String usernameError = ((CharacterData) messageElement.getFirstChild()).getData();
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    EditText usernameText = (EditText) findViewById(R.id.usernameEditText);
+                                    usernameText.setError(usernameError);
+                                    Toast.makeText(getApplicationContext(), usernameError, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            return false;
+                        }
+                        case "error": {
+                            // Server error occurred, show a toast with the contents of the message
+                            Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                            final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), serverError, Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            return false;
+                        }
+                        case "invalid":
+                            // One of the fields the user entered was invalid, go through each one
+                            // and check for validation errors
+                            NodeList usernameErrors = doc.getElementsByTagName("usernameErrors");
+                            if (usernameErrors.getLength() > 0) {
+                                // There were username errors
+                                NodeList usernameChildren = usernameErrors.item(0).getChildNodes();
+                                for (int i = 0; i < usernameChildren.getLength(); i++) {
+                                    if (usernameChildren.item(i) instanceof Element) {
+                                        final String usernameError = usernameChildren.item(i).getLastChild().getTextContent().trim();
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                EditText usernameText = (EditText) findViewById(R.id.usernameEditText);
+                                                usernameText.setError(usernameError);
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                        }
 
-                        NodeList emailErrors = doc.getElementsByTagName("emailErrors");
-                        if (emailErrors.getLength() > 0) {
-                            // There were email errors
-                            NodeList emailChildren = emailErrors.item(0).getChildNodes();
-                            for (int i = 0; i < emailChildren.getLength(); i++) {
-                                if (emailChildren.item(i) instanceof Element) {
-                                    final String emailError = emailChildren.item(i).getLastChild().getTextContent().trim();
-                                    runOnUiThread(new Runnable() {
-                                        public void run() {
-                                            EditText emailText = (EditText) findViewById(R.id.emailEditText);
-                                            emailText.setError(emailError);
-                                        }
-                                    });
+                            NodeList emailErrors = doc.getElementsByTagName("emailErrors");
+                            if (emailErrors.getLength() > 0) {
+                                // There were email errors
+                                NodeList emailChildren = emailErrors.item(0).getChildNodes();
+                                for (int i = 0; i < emailChildren.getLength(); i++) {
+                                    if (emailChildren.item(i) instanceof Element) {
+                                        final String emailError = emailChildren.item(i).getLastChild().getTextContent().trim();
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                EditText emailText = (EditText) findViewById(R.id.emailEditText);
+                                                emailText.setError(emailError);
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                        }
 
-                        NodeList passwordErrors = doc.getElementsByTagName("passwordErrors");
-                        if (passwordErrors.getLength() > 0) {
-                            // There were password errors
-                            NodeList passwordChildren = passwordErrors.item(0).getChildNodes();
-                            for (int i = 0; i < passwordChildren.getLength(); i++) {
-                                if (passwordChildren.item(i) instanceof Element) {
-                                    final String passwordError = passwordChildren.item(i).getLastChild().getTextContent().trim();
-                                    runOnUiThread(new Runnable() {
-                                        public void run() {
-                                            EditText passwordText = (EditText) findViewById(R.id.passwordEditText);
-                                            passwordText.setError(passwordError);
-                                        }
-                                    });
+                            NodeList passwordErrors = doc.getElementsByTagName("passwordErrors");
+                            if (passwordErrors.getLength() > 0) {
+                                // There were password errors
+                                NodeList passwordChildren = passwordErrors.item(0).getChildNodes();
+                                for (int i = 0; i < passwordChildren.getLength(); i++) {
+                                    if (passwordChildren.item(i) instanceof Element) {
+                                        final String passwordError = passwordChildren.item(i).getLastChild().getTextContent().trim();
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                EditText passwordText = (EditText) findViewById(R.id.passwordEditText);
+                                                passwordText.setError(passwordError);
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                        }
 
-                        NodeList firstNameErrors = doc.getElementsByTagName("firstNameErrors");
-                        if (firstNameErrors.getLength() > 0) {
-                            // There were first name errors
-                            NodeList firstNameChildren = firstNameErrors.item(0).getChildNodes();
-                            for (int i = 0; i < firstNameChildren.getLength(); i++) {
-                                if (firstNameChildren.item(i) instanceof Element) {
-                                    final String firstNameError = firstNameChildren.item(i).getLastChild().getTextContent().trim();
-                                    runOnUiThread(new Runnable() {
-                                        public void run() {
-                                            EditText firstNameText = (EditText) findViewById(R.id.firstNameEditText);
-                                            firstNameText.setError(firstNameError);
-                                        }
-                                    });
+                            NodeList firstNameErrors = doc.getElementsByTagName("firstNameErrors");
+                            if (firstNameErrors.getLength() > 0) {
+                                // There were first name errors
+                                NodeList firstNameChildren = firstNameErrors.item(0).getChildNodes();
+                                for (int i = 0; i < firstNameChildren.getLength(); i++) {
+                                    if (firstNameChildren.item(i) instanceof Element) {
+                                        final String firstNameError = firstNameChildren.item(i).getLastChild().getTextContent().trim();
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                EditText firstNameText = (EditText) findViewById(R.id.firstNameEditText);
+                                                firstNameText.setError(firstNameError);
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                        }
 
-                        NodeList lastNameErrors = doc.getElementsByTagName("lastNameErrors");
-                        if (lastNameErrors.getLength() > 0) {
-                            // There were last name errors
-                            NodeList lastNameChildren = lastNameErrors.item(0).getChildNodes();
-                            for (int i = 0; i < lastNameChildren.getLength(); i++) {
-                                if (lastNameChildren.item(i) instanceof Element) {
-                                    final String lastNameError = lastNameChildren.item(i).getLastChild().getTextContent().trim();
-                                    runOnUiThread(new Runnable() {
-                                        public void run() {
-                                            EditText lastNameText = (EditText) findViewById(R.id.lastNameEditText);
-                                            lastNameText.setError(lastNameError);
-                                        }
-                                    });
+                            NodeList lastNameErrors = doc.getElementsByTagName("lastNameErrors");
+                            if (lastNameErrors.getLength() > 0) {
+                                // There were last name errors
+                                NodeList lastNameChildren = lastNameErrors.item(0).getChildNodes();
+                                for (int i = 0; i < lastNameChildren.getLength(); i++) {
+                                    if (lastNameChildren.item(i) instanceof Element) {
+                                        final String lastNameError = lastNameChildren.item(i).getLastChild().getTextContent().trim();
+                                        runOnUiThread(new Runnable() {
+                                            public void run() {
+                                                EditText lastNameText = (EditText) findViewById(R.id.lastNameEditText);
+                                                lastNameText.setError(lastNameError);
+                                            }
+                                        });
+                                    }
                                 }
                             }
-                        }
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "Your registration contains invalid data. Please check your entries and try again.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        return false;
-                    } else {
-                        // The server response was unrecognized, let the user know
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "Unrecognized server response.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                        return false;
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Your registration contains invalid data. Please check your entries and try again.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            return false;
+                        default:
+                            // The server response was unrecognized, let the user know
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getApplicationContext(), "Unrecognized server response.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            return false;
                     }
                 } catch (ParserConfigurationException e) {
                     Log.e("XML Exception", "Caught a parser configuration exception while creating the document builder", e);

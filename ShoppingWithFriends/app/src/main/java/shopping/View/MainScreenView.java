@@ -1,7 +1,5 @@
 package shopping.View;
 
-import android.view.View;
-
 import java.util.List;
 
 import shopping.Model.Sale;

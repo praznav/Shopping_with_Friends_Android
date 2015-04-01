@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:text="Return"
             android:id="@+id/return_button"
-            android:onClick="finish"
+            android:onClick="returnFromActivity"
             android:layout_marginEnd="80dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />

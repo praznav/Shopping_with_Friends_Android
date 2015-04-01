@@ -121,9 +121,7 @@ public class Friend extends Activity{
 
         @Override
         protected void onPostExecute(final Boolean Success) {
-            if (Success == true) {
-
-            } else {
+            if (!Success) {
                 // error message here
                 // toast or something
             }

@@ -12,8 +12,8 @@ import shopping.ServerConnection.AgaviServerConnection;
 /**
  * Created by Keshanz on 3/2/2015.
  */
+@SuppressWarnings("Convert2Diamond")
 public class MainScreenModel {
-    private MainScreenController cont;
     private String username;
     private String password;
     private double foundPrice;
@@ -24,7 +24,7 @@ public class MainScreenModel {
 
     public MainScreenModel(MainScreenController c)
     {
-        cont = c;
+        MainScreenController cont = c;
         saleList = new ArrayList<Sale>();
 
     }
