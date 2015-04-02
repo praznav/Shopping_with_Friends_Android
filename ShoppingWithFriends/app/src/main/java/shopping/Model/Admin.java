@@ -12,11 +12,13 @@
 package shopping.Model;
 
 public class Admin extends Person {
-	public Admin(String fName, String lName, String username, String password, String emailAddress) {
-		this.fName = fName;
-		this.lName = lName;
-		this.username = username;
-		this.password = password;
-		this.emailAddress = emailAddress;
-	}
+// --Commented out by Inspection START (3/29/2015 5:02 PM):
+//	public Admin(String fName, String lName, String username, String password, String emailAddress) {
+//		this.fName = fName;
+//		this.lName = lName;
+//		this.username = username;
+//		this.password = password;
+//		this.emailAddress = emailAddress;
+//	}
+// --Commented out by Inspection STOP (3/29/2015 5:02 PM)
 }

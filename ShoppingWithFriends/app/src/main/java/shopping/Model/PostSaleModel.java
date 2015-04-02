@@ -9,7 +9,6 @@ import shopping.ServerConnection.AgaviServerConnection;
  * Created by Keshanz on 3/2/2015.
  */
 public class PostSaleModel {
-    private PostSaleController cont;
     private String username;
     private String password;
     private String message;
@@ -20,7 +19,7 @@ public class PostSaleModel {
 
     public PostSaleModel(PostSaleController c)
     {
-        cont = c;
+        PostSaleController cont = c;
         message = "";
 
     }
@@ -48,7 +47,7 @@ public class PostSaleModel {
      * @param i item you're posting
      * @param l location where item was found
      * @param p price of the item found
-     * @return
+     * @return The message as a result of the post.
      */
     public String postSale(String i, String l, double p)
     {

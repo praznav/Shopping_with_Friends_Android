@@ -1,6 +1,5 @@
 package shopping.View;
 
-import android.content.Intent;
 import android.view.View;
 
 /**

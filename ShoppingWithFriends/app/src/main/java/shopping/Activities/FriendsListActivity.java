@@ -70,7 +70,7 @@ public class FriendsListActivity extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.activity_friends_list);
-        friendsList = new ArrayList<String>();
+        friendsList = new ArrayList<>();
 
         // Gets username and password for current user from shared preferences
         SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
@@ -85,7 +85,7 @@ public class FriendsListActivity extends Activity {
 
         // Sets list view for friends list
         mFriendsList = (ListView) findViewById(R.id.friends_list_view);
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
         mFriendsList.setAdapter(adapter);
 
         mFriendsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,7 +109,7 @@ public class FriendsListActivity extends Activity {
      */
     public void thatMethod() {
         adapter = null;
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
         adapter.notifyDataSetChanged();
         mFriendsList.setAdapter(adapter);
     }
@@ -126,7 +126,7 @@ public class FriendsListActivity extends Activity {
         mGetFriendsTask = new GetFriendsTask(username, password);
         mGetFriendsTask.execute((Void) null);
         adapter = null;
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, friendsList);
         adapter.notifyDataSetChanged();
         mFriendsList.setAdapter(adapter);
     }
@@ -207,7 +207,7 @@ public class FriendsListActivity extends Activity {
 
         @Override
         protected void onPostExecute(final Boolean Success) {
-            if (Success == true) {
+            if (Success) {
                 // parse line and get all the values
                 String friendsUsername = line.substring(line.indexOf("<friendUsername>") + 16, line.indexOf("</friendUsername>"));
                 String friendFirstName = line.substring(line.indexOf("<friendFirstName>") + 17, line.indexOf("</friendFirstName>"));
@@ -227,10 +227,13 @@ public class FriendsListActivity extends Activity {
                 i.putExtra("password", password);
 
                 startActivity(i);
-            } else {
+            }
+            /*
+            else {
                 // error message here
                 // toast or something
             }
+            */
         }
     }
 
@@ -255,7 +258,7 @@ public class FriendsListActivity extends Activity {
         @Override
         protected Boolean doInBackground(Void... params) {
             try {
-                friendsList = new ArrayList<String>();
+                friendsList = new ArrayList<>();
                 DefaultHttpClient client = new DefaultHttpClient();
                 HttpGet httpget = new HttpGet("http://teamkevin.me/Friends/List?username=" + username + "&password=" + password);
                 HttpResponse response = client.execute(httpget);
@@ -306,9 +309,12 @@ public class FriendsListActivity extends Activity {
             if (success) {
                 thatMethod();
                 // Display toast
-            } else {
+            }
+            /*
+            else {
                 // Display toast
             }
+            */
         }
 
         @Override
@@ -337,7 +343,7 @@ public class FriendsListActivity extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            friendsList = new ArrayList<String>();
+            friendsList = new ArrayList<>();
             EditText user = (EditText) findViewById(R.id.friend_username_edit_text);
 
             friendUsername = user.getText().toString();
@@ -348,7 +354,7 @@ public class FriendsListActivity extends Activity {
             httpclient = new DefaultHttpClient();
             httppost = new HttpPost("http://teamkevin.me/Friends/Add");
 
-            postParameters = new ArrayList<NameValuePair>();
+            postParameters = new ArrayList<>();
             postParameters.add(new BasicNameValuePair("username", username));
             postParameters.add(new BasicNameValuePair("password", password));
             postParameters.add(new BasicNameValuePair("friendUsername", friendUsername));
@@ -376,11 +382,13 @@ public class FriendsListActivity extends Activity {
         protected void onPostExecute(final Boolean success) {
             mAddFriendTask = null;
 
+            /*
             if (success) {
                 // Success
             } else {
                 // Display friend wasn't added toast
             }
+            */
         }
 
         @Override
