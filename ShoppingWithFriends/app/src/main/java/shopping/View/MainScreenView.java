@@ -4,9 +4,6 @@ import java.util.List;
 
 import shopping.Model.Sale;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 public interface MainScreenView {
 
     /**

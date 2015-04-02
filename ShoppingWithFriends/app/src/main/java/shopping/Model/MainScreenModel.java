@@ -9,9 +9,6 @@ import java.util.List;
 import shopping.Controller.MainScreenController;
 import shopping.ServerConnection.AgaviServerConnection;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 @SuppressWarnings("Convert2Diamond")
 public class MainScreenModel {
     private String username;
@@ -24,9 +21,7 @@ public class MainScreenModel {
 
     public MainScreenModel(MainScreenController c)
     {
-        MainScreenController cont = c;
         saleList = new ArrayList<Sale>();
-
     }
 
     /**
@@ -61,6 +56,7 @@ public class MainScreenModel {
         }
         catch(Exception e)
         {
+            // Return -1 if error occurs
         }
         return saleList;
     }

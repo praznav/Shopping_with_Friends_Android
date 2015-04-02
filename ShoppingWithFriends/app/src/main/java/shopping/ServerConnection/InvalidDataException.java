@@ -7,8 +7,8 @@ import java.util.HashMap;
  *
  * @author Zachary Peterson
  */
-public class InvalidDataException extends Exception {
-    private HashMap<String, String> mInvalidFields;
+class InvalidDataException extends Exception {
+    private final HashMap<String, String> mInvalidFields;
 
     /**
      * Constructs a new exception with default message.
@@ -41,6 +41,7 @@ public class InvalidDataException extends Exception {
      * @return A HashMap with all of the invalid fields and their corresponding errors.
      */
     public HashMap<String, String> GetInvalidFields() {
+        //noinspection unchecked
         return ((HashMap<String, String>) mInvalidFields.clone());
     }
 }

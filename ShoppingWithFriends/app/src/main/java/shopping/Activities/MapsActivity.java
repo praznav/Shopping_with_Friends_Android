@@ -4,7 +4,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -18,7 +17,7 @@ import shopping.R;
 /**
  * Created by Pranav on 3/26/2015.
  *
- * MapActivity is the inapp Google maps view
+ * MapActivity is the in app Google maps view
  */
 public class MapsActivity extends FragmentActivity {
 
@@ -26,7 +25,7 @@ public class MapsActivity extends FragmentActivity {
     // This is the location that is passed into this activity by the previous activity as an extra
     // this should be the location of the sale
     // this activity handles nulls
-    String location;
+    private String location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +84,7 @@ public class MapsActivity extends FragmentActivity {
 //        mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
             mMap.addMarker(new MarkerOptions().position(new LatLng(place.getLatitude(), place.getLongitude())).title("Sale"));
         } catch (Exception e) {
+            // Return -1 if error occurs
         }
     }
 
@@ -111,6 +111,7 @@ public class MapsActivity extends FragmentActivity {
 
             return location;
         } catch (Exception e) {
+            // Return -1 if error occurs
         }
         return null;
     }

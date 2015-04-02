@@ -18,12 +18,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -52,10 +50,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import shopping.R;
 
-
-/**
- * Created by Pranav on 2/3/2015.
- */
 public class RegistrationActivity extends Activity {
     /** UserRegisterTask used to register a user. Executes on Register press */
     private UserRegisterTask mRegisterTask = null;

@@ -5,7 +5,7 @@ package shopping.ServerConnection;
  *
  * @author Zachary Peterson
  */
-public class InvalidCredentialsException extends Exception {
+class InvalidCredentialsException extends Exception {
     /**
      * Constructs a new exception with default message.
      */

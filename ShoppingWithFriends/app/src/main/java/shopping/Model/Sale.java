@@ -1,19 +1,16 @@
 package shopping.Model;
 
-/**
- * Created by Keshanz on 3/11/2015.
- */
 public class Sale {
     // friend who made the sale post
-    String postingUser;
+    private final String postingUser;
     // name of product
-    String productName;
+    private final String productName;
     // price of product
-    double priceFound;
+    private final double priceFound;
     // max price willing to pay
-    double priceRequested;
+    private final double priceRequested;
     // place of sale
-    String location;
+    private final String location;
 
     public Sale(String user, String product, double found, double req, String loc)
     {

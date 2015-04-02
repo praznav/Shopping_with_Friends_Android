@@ -3,18 +3,14 @@ package shopping.Controller;
 import shopping.Model.RegisterInterestModel;
 import shopping.View.RegisterInterestView;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 public class RegisterInterestController {
-
-    RegisterInterestView view;
-    RegisterInterestModel model;
+    private final RegisterInterestView view;
+    private final RegisterInterestModel model;
 
     public RegisterInterestController(RegisterInterestView v)
     {
         view = v;
-        model = new RegisterInterestModel(this);
+        model = new RegisterInterestModel();
     }
 
     /**

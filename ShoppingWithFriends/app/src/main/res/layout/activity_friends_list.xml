@@ -18,14 +18,14 @@
         <LinearLayout
             android:id="@+id/friends_list_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ListView
                 android:id="@+id/friends_list_view"
                 android:layout_width="match_parent"
-                android:layout_height="438dp" />
+                android:layout_height="438sp"
+                tools:ignore="NestedScrolling" />
 
         </LinearLayout>
     </ScrollView>
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="goBack"
-        android:text="Back"
+        android:text="@string/back"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/textView8" />
@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="addFriend"
-        android:text="Add Friend"
+        android:text="@string/add_friend"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_toStartOf="@+id/textView8" />

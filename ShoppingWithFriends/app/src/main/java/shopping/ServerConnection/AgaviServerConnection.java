@@ -2,7 +2,6 @@ package shopping.ServerConnection;
 
 import android.util.Log;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -33,12 +32,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import shopping.Model.Sale;
 import shopping.Model.User;
 
-/**
- * Created by Zach on 2/20/2015.
- */
 public class AgaviServerConnection implements ServerConnection {
-    private String mConnectionUrl = "http://teamkevin.me";
-    private String mSalesUrl = "/Sales";
+    private final String mConnectionUrl = "http://teamkevin.me";
+    private final String mSalesUrl = "/Sales";
 
 
     private static AgaviServerConnection mInstance;
@@ -58,7 +54,7 @@ public class AgaviServerConnection implements ServerConnection {
     }
 
     @Override
-    public boolean RegisterUser(User newUser) throws ConnectionFailedException,
+    public boolean RegisterUser(User newUser) throws
             UsernameTakenException, InvalidDataException, InternalServerErrorException,
             UnrecognizedResponseException {
         // Set up the HTTP post request
@@ -210,17 +206,17 @@ public class AgaviServerConnection implements ServerConnection {
     }
 
     @Override
-    public User AuthenticateUser(String username, String password) throws ConnectionFailedException, InvalidCredentialsException, InternalServerErrorException {
+    public User AuthenticateUser(String username, String password) {
         return null;
     }
 
     @Override
-    public List<User> GetFriendsList(User myUser) throws ConnectionFailedException, InvalidCredentialsException, InvalidUserException, InternalServerErrorException {
+    public List<User> GetFriendsList(User myUser) {
         return null;
     }
 
     @Override
-    public boolean AddFriend(User myUser, String friendUsername) throws ConnectionFailedException, InvalidCredentialsException, InvalidUserException, InternalServerErrorException, AlreadyFriendsException {
+    public boolean AddFriend(User myUser, String friendUsername) {
         return false;
     }
 

@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,7 +22,7 @@ import shopping.View.PostSaleView;
  *      includes an
  *          enter item editText
  *          enter price editText
- *          location of item editTtext
+ *          location of item editText
  *          confirm button - enters into database
  *          return button - returns
  *          view on map button - takes you to a map showing teh location
@@ -40,7 +37,6 @@ public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.d("location: ", "yoyoyo");
         setContentView(R.layout.activity_post_sale);
         cont = new PostSaleController(this);
 
@@ -85,6 +81,7 @@ public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
         }
         catch (Exception e)
         {
+            // Return -1 if error occurs
         }
         return d;
     }
@@ -166,6 +163,7 @@ public class PostSaleActivity extends ActionBarActivity implements PostSaleView{
         }
         catch (Exception e)
         {
+            // Return -1 if error occurs
         }
         price = (Math.round(price * 100))/100.0;
         txtEdit.setText("" + price, TextView.BufferType.EDITABLE);

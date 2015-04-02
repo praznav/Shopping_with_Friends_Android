@@ -3,9 +3,6 @@ package shopping.View;
 import android.content.Intent;
 import android.view.View;
 
-/**
- * Created by Nevin on 2/25/15.
- */
 public interface LoginView {
     /**
      * Called whenever the login button is clicked

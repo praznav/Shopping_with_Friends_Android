@@ -5,7 +5,7 @@ package shopping.ServerConnection;
  *
  * @author Zachary Peterson
  */
-public class AlreadyFriendsException extends Exception {
+class AlreadyFriendsException extends Exception {
     /**
      * Constructs a new exception with default message.
      */

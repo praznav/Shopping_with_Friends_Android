@@ -3,13 +3,9 @@ package shopping.Controller;
 import shopping.Model.MainScreenModel;
 import shopping.View.MainScreenView;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 public class MainScreenController {
-
-    MainScreenView view;
-    MainScreenModel model;
+    private final MainScreenView view;
+    private final MainScreenModel model;
 
     public MainScreenController(MainScreenView v)
     {

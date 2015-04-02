@@ -94,6 +94,7 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
         }
         catch (Exception e)
         {
+            // Return -1 if error occurs
         }
         return d;
     }
@@ -177,6 +178,7 @@ public class RegisterInterestActivity extends ActionBarActivity implements Regis
         }
         catch (Exception e)
         {
+            // Return -1 if error occurs
         }
         price = (Math.round(price * 100))/100.0;
         txtEdit.setText("" + price, TextView.BufferType.EDITABLE);

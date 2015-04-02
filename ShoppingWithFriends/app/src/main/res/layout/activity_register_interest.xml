@@ -7,9 +7,6 @@
     tools:context="shopping.Activities.RegisterInterestActivity"
     android:id="@+id/main_relative_layout">
 
-    TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
@@ -19,27 +16,22 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Register Interest"
+                android:text="@string/register_interest"
                 android:id="@+id/register_interest_text_view"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal" />
 
             <EditText
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/interest_edit_text"
-                android:layout_marginTop="47dp"
+                android:layout_marginTop="47sp"
                 android:hint="@string/enter_interest"
-                android:layout_below="@+id/register_interest_text_view"
-                android:layout_alignParentStart="true"
-                android:editable="true"
                 android:focusable="true"
                 android:inputType="text"
                 android:enabled="true"
@@ -51,11 +43,8 @@
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/price_edit_text"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="30sp"
                 android:hint="@string/enter_price"
-                android:layout_below="@+id/interest_edit_text"
-                android:layout_alignParentStart="true"
-                android:editable="false"
                 android:enabled="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true" />
@@ -68,26 +57,26 @@
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="194dp"
+        android:layout_marginTop="194sp"
         android:id="@+id/button_relative_layout">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Confirm"
+            android:text="@string/confirm"
             android:id="@+id/confirm_button"
             android:onClick="onConfirmClick"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="24sp"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/return_button" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Return"
+            android:text="@string/return_string"
             android:id="@+id/return_button"
             android:onClick="returnFromActivity"
-            android:layout_marginEnd="80dp"
+            android:layout_marginEnd="80sp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
     </RelativeLayout>

@@ -2,9 +2,6 @@ package shopping.View;
 
 import android.view.View;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 public interface PostSaleView {
     /**
      * Called when the confirm button is clicked

@@ -21,8 +21,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -34,19 +34,13 @@ import shopping.R;
 import shopping.View.MainScreenView;
 
 public class MainScreenActivity extends Activity implements MainScreenView {
-    /** mVeiwFriends is a button that redirects to the FriendsList page */
-    private Button mViewFriends;
-    /** mLogout is a button that logs out the user and returns him to the login screen*/
-    private Button mLogout;
-    /** ListView containing all the Sales pertaining to the logged in User. attributes are clickable */
-    private ListView mSalesList;
-
-    List<Sale> salesList;
+    private List<Sale> salesList;
 
     private MainScreenController cont;
 
     /** username and password are required for the database requests/posts */
-    String username, password;
+    private String username;
+    private String password;
 
 
     @Override
@@ -56,17 +50,17 @@ public class MainScreenActivity extends Activity implements MainScreenView {
         salesList = null;
         cont = new MainScreenController(this);
 
+        ListView mSalesList;
+
         SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
         username = prefs.getString("Username", "");
         password = prefs.getString("Password", "");
 
-        mViewFriends = (Button) findViewById(R.id.view_friends_button);
-        mLogout = (Button) findViewById(R.id.logout_button);
         mSalesList = (ListView) findViewById(R.id.sales_list_view);
 
         cont.refreshList();
         /**
-         * click listener for the SalersLIst
+         * click listener for the SaleList
          * a click takes you to the map which shows the location
          */
         mSalesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -115,7 +109,7 @@ public class MainScreenActivity extends Activity implements MainScreenView {
     public void displaySales(List<Sale> salesList)
     {
         this.salesList = salesList;
-        List<String> sales = new ArrayList<String>();
+        List<String> sales = new ArrayList<>();
         for(int i = 0; i < salesList.size(); i++)
         {
             Sale s = salesList.get(i);
@@ -124,7 +118,7 @@ public class MainScreenActivity extends Activity implements MainScreenView {
         }
         // Sets list view for friends list
         ListView mSalesList = (ListView) findViewById(R.id.sales_list_view);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, sales);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, sales);
         mSalesList.setAdapter(adapter);
     }
 

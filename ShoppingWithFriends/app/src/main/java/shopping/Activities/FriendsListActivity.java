@@ -61,7 +61,8 @@ public class FriendsListActivity extends Activity {
     /** mAddFriendTask executes when user clicks add friend. Uses fields to add friend. */
     private AddFriendTask mAddFriendTask;
     /** username and password are required for the database requests/posts */
-    String username, password;
+    private String username;
+    private String password;
     /** adapter */
     private ArrayAdapter<String> adapter;
 
@@ -92,14 +93,10 @@ public class FriendsListActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String things = friendsList.get(position);
-                String friendusername = things.substring(things.indexOf(" --- ") + 5);
+                String friendUsername = things.substring(things.indexOf(" --- ") + 5);
 
-
-                getFriendInfo getter = new getFriendInfo(friendusername);
+                getFriendInfo getter = new getFriendInfo(friendUsername);
                 getter.execute((Void) null);
-
-
-
             }
         });
     }
@@ -164,7 +161,7 @@ public class FriendsListActivity extends Activity {
 
     public class getFriendInfo extends AsyncTask<Void, Void, Boolean> {
 
-        private final String friendusername;
+        private final String friendUsername;
         private String line;
         boolean success;
 
@@ -173,17 +170,17 @@ public class FriendsListActivity extends Activity {
          * @param in The friend to get info for
          */
         getFriendInfo(String in) {
-            friendusername = in;
+            friendUsername = in;
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             line = "";
             try {
-                // put get request here with username, password, friendusername,
+                // put get request here with username, password, friendUsername,
                 final String url = "http://teamkevin.me/Friends/Get";
                 DefaultHttpClient client = new DefaultHttpClient();
-                HttpGet httpget = new HttpGet(url + "?username=" + username + "&password=" + password + "&friendUsername=" + friendusername);
+                HttpGet httpget = new HttpGet(url + "?username=" + username + "&password=" + password + "&friendUsername=" + friendUsername);
                 HttpResponse response = client.execute(httpget);
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
                 StringBuilder sb = new StringBuilder();
@@ -194,9 +191,9 @@ public class FriendsListActivity extends Activity {
             } catch (IOException e) {
                 Log.d("Error", e.getMessage());
             }
-            if (line.contains("<satus>success</satus>")) {
+            if (line.contains("<status>success</status>")) {
                 success = true;
-                line = line.substring(line.indexOf("<satus>success</satus>") + 22);
+                line = line.substring(line.indexOf("<status>success</status>") + 22);
                 Log.d("LINE",line);
                 return true;
             } else {
@@ -305,12 +302,12 @@ public class FriendsListActivity extends Activity {
 
         @Override
         protected void onPostExecute(final Boolean success) {
+            /**
             mGetFriendsTask = null;
             if (success) {
                 thatMethod();
                 // Display toast
             }
-            /*
             else {
                 // Display toast
             }

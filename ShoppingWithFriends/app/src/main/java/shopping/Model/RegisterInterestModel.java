@@ -2,12 +2,8 @@ package shopping.Model;
 
 import android.os.AsyncTask;
 
-import shopping.Controller.RegisterInterestController;
 import shopping.ServerConnection.AgaviServerConnection;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 public class RegisterInterestModel {
     private String username;
     private String password;
@@ -16,11 +12,9 @@ public class RegisterInterestModel {
     private String item;
     private RegisterInterestTask mInterestTask;
 
-    public RegisterInterestModel(RegisterInterestController c)
+    public RegisterInterestModel()
     {
-        RegisterInterestController cont = c;
         message = "";
-
     }
 
     /**

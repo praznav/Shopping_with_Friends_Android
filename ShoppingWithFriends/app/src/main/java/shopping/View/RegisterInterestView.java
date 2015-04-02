@@ -3,9 +3,6 @@ package shopping.View;
 import android.content.Intent;
 import android.view.View;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 public interface RegisterInterestView {
     /**
      * Called when the confirm button is clicked

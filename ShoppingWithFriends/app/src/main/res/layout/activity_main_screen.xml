@@ -37,16 +37,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Current Deals"
+        android:text="@string/current_deals"
         android:id="@+id/textView11"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register Interest"
+        android:text="@string/register_interest"
         android:id="@+id/register_interest_button"
         android:onClick="onRegisterInterestPress"
         android:layout_above="@+id/view_friends_button"
@@ -56,13 +56,12 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Post Sale"
+        android:text="@string/post_sale"
         android:id="@+id/post_sale_button"
         android:onClick="onPostSalePress"
         android:layout_above="@+id/logout_button"
         android:layout_alignEnd="@+id/logout_button"
-        android:layout_toEndOf="@+id/textView10"
-        android:nestedScrollingEnabled="true" />
+        android:layout_toEndOf="@+id/textView10" />
 
     <ListView
         android:layout_width="wrap_content"

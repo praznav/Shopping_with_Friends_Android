@@ -6,7 +6,7 @@ package shopping.ServerConnection;
  *
  * @author Zachary Peterson
  */
-public class UnrecognizedResponseException extends Exception {
+class UnrecognizedResponseException extends Exception {
     /**
      * Constructs a new exception with default message.
      */

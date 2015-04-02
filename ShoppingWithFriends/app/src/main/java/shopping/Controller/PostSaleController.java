@@ -3,18 +3,14 @@ package shopping.Controller;
 import shopping.Model.PostSaleModel;
 import shopping.View.PostSaleView;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 public class PostSaleController {
-
-    PostSaleView view;
-    PostSaleModel model;
+    private final PostSaleView view;
+    private final PostSaleModel model;
 
     public PostSaleController(PostSaleView v)
     {
         view = v;
-        model = new PostSaleModel(this);
+        model = new PostSaleModel();
     }
 
     /**

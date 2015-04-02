@@ -2,12 +2,8 @@ package shopping.Model;
 
 import android.os.AsyncTask;
 
-import shopping.Controller.PostSaleController;
 import shopping.ServerConnection.AgaviServerConnection;
 
-/**
- * Created by Keshanz on 3/2/2015.
- */
 public class PostSaleModel {
     private String username;
     private String password;
@@ -17,11 +13,9 @@ public class PostSaleModel {
     private String item;
     private PostSaleTask mPostSaleTask;
 
-    public PostSaleModel(PostSaleController c)
+    public PostSaleModel()
     {
-        PostSaleController cont = c;
         message = "";
-
     }
 
     /**

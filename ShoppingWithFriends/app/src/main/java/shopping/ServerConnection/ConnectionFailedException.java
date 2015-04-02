@@ -5,7 +5,7 @@ package shopping.ServerConnection;
  *
  * @author Zachary Peterson
  */
-public class ConnectionFailedException extends Exception {
+class ConnectionFailedException extends Exception {
     /**
      * Constructs a new exception with default message.
      */

@@ -11,20 +11,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import shopping.Controller.LoginController;
-
-/**
- * Created by Kevin on 2/25/15.
- */
 public class LoginTask {
     private String mEmail = "";
     private String mPassword = "";
     private String message;
-
-    public LoginTask(LoginController c) {
-        LoginController cont = c;
-        message = "";
-    }
 
     /**
      * Sets the model's user data value
@@ -91,8 +81,7 @@ public class LoginTask {
      * @return if it is valid
      */
     private boolean isEmailValid(String email) {
-        // Add conditions later
-        return true;
+        return email.contains("&");
     }
 
     /**
@@ -109,7 +98,7 @@ public class LoginTask {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
 

@@ -13,11 +13,11 @@ package shopping.Model;
 
 public abstract class Person {
 	protected final int DEFAULT_NUM_FRIENDS = 5;
-	protected String fName;
-	protected String lName;
-	protected String username;
-	protected String password;
-	protected String emailAddress;
+	String fName;
+	String lName;
+	String username;
+	String password;
+	String emailAddress;
 	// How will rating work?
 
     /**

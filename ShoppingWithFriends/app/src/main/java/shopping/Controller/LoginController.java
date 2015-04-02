@@ -7,18 +7,13 @@ import shopping.Activities.MainScreenActivity;
 import shopping.Model.LoginTask;
 import shopping.View.LoginView;
 
-
-
-/**
- * Created by Neil on 2/25/15.
- */
 public class LoginController {
-    private LoginView view;
-    private LoginTask model;
+    private final LoginView view;
+    private final LoginTask model;
 
     public LoginController(LoginView v) {
         view = v;
-        model = new LoginTask(this);
+        model = new LoginTask();
     }
 
     /**
@@ -45,7 +40,7 @@ public class LoginController {
      * @param username The correct username
      * @param password The correct password
      */
-    public void onCorrectCredentials(String username, String password)
+    void onCorrectCredentials(String username, String password)
     {
         // Go to main app
         Intent intent = new Intent((Activity) view, MainScreenActivity.class);

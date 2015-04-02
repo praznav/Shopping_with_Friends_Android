@@ -1,4 +1,4 @@
-/*
+package shopping.Model;/*
     **
     * @version 1.0
     * @team kevin
@@ -9,9 +9,7 @@
     * @author Neil Vohra
  */
 
-package shopping.Model;
-
-public class Admin extends Person {
+class Admin extends Person {
 // --Commented out by Inspection START (3/29/2015 5:02 PM):
 //	public Admin(String fName, String lName, String username, String password, String emailAddress) {
 //		this.fName = fName;

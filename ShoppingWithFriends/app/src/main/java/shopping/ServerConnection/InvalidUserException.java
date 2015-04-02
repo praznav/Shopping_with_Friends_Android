@@ -6,7 +6,7 @@ package shopping.ServerConnection;
  *
  * @author Zachary Peterson
  */
-public class InvalidUserException extends Exception {
+class InvalidUserException extends Exception {
     /**
      * Constructs a new exception with default message.
      */

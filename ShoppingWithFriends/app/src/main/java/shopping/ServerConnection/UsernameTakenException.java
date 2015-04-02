@@ -5,7 +5,7 @@ package shopping.ServerConnection;
  *
  * @author Zachary Peterson
  */
-public class UsernameTakenException extends Exception {
+class UsernameTakenException extends Exception {
     /**
      * Constructs a new exception with default message.
      */

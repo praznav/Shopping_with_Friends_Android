@@ -23,7 +23,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".Activities.LoginActivity"
+            android:name="Activities.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter android:label="Shopping With Friends" >
@@ -33,22 +33,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.RegistrationActivity"
+            android:name="Activities.RegistrationActivity"
             android:label="@string/title_activity_registration"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         <activity
-            android:name=".Activities.MainScreenActivity"
+            android:name="Activities.MainScreenActivity"
             android:label="@string/title_activity_main_screen"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name=".Activities.PostSaleActivity"
+            android:name="Activities.PostSaleActivity"
             android:label="@string/title_activity_main_screen"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name=".Activities.FriendsListActivity"
+            android:name="Activities.FriendsListActivity"
             android:label="@string/title_activity_friends_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -57,11 +57,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.RegisterInterestActivity"
+            android:name="Activities.RegisterInterestActivity"
             android:label="@string/title_activity_register_interest" >
         </activity>
         <activity
-            android:name=".Activities.Friend"
+            android:name="Activities.Friend"
             android:label="friend" />
 
         <meta-data
@@ -69,7 +69,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activities.MapsActivity"
+            android:name="Activities.MapsActivity"
             android:label="@string/title_activity_maps" >
         </activity>
     </application>

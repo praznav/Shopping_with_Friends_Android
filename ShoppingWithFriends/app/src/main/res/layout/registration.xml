@@ -4,7 +4,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/testBackground"
-    android:touchscreenBlocksFocus="false"
     android:weightSum="1"
     tools:context="com.example.pranav.shoppingwithfriends.Registration">
     <!--tools:context="com.example.pranav.shoppingwithfriends.registration-->
@@ -20,19 +19,18 @@
         <RelativeLayout
             android:id="@+id/registration_form"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true">
+            android:layout_height="wrap_content" >
 
             <TextView
                 android:id="@+id/Registration"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="26dp"
+                android:layout_marginTop="26sp"
                 android:text="@string/registration"
                 android:textColor="#ffc2c2c2"
                 android:layout_centerHorizontal="true"
-                android:textSize="40dp" />
+                android:textSize="40sp" />
 
 
 
@@ -45,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onReturnPress"
-        android:text="Home"
+        android:text="@string/home"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_toEndOf="@+id/regButton" />
@@ -73,12 +71,12 @@
         android:id="@+id/emailEditText"
         android:hint="@string/email"
         android:textColorHint="#ffc2c2c2"
-        android:nestedScrollingEnabled="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="101dp"
+        android:layout_marginTop="101sp"
         android:textColor="#ffc2c2c2"
-        android:layout_alignEnd="@+id/retButton" />
+        android:layout_alignEnd="@+id/retButton"
+        tools:ignore="TextFields" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -86,7 +84,6 @@
         android:id="@+id/usernameEditText"
         android:hint="@string/username"
         android:textColorHint="#ffc2c2c2"
-        android:nestedScrollingEnabled="true"
         android:layout_below="@+id/emailEditText"
         android:textColor="#ffc2c2c2"
         android:layout_alignParentStart="true"
@@ -99,7 +96,6 @@
         android:hint="@string/password"
         android:inputType="textPassword"
         android:textColorHint="#ffc2c2c2"
-        android:nestedScrollingEnabled="true"
         android:layout_below="@+id/usernameEditText"
         android:textColor="#ffc2c2c2"
         android:layout_alignParentStart="true"
@@ -112,7 +108,6 @@
         android:hint="@string/confirm_password"
         android:inputType="textPassword"
         android:textColorHint="#ffc2c2c2"
-        android:nestedScrollingEnabled="true"
         android:layout_below="@+id/passwordEditText"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
@@ -123,7 +118,6 @@
         android:id="@+id/firstNameEditText"
         android:hint="@string/first_name"
         android:textColorHint="#ffc2c2c2"
-        android:nestedScrollingEnabled="true"
         android:layout_below="@+id/confirmEditText"
         android:textColor="#ffc2c2c2"
         android:layout_alignParentStart="true"
@@ -135,7 +129,6 @@
         android:id="@+id/lastNameEditText"
         android:hint="@string/last_name"
         android:textColorHint="#ffc2c2c2"
-        android:nestedScrollingEnabled="true"
         android:layout_below="@+id/firstNameEditText"
         android:textColor="#ffc2c2c2"
         android:layout_alignParentStart="true"

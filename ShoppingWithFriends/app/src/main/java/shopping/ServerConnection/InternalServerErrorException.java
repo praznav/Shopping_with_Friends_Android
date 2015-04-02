@@ -5,7 +5,7 @@ package shopping.ServerConnection;
  *
  * @author Zachary Peterson
  */
-public class InternalServerErrorException extends Exception {
+class InternalServerErrorException extends Exception {
     /**
      * Constructs a new exception with default message.
      */
