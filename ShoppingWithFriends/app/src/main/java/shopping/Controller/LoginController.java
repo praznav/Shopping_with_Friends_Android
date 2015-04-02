@@ -10,7 +10,7 @@ import shopping.View.LoginView;
 
 
 /**
- * Created by Keil on 2/25/15.
+ * Created by Neil on 2/25/15.
  */
 public class LoginController {
     private LoginView view;

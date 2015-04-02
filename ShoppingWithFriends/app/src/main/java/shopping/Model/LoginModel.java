@@ -10,7 +10,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
 
 import shopping.Controller.LoginController;
 
@@ -20,11 +19,15 @@ import shopping.Controller.LoginController;
 public class LoginModel {
     private String mEmail = "";
     private String mPassword = "";
-    private LoginController cont;
     private String message;
 
+<<<<<<< HEAD:ShoppingWithFriends/app/src/main/java/shopping/Model/LoginModel.java
     public LoginModel(LoginController c) {
         cont = c;
+=======
+    public LoginTask(LoginController c) {
+        LoginController cont = c;
+>>>>>>> 3687f9d953d879175d7990978cfa846c108ebdd3:ShoppingWithFriends/app/src/main/java/shopping/Model/LoginTask.java
         message = "";
     }
 
@@ -120,7 +123,7 @@ public class LoginModel {
                 HttpGet httpget = new HttpGet("http://teamkevin.me/Users/Login?username=" + mEmail + "&password=" + mPassword);
                 HttpResponse response = client.execute(httpget);
                 BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-                String line = "";
+                String line;
                 while ((line = rd.readLine()) != null) {
                     Log.i("https", line);
                     if (line.contains("success"))

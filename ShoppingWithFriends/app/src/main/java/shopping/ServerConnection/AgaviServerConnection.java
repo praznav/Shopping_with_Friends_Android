@@ -38,12 +38,7 @@ import shopping.Model.User;
  */
 public class AgaviServerConnection implements ServerConnection {
     private String mConnectionUrl = "http://teamkevin.me";
-    private String mUsersUrl = "/Users";
-    private String mRegisterUrl = "/Register";
     private String mSalesUrl = "/Sales";
-    private String mRegisterInterestUrl = "/RegisterInterest";
-    private String mPostSaleUrl = "/RegisterSale";
-    private String mGetSaleUrl = "/Get";
 
 
     private static AgaviServerConnection mInstance;
@@ -68,10 +63,12 @@ public class AgaviServerConnection implements ServerConnection {
             UnrecognizedResponseException {
         // Set up the HTTP post request
         HttpClient client = new DefaultHttpClient();
+        String mUsersUrl = "/Users";
+        String mRegisterUrl = "/Register";
         HttpPost post = new HttpPost(mConnectionUrl + mUsersUrl + mRegisterUrl);
 
         // Add the post parameters to the request
-        List<NameValuePair> parameters = new ArrayList<NameValuePair>(5);
+        List<NameValuePair> parameters = new ArrayList<>(5);
         parameters.add(new BasicNameValuePair("username", newUser.getUsername()));
         parameters.add(new BasicNameValuePair("password", newUser.getPassword()));
         parameters.add(new BasicNameValuePair("email", newUser.getEmailAddress()));
@@ -86,7 +83,6 @@ public class AgaviServerConnection implements ServerConnection {
 
 
         HttpResponse response;
-        HttpEntity entity = null;
         try {
             // Execute the POST request and save the response
             response = client.execute(post);
@@ -94,7 +90,7 @@ public class AgaviServerConnection implements ServerConnection {
             // Read the full response and create a string out of it that can be parsed with
             // an XML parser
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line = "";
+            String line;
             StringBuilder sb = new StringBuilder();
             while ((line = rd.readLine()) != null) {
                 sb.append(line);
@@ -115,87 +111,90 @@ public class AgaviServerConnection implements ServerConnection {
                 Element statusElement = (Element) statusList.item(0);
                 String status = ((CharacterData) statusElement.getFirstChild()).getData();
 
-                if (status.equals("success")) {
-                    // If the status was success, registration was too
-                    return true;
-                } else if (status.equals("taken")) {
-                    // Username already taken, set the username error appropriately and show a
-                    // toast to let the user know
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String usernameError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new UsernameTakenException(usernameError);
-                } else if (status.equals("error")) {
-                    // Server error occurred, show a toast with the contents of the message
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InternalServerErrorException(serverError);
-                } else if (status.equals("invalid")) {
-                    // One of the fields the user entered was invalid, go through each one
-                    // and check for validation errors
-                    InvalidDataException invalidException = new InvalidDataException();
-                    NodeList usernameErrors = doc.getElementsByTagName("usernameErrors");
-                    if (usernameErrors.getLength() > 0) {
-                        // There were username errors
-                        NodeList usernameChildren = usernameErrors.item(0).getChildNodes();
-                        for (int i = 0; i < usernameChildren.getLength(); i++) {
-                            if (usernameChildren.item(i) instanceof Element) {
-                                String usernameError = usernameChildren.item(i).getLastChild().getTextContent().trim();
-                                invalidException.AddInvalidField("username", usernameError);
+                switch (status) {
+                    case "success":
+                        // If the status was success, registration was too
+                        return true;
+                    case "taken": {
+                        // Username already taken, set the username error appropriately and show a
+                        // toast to let the user know
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String usernameError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new UsernameTakenException(usernameError);
+                    }
+                    case "error": {
+                        // Server error occurred, show a toast with the contents of the message
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InternalServerErrorException(serverError);
+                    }
+                    case "invalid":
+                        // One of the fields the user entered was invalid, go through each one
+                        // and check for validation errors
+                        InvalidDataException invalidException = new InvalidDataException();
+                        NodeList usernameErrors = doc.getElementsByTagName("usernameErrors");
+                        if (usernameErrors.getLength() > 0) {
+                            // There were username errors
+                            NodeList usernameChildren = usernameErrors.item(0).getChildNodes();
+                            for (int i = 0; i < usernameChildren.getLength(); i++) {
+                                if (usernameChildren.item(i) instanceof Element) {
+                                    String usernameError = usernameChildren.item(i).getLastChild().getTextContent().trim();
+                                    invalidException.AddInvalidField("username", usernameError);
+                                }
                             }
                         }
-                    }
 
-                    NodeList emailErrors = doc.getElementsByTagName("emailErrors");
-                    if (emailErrors.getLength() > 0) {
-                        // There were email errors
-                        NodeList emailChildren = emailErrors.item(0).getChildNodes();
-                        for (int i = 0; i < emailChildren.getLength(); i++) {
-                            if (emailChildren.item(i) instanceof Element) {
-                                String emailError = emailChildren.item(i).getLastChild().getTextContent().trim();
-                                invalidException.AddInvalidField("email", emailError);
+                        NodeList emailErrors = doc.getElementsByTagName("emailErrors");
+                        if (emailErrors.getLength() > 0) {
+                            // There were email errors
+                            NodeList emailChildren = emailErrors.item(0).getChildNodes();
+                            for (int i = 0; i < emailChildren.getLength(); i++) {
+                                if (emailChildren.item(i) instanceof Element) {
+                                    String emailError = emailChildren.item(i).getLastChild().getTextContent().trim();
+                                    invalidException.AddInvalidField("email", emailError);
+                                }
                             }
                         }
-                    }
 
-                    NodeList passwordErrors = doc.getElementsByTagName("passwordErrors");
-                    if (passwordErrors.getLength() > 0) {
-                        // There were password errors
-                        NodeList passwordChildren = passwordErrors.item(0).getChildNodes();
-                        for (int i = 0; i < passwordChildren.getLength(); i++) {
-                            if (passwordChildren.item(i) instanceof Element) {
-                                String passwordError = passwordChildren.item(i).getLastChild().getTextContent().trim();
-                                invalidException.AddInvalidField("password", passwordError);
+                        NodeList passwordErrors = doc.getElementsByTagName("passwordErrors");
+                        if (passwordErrors.getLength() > 0) {
+                            // There were password errors
+                            NodeList passwordChildren = passwordErrors.item(0).getChildNodes();
+                            for (int i = 0; i < passwordChildren.getLength(); i++) {
+                                if (passwordChildren.item(i) instanceof Element) {
+                                    String passwordError = passwordChildren.item(i).getLastChild().getTextContent().trim();
+                                    invalidException.AddInvalidField("password", passwordError);
+                                }
                             }
                         }
-                    }
 
-                    NodeList firstNameErrors = doc.getElementsByTagName("firstNameErrors");
-                    if (firstNameErrors.getLength() > 0) {
-                        // There were first name errors
-                        NodeList firstNameChildren = firstNameErrors.item(0).getChildNodes();
-                        for (int i = 0; i < firstNameChildren.getLength(); i++) {
-                            if (firstNameChildren.item(i) instanceof Element) {
-                                String firstNameError = firstNameChildren.item(i).getLastChild().getTextContent().trim();
-                                invalidException.AddInvalidField("firstName", firstNameError);
+                        NodeList firstNameErrors = doc.getElementsByTagName("firstNameErrors");
+                        if (firstNameErrors.getLength() > 0) {
+                            // There were first name errors
+                            NodeList firstNameChildren = firstNameErrors.item(0).getChildNodes();
+                            for (int i = 0; i < firstNameChildren.getLength(); i++) {
+                                if (firstNameChildren.item(i) instanceof Element) {
+                                    String firstNameError = firstNameChildren.item(i).getLastChild().getTextContent().trim();
+                                    invalidException.AddInvalidField("firstName", firstNameError);
+                                }
                             }
                         }
-                    }
 
-                    NodeList lastNameErrors = doc.getElementsByTagName("lastNameErrors");
-                    if (lastNameErrors.getLength() > 0) {
-                        // There were last name errors
-                        NodeList lastNameChildren = lastNameErrors.item(0).getChildNodes();
-                        for (int i = 0; i < lastNameChildren.getLength(); i++) {
-                            if (lastNameChildren.item(i) instanceof Element) {
-                                String lastNameError = lastNameChildren.item(i).getLastChild().getTextContent().trim();
-                                invalidException.AddInvalidField("lastName", lastNameError);
+                        NodeList lastNameErrors = doc.getElementsByTagName("lastNameErrors");
+                        if (lastNameErrors.getLength() > 0) {
+                            // There were last name errors
+                            NodeList lastNameChildren = lastNameErrors.item(0).getChildNodes();
+                            for (int i = 0; i < lastNameChildren.getLength(); i++) {
+                                if (lastNameChildren.item(i) instanceof Element) {
+                                    String lastNameError = lastNameChildren.item(i).getLastChild().getTextContent().trim();
+                                    invalidException.AddInvalidField("lastName", lastNameError);
+                                }
                             }
                         }
-                    }
-                    throw invalidException;
-                } else {
-                    // The server response was unrecognized
-                    throw new UnrecognizedResponseException();
+                        throw invalidException;
+                    default:
+                        // The server response was unrecognized
+                        throw new UnrecognizedResponseException();
                 }
             } catch (ParserConfigurationException e) {
                 Log.e("XML Exception", "Caught a parser configuration exception while creating the document builder", e);
@@ -234,11 +233,12 @@ public class AgaviServerConnection implements ServerConnection {
         HttpPost post;
         ArrayList<NameValuePair> postParameters;
         client = new DefaultHttpClient();
+        String mRegisterInterestUrl = "/RegisterInterest";
         post = new HttpPost(mConnectionUrl + mSalesUrl + mRegisterInterestUrl);
 
         String username = myUser.getUsername();
         String password = myUser.getPassword();
-        postParameters = new ArrayList<NameValuePair>();
+        postParameters = new ArrayList<>();
         postParameters.add(new BasicNameValuePair("username", username));
         postParameters.add(new BasicNameValuePair("password", password));
         postParameters.add(new BasicNameValuePair("productName", productName));
@@ -252,7 +252,6 @@ public class AgaviServerConnection implements ServerConnection {
 
 
         HttpResponse response;
-        HttpEntity entity = null;
         try {
             // Execute the POST request and save the response
             response = client.execute(post);
@@ -260,7 +259,7 @@ public class AgaviServerConnection implements ServerConnection {
             // Read the full response and create a string out of it that can be parsed with
             // an XML parser
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line = "";
+            String line;
             StringBuilder sb = new StringBuilder();
             while ((line = rd.readLine()) != null) {
                 sb.append(line);
@@ -281,42 +280,49 @@ public class AgaviServerConnection implements ServerConnection {
                 Element statusElement = (Element) statusList.item(0);
                 String status = ((CharacterData) statusElement.getFirstChild()).getData();
 
-                if (status.equals("success")) {
-                    // If the status was success, register interest succeeded
-                    return true;
-                } else if (status.equals("notAuthorized")) {
-                    // User not authorized
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String authError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new UserNotAuthorizedException(authError);
-                } else if (status.equals("error")) {
-                    // Server error occurred, show a toast with the contents of the message
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InternalServerErrorException(serverError);
-                } else if (status.equals("invalidProductName")) {
-                    // Product name was invalid
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String invalidProductError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InvalidProductNameException(invalidProductError);
-                } else if (status.equals("invalidPrice")) {
-                    // Product price was invalid
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String invalidPriceError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InvalidPriceException(invalidPriceError);
-                } else if (status.equals("invalidUser")) {
-                    // User somehow became invalid, possibly due to deletion from database, etc.
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String invalidUserError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InvalidUserException(invalidUserError);
-                } else if (status.equals("alreadyExists")) {
-                    // The attempted item is already in the database
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String alreadyExistsError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new RegisteredItemAlreadyExistsException(alreadyExistsError);
-                } else {
-                    // The server response was unrecognized
-                    throw new UnrecognizedResponseException();
+                switch (status) {
+                    case "success":
+                        // If the status was success, register interest succeeded
+                        return true;
+                    case "notAuthorized": {
+                        // User not authorized
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String authError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new UserNotAuthorizedException(authError);
+                    }
+                    case "error": {
+                        // Server error occurred, show a toast with the contents of the message
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InternalServerErrorException(serverError);
+                    }
+                    case "invalidProductName": {
+                        // Product name was invalid
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String invalidProductError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InvalidProductNameException(invalidProductError);
+                    }
+                    case "invalidPrice": {
+                        // Product price was invalid
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String invalidPriceError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InvalidPriceException(invalidPriceError);
+                    }
+                    case "invalidUser": {
+                        // User somehow became invalid, possibly due to deletion from database, etc.
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String invalidUserError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InvalidUserException(invalidUserError);
+                    }
+                    case "alreadyExists": {
+                        // The attempted item is already in the database
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String alreadyExistsError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new RegisteredItemAlreadyExistsException(alreadyExistsError);
+                    }
+                    default:
+                        // The server response was unrecognized
+                        throw new UnrecognizedResponseException();
                 }
             } catch (ParserConfigurationException e) {
                 Log.e("XML Exception", "Caught a parser configuration exception while creating the document builder", e);
@@ -344,11 +350,12 @@ public class AgaviServerConnection implements ServerConnection {
         HttpPost post;
         ArrayList<NameValuePair> postParameters;
         client = new DefaultHttpClient();
-        post = new HttpPost(mConnectionUrl + mSalesUrl + mPostSaleUrl);
+            String mPostSaleUrl = "/RegisterSale";
+            post = new HttpPost(mConnectionUrl + mSalesUrl + mPostSaleUrl);
 
         String username = myUser.getUsername();
         String password = myUser.getPassword();
-        postParameters = new ArrayList<NameValuePair>();
+        postParameters = new ArrayList<>();
         postParameters.add(new BasicNameValuePair("username", username));
         postParameters.add(new BasicNameValuePair("password", password));
         postParameters.add(new BasicNameValuePair("productName", productName));
@@ -363,7 +370,6 @@ public class AgaviServerConnection implements ServerConnection {
 
 
         HttpResponse response;
-        HttpEntity entity = null;
         try {
             // Execute the POST request and save the response
             response = client.execute(post);
@@ -371,7 +377,7 @@ public class AgaviServerConnection implements ServerConnection {
             // Read the full response and create a string out of it that can be parsed with
             // an XML parser
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line = "";
+            String line;
             StringBuilder sb = new StringBuilder();
             while ((line = rd.readLine()) != null) {
                 sb.append(line);
@@ -392,43 +398,49 @@ public class AgaviServerConnection implements ServerConnection {
                 Element statusElement = (Element) statusList.item(0);
                 String status = ((CharacterData) statusElement.getFirstChild()).getData();
 
-                if (status.equals("success")) {
-                    // If the status was success, register interest succeeded
-                    return true;
-                } else if (status.equals("notAuthorized")) {
-                    // User not authorized
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String authError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new UserNotAuthorizedException(authError);
-                } else if (status.equals("error")) {
-                    // Server error occurred, show a toast with the contents of the message
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InternalServerErrorException(serverError);
-                } else if (status.equals("invalidProductName")) {
-                    // Product name was invalid
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String invalidProductError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InvalidProductNameException(invalidProductError);
-                } else if (status.equals("invalidPrice")) {
-                    // Product price was invalid
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String invalidPriceError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InvalidPriceException(invalidPriceError);
-                } else if (status.equals("invalidUser")) {
-                    // User somehow became invalid, possibly due to deletion from database, etc.
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String invalidUserError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InvalidUserException(invalidUserError);
-                } else if (status.equals("alreadyExists")) {
-                    // The attempted item is already in the database
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String alreadyExistsError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new RegisteredItemAlreadyExistsException(alreadyExistsError);
-                } else
-                {
-                    // The server response was unrecognized
-                    throw new UnrecognizedResponseException();
+                switch (status) {
+                    case "success":
+                        // If the status was success, register interest succeeded
+                        return true;
+                    case "notAuthorized": {
+                        // User not authorized
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String authError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new UserNotAuthorizedException(authError);
+                    }
+                    case "error": {
+                        // Server error occurred, show a toast with the contents of the message
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InternalServerErrorException(serverError);
+                    }
+                    case "invalidProductName": {
+                        // Product name was invalid
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String invalidProductError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InvalidProductNameException(invalidProductError);
+                    }
+                    case "invalidPrice": {
+                        // Product price was invalid
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String invalidPriceError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InvalidPriceException(invalidPriceError);
+                    }
+                    case "invalidUser": {
+                        // User somehow became invalid, possibly due to deletion from database, etc.
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String invalidUserError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InvalidUserException(invalidUserError);
+                    }
+                    case "alreadyExists": {
+                        // The attempted item is already in the database
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String alreadyExistsError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new RegisteredItemAlreadyExistsException(alreadyExistsError);
+                    }
+                    default:
+                        // The server response was unrecognized
+                        throw new UnrecognizedResponseException();
                 }
             } catch (ParserConfigurationException e) {
                 Log.e("XML Exception", "Caught a parser configuration exception while creating the document builder", e);
@@ -449,14 +461,13 @@ public class AgaviServerConnection implements ServerConnection {
     {
         HttpClient client;
         HttpGet get;
-        ArrayList<NameValuePair> postParameters;
         client = new DefaultHttpClient();
         String username = myUser.getUsername();
         String password = myUser.getPassword();
+        String mGetSaleUrl = "/Get";
         get = new HttpGet(mConnectionUrl + mSalesUrl + mGetSaleUrl + "?username=" + username + "&password=" + password);
 
         HttpResponse response;
-        HttpEntity entity = null;
         try {
             // Execute the POST request and save the response
             response = client.execute(get);
@@ -464,7 +475,7 @@ public class AgaviServerConnection implements ServerConnection {
             // Read the full response and create a string out of it that can be parsed with
             // an XML parser
             BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line = "";
+            String line;
             StringBuilder sb = new StringBuilder();
             while ((line = rd.readLine()) != null) {
                 sb.append(line);
@@ -485,30 +496,32 @@ public class AgaviServerConnection implements ServerConnection {
                 Element statusElement = (Element) statusList.item(0);
                 String status = ((CharacterData) statusElement.getFirstChild()).getData();
 
-                if (status.equals("success")) {
-                    NodeList saleList = doc.getElementsByTagName("sale");
-                    List<Sale> toReturn = new ArrayList<Sale>();
-                    Log.d("Test", "" + saleList.getLength());
-                    for(int i = 0; i < saleList.getLength(); i++)
-                    {
-                        Log.d("Test", "Adding " + i);
-                        NodeList saleInfo = saleList.item(i).getChildNodes();
-                        toReturn.add(new Sale(saleInfo.item(0).getTextContent(), saleInfo.item(1).getTextContent(), Double.parseDouble(saleInfo.item(2).getTextContent()), Double.parseDouble(saleInfo.item(3).getTextContent()), saleInfo.item(4).getTextContent()));
+                switch (status) {
+                    case "success":
+                        NodeList saleList = doc.getElementsByTagName("sale");
+                        List<Sale> toReturn = new ArrayList<>();
+                        Log.d("Test", "" + saleList.getLength());
+                        for (int i = 0; i < saleList.getLength(); i++) {
+                            Log.d("Test", "Adding " + i);
+                            NodeList saleInfo = saleList.item(i).getChildNodes();
+                            toReturn.add(new Sale(saleInfo.item(0).getTextContent(), saleInfo.item(1).getTextContent(), Double.parseDouble(saleInfo.item(2).getTextContent()), Double.parseDouble(saleInfo.item(3).getTextContent()), saleInfo.item(4).getTextContent()));
+                        }
+                        return toReturn;
+                    case "notAuthorized": {
+                        // User not authorized
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String authError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new UserNotAuthorizedException(authError);
                     }
-                    return toReturn;
-                } else if (status.equals("notAuthorized")) {
-                    // User not authorized
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String authError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new UserNotAuthorizedException(authError);
-                } else if (status.equals("error")) {
-                    // Server error occurred, show a toast with the contents of the message
-                    Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                    final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
-                    throw new InternalServerErrorException(serverError);
-                } else {
-                    // The server response was unrecognized
-                    throw new UnrecognizedResponseException();
+                    case "error": {
+                        // Server error occurred, show a toast with the contents of the message
+                        Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
+                        final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
+                        throw new InternalServerErrorException(serverError);
+                    }
+                    default:
+                        // The server response was unrecognized
+                        throw new UnrecognizedResponseException();
                 }
             } catch (ParserConfigurationException e) {
                 Log.e("XML Exception", "Caught a parser configuration exception while creating the document builder", e);

@@ -71,10 +71,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    return true;
-                }
-                return false;
+                return id == R.id.login || id == EditorInfo.IME_NULL;
             }
         });
 
@@ -106,7 +103,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     }
 
     /**
-     * Gets the email from the approrpriate text field
+     * Gets the email from the appropriate text field
      * @return email
      */
     public String getEmail() {
@@ -141,7 +138,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     /**
      * Handler for return being pressed.  Finishes the current activity.
      * DEPRECATED
-     * @param view
+     * @param view The view that was clicked.
      */
     public void onReturnPress(View view)
     {
@@ -218,7 +215,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<String>();
+        List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
@@ -251,7 +248,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
+                new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
         mEmailView.setAdapter(adapter);
     }
