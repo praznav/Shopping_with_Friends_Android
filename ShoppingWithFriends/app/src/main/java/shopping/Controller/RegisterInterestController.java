@@ -1,9 +1,5 @@
 package shopping.Controller;
 
-import android.app.Activity;
-import android.content.Intent;
-
-import shopping.Activities.MainScreenActivity;
 import shopping.Model.RegisterInterestModel;
 import shopping.View.RegisterInterestView;
 

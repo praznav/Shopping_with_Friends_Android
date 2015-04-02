@@ -44,11 +44,11 @@ import shopping.R;
 import shopping.View.LoginView;
 
 /**
- * A login screen that offers login via username/password.
+ * A login screen that offers login via email/password.
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, LoginView {
     // UI references.
-    private AutoCompleteTextView mUsernameView;
+    private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -64,17 +64,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         cont = new LoginController(this);
 
         // Set up the login form.
-        mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    return true;
-                }
-                return false;
+                return id == R.id.login || id == EditorInfo.IME_NULL;
             }
         });
 
@@ -92,7 +89,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         // Allows this information to be accessed throughout the application
         SharedPreferences prefs = getSharedPreferences(getString(R.string.credential_preference_string), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        //Should change to user object
         editor.putString("Username", username);
         editor.putString("Password", password);
         editor.apply();
@@ -107,11 +103,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     }
 
     /**
-     * Gets the username from the approrpriate text field
-     * @return username
+     * Gets the email from the appropriate text field
+     * @return email
      */
-    public String getUsername() {
-        return mUsernameView.getText().toString();
+    public String getEmail() {
+        return mEmailView.getText().toString();
     }
 
     /**
@@ -142,7 +138,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     /**
      * Handler for return being pressed.  Finishes the current activity.
      * DEPRECATED
-     * @param view
+     * @param view The view that was clicked.
      */
     public void onReturnPress(View view)
     {
@@ -219,7 +215,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<String>();
+        List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
@@ -252,8 +248,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<String>(LoginActivity.this,
+                new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
-        mUsernameView.setAdapter(adapter);
+        mEmailView.setAdapter(adapter);
     }
 }

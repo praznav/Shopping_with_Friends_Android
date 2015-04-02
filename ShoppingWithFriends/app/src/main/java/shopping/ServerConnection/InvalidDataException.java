@@ -15,7 +15,7 @@ public class InvalidDataException extends Exception {
      */
     public InvalidDataException() {
         super("The given form contains invalid data.");
-        mInvalidFields = new HashMap<String, String>();
+        mInvalidFields = new HashMap<>();
     }
 
     /**
@@ -24,7 +24,7 @@ public class InvalidDataException extends Exception {
      */
     public InvalidDataException(String message) {
         super(message);
-        mInvalidFields = new HashMap<String, String>();
+        mInvalidFields = new HashMap<>();
     }
 
     /**
