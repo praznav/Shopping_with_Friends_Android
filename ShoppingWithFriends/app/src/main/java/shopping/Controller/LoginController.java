@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 
 import shopping.Activities.MainScreenActivity;
-import shopping.Model.LoginTask;
+import shopping.Model.LoginModel;
 import shopping.View.LoginView;
 
 
@@ -14,26 +14,26 @@ import shopping.View.LoginView;
  */
 public class LoginController {
     private LoginView view;
-    private LoginTask model;
+    private LoginModel model;
 
     public LoginController(LoginView v) {
         view = v;
-        model = new LoginTask(this);
+        model = new LoginModel(this);
     }
 
     /**
      * Handler for login being clicked
-     * Passes email and password to model
+     * Passes username and password to model
      * Authenticates and returns whether or not it was successful
      */
     public void onLoginClick() {
-        String email = view.getEmail();
+        String username = view.getUsername();
         String password = view.getPassword();
-        model.setEmail(email);
+        model.setUsername(username);
         model.setPassword(password);
         String message = model.attemptLogin();
         if (message.equals("Success"))
-            onCorrectCredentials(email, password);
+            onCorrectCredentials(username, password);
         else {
             view.displayError(message);
         }
