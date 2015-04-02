@@ -14,14 +14,9 @@ import shopping.ServerConnection.UserNotAuthorizedException;
 import java.util.ArrayList;
 
 /**
- * JUnit test cases for ParseSalesXML in the ServerXMLParser.
+ * Created by Zach on 4/1/2015.
  */
 public class GetSalesTest extends TestCase {
-
-    /**
-     * Tests that an InternalServerErrorException is thrown when an unrecognized server response is
-     * returned.
-     */
     public void testInvalidResponse() {
         try {
             ServerXMLParser.ParseSalesXML("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
@@ -34,10 +29,6 @@ public class GetSalesTest extends TestCase {
         }
     }
 
-    /**
-     * Tests that a UserNotAuthorizedException is thrown when the user trying to get the sales is
-     * not a valid user or is improperly logged in.
-     */
     public void testNotAuthorized() {
         try {
             ServerXMLParser.ParseSalesXML("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -54,10 +45,6 @@ public class GetSalesTest extends TestCase {
         }
     }
 
-    /**
-     * Tests that an InternalServerErrorException is thrown when the server recognizes an internal
-     * error and properly reports it to the user.
-     */
     public void testInternalServerError() {
         try {
             ServerXMLParser.ParseSalesXML("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -74,10 +61,6 @@ public class GetSalesTest extends TestCase {
         }
     }
 
-    /**
-     * Tests that an UnrecognizedResponseException is thrown when a valid response format is
-     * returned, but the status is unknown.
-     */
     public void testUnrecognizedResponse() {
         try {
             ServerXMLParser.ParseSalesXML("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
@@ -94,10 +77,6 @@ public class GetSalesTest extends TestCase {
         }
     }
 
-    /**
-     * Tests that a valid, but empty, list is returned when the user has no sales associated with
-     * them.
-     */
     public void testEmptyList() {
         List<Sale> expectedOutput = new ArrayList<>();
         List<Sale> actualOutput = null;
@@ -113,10 +92,6 @@ public class GetSalesTest extends TestCase {
         assertEquals("List of sales did not match expected result", expectedOutput, actualOutput);
     }
 
-    /**
-     * Tests that a valid list of sales is returned when there are proper sales and everything is
-     * successful.
-     */
     public void testPopulatedList() {
         List<Sale> expectedOutput = new ArrayList<>();
         expectedOutput.add(new Sale("postingUserA", "testingProductA", 100.00, 300.00, "testingLocationA"));
@@ -149,12 +124,6 @@ public class GetSalesTest extends TestCase {
         assertTrue("List of sales did not match expected result", CheckSalesListEquality(expectedOutput, actualOutput));
     }
 
-    /**
-     * Private helper method to check the equality of two sales lists.
-     * @param listA The first list to compare against.
-     * @param listB The second list to compare against.
-     * @return Whether or not the two lists are equal.
-     */
     private boolean CheckSalesListEquality(List<Sale> listA, List<Sale> listB) {
         if (listA.size() != listB.size()) {
             return false;
