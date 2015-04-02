@@ -1,5 +1,6 @@
 package shopping.Activities;
 
+import android.app.Activity;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v4.app.FragmentActivity;
@@ -26,7 +27,8 @@ public class MapsActivity extends FragmentActivity {
     // This is the location that is passed into this activity by the previous activity as an extra
     // this should be the location of the sale
     // this activity handles nulls
-    String location;
+    String location = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +97,14 @@ public class MapsActivity extends FragmentActivity {
      * @param strAddress        this is the address in string form
      * @return  an Address object of the address passed in
      */
-    private Address getLocationFromAddress(String strAddress) {
+    public Address getLocationFromAddress(String strAddress) {
 
-        Geocoder coder = new Geocoder(this);
+        //try {
+            Geocoder coder = new Geocoder(this);
+/*        } catch (Exception e) {
+            Geocoder coder = new Geocoder(MapsActivity.class.);
+        }
+        */
         List<Address> address;
 
         try {
@@ -105,10 +112,12 @@ public class MapsActivity extends FragmentActivity {
             if (address == null) {
                 return null;
             }
+            if (address.equals("")) {
+                return null;
+            }
             Address location = address.get(0);
             location.getLatitude();
             location.getLongitude();
-
             return location;
         } catch (Exception e) {
         }
