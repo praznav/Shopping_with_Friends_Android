@@ -4,10 +4,15 @@ package shopping.Model;
  * Created by Keshanz on 3/11/2015.
  */
 public class Sale {
+    // friend who made the sale post
     String postingUser;
+    // name of product
     String productName;
+    // price of product
     double priceFound;
+    // max price willing to pay
     double priceRequested;
+    // place of sale
     String location;
 
     public Sale(String user, String product, double found, double req, String loc)
@@ -19,9 +24,14 @@ public class Sale {
         location = loc;
     }
 
+
     /**
      * Returns the user associated with this sale.
      * @return The user associated with this sale.
+
+    /*
+        GETTERS START HERE
+
      */
     public String getUser()
     {

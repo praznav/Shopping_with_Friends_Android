@@ -20,10 +20,10 @@ public interface LoginView {
     public void onRegisterClick(View v);
 
     /**
-     * Gets the email the user entered
-     * @return The email the user entered
+     * Gets the username the user entered
+     * @return The username the user entered
      */
-    public String getEmail();
+    public String getUsername();
 
     /**
      * Gets the password the user entered

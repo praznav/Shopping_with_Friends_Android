@@ -1,0 +1,26 @@
+jumbotron theme
+	<class="jumbotron">
+	used for primary marketing message
+	gray box
+
+
+page-header theme
+	<div class="page-header">
+	used for basically everything
+	Standard theme
+
+
+Labels
+<div class="panel panel-success">
+	<div class="panel-heading">
+		<h3 class="panel-title">The Title</h3>
+	</div>
+	<div class="panel-body">
+		<p>Content goes here.</p>
+	</div>
+</div>
+
+
+Buttons
+<button type="button" onclick="location.href='./Login Page.html'" class="btn btn-lg btn-primary">Login</button> 
+
