@@ -19,10 +19,25 @@ import javax.xml.parsers.ParserConfigurationException;
 import shopping.Model.Sale;
 
 /**
- * Created by Zach on 4/1/2015.
+ * New XML parser. Trying out separating the XML parsing and server connection bits. Cleaned up
+ * the server connection pretty well, will most likely continue it for the next milestone.
  */
 public class ServerXMLParser {
-    public static List<Sale> ParseSalesXML(String SalesXMLResponse) throws Exception {
+    /**
+     * Parses the XML response for a list of sales and returns them in a nice list object.
+     * @param SalesXMLResponse The XML string to parse sales from.
+     * @return The list of sales parsed from the given XML.
+     * @throws ParserConfigurationException
+     * @throws IOException
+     * @throws SAXException
+     * @throws InternalServerErrorException
+     * @throws UserNotAuthorizedException
+     * @throws UnrecognizedResponseException
+     */
+    public static List<Sale> ParseSalesXML(String SalesXMLResponse)
+            throws ParserConfigurationException, IOException, SAXException,
+            InternalServerErrorException, UserNotAuthorizedException,
+            UnrecognizedResponseException {
         // Create a new DomDocument out of the XML
         InputSource is = new InputSource();
         is.setCharacterStream(new StringReader(SalesXMLResponse));
@@ -68,12 +83,6 @@ public class ServerXMLParser {
                     }
                     toReturn.add(new Sale(postingUser, productName, productPrice, maxPrice, productLocation));
                 }
-
-                /*
-                NodeList saleInfo = saleList.item(i).getChildNodes();
-                throw new Exception("Sale info length: " + saleInfo.getLength());// + ", Sale with info: " + saleInfo.item(0).getLastChild().getTextContent().trim() + ", " + saleInfo.item(1).getLastChild().getTextContent().trim() + " , " + saleInfo.item(2).getLastChild().getTextContent().trim() + " , " + saleInfo.item(3).getLastChild().getTextContent().trim() + " , " + saleInfo.item(4).getLastChild().getTextContent().trim());
-                // toReturn.add(new Sale(saleInfo.item(0).getTextContent(), saleInfo.item(1).getTextContent(), Double.parseDouble(saleInfo.item(2).getTextContent()), Double.parseDouble(saleInfo.item(3).getTextContent()), saleInfo.item(4).getTextContent()));
-                */
             }
             return toReturn;
         } else if (status.equals("notAuthorized")) {

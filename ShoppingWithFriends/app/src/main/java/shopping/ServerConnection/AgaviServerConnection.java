@@ -444,74 +444,39 @@ public class AgaviServerConnection implements ServerConnection {
     }
 
     @Override
-    public List<Sale> GetSales(User myUser) throws ParserConfigurationException, IOException, UserNotAuthorizedException,
-            InternalServerErrorException, UnrecognizedResponseException, SAXException {
+    public List<Sale> GetSales(User myUser) throws ParserConfigurationException, IOException,
+            SAXException, InternalServerErrorException, UserNotAuthorizedException,
+            UnrecognizedResponseException {
         HttpClient client;
         HttpGet get;
-        ArrayList<NameValuePair> postParameters;
         client = new DefaultHttpClient();
         String username = myUser.getUsername();
         String password = myUser.getPassword();
-        get = new HttpGet(mConnectionUrl + mSalesUrl + mGetSaleUrl + "?username=" + username + "&password=" + password);
+        get = new HttpGet(mConnectionUrl + mSalesUrl + mGetSaleUrl + "?username=" + username
+            + "&password=" + password);
 
         HttpResponse response;
-        HttpEntity entity = null;
+        String responseXML;
         try {
             // Execute the POST request and save the response
             response = client.execute(get);
 
             // Read the full response and create a string out of it that can be parsed with
             // an XML parser
-            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-            String line = "";
+            BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+            String line;
             StringBuilder sb = new StringBuilder();
             while ((line = rd.readLine()) != null) {
                 sb.append(line);
             }
-            // Create a new DomDocument out of the XML
-            InputSource is = new InputSource();
-            is.setCharacterStream(new StringReader(sb.toString()));
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(is);
-
-            // Try and get the status from the response
-            NodeList statusList = doc.getElementsByTagName("status");
-            if (statusList.getLength() < 1) {
-                return null;
-            }
-            Element statusElement = (Element) statusList.item(0);
-            String status = ((CharacterData) statusElement.getFirstChild()).getData();
-
-            if (status.equals("success")) {
-                NodeList saleList = doc.getElementsByTagName("sale");
-                List<Sale> toReturn = new ArrayList<Sale>();
-                Log.d("Test", "" + saleList.getLength());
-                for(int i = 0; i < saleList.getLength(); i++)
-                {
-                    Log.d("Test", "Adding " + i);
-                    NodeList saleInfo = saleList.item(i).getChildNodes();
-                    toReturn.add(new Sale(saleInfo.item(0).getTextContent(), saleInfo.item(1).getTextContent(), Double.parseDouble(saleInfo.item(2).getTextContent()), Double.parseDouble(saleInfo.item(3).getTextContent()), saleInfo.item(4).getTextContent()));
-                }
-                return toReturn;
-            } else if (status.equals("notAuthorized")) {
-                // User not authorized
-                Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                final String authError = ((CharacterData) messageElement.getFirstChild()).getData();
-                throw new UserNotAuthorizedException(authError);
-            } else if (status.equals("error")) {
-                // Server error occurred, show a toast with the contents of the message
-                Element messageElement = (Element) doc.getElementsByTagName("message").item(0);
-                final String serverError = ((CharacterData) messageElement.getFirstChild()).getData();
-                throw new InternalServerErrorException(serverError);
-            } else {
-                // The server response was unrecognized
-                throw new UnrecognizedResponseException();
-            }
-        } catch (IOException e){
+            responseXML = sb.toString();
+        } catch (IOException e) {
             System.out.println("IO Exception");
             System.out.println(e.getMessage());
+            return null;
         }
-        return null;
+        List<Sale> sales = ServerXMLParser.ParseSalesXML(responseXML);
+        return sales;
     }
 }
