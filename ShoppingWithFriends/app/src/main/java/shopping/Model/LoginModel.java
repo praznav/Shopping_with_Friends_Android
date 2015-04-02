@@ -31,6 +31,8 @@ public class LoginModel {
         cont = c;
     }
 
+    public LoginModel() { }
+
     /**
      * Sets the model's user data value
      * @param username The user to set
@@ -55,32 +57,24 @@ public class LoginModel {
      */
     public String attemptLogin() {
         message = "In Progress";
-        if (mAuthTask != null) {
-            message = "Attempting log in";
+
+        if (TextUtils.isEmpty(mUsername)) {
+            message = "Invalid username";
             return message;
         }
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(mPassword) && !isPasswordValid(mPassword)) {
-            message = "Invalid password.";
+        if (TextUtils.isEmpty(mPassword) || !isPasswordValid(mPassword)) {
+            message = "Invalid password";
             return message;
         }
 
-        // Check for a valid username
-        if (TextUtils.isEmpty(mUsername)) {
-            message = "Invalid username address.";
-            return message;
-        } else if (!isUsernameValid(mUsername)) {
-            message = "Invalid username address.";
-            return message;
-        }
         mAuthTask = new UserLoginTask();
         try {
             mAuthTask.execute((Void) null).get();
         }
         catch(Exception e)
         {
-            message = "Timed out";
         }
         return message;
     }
