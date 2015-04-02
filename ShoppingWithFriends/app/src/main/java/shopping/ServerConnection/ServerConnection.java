@@ -1,6 +1,11 @@
 package shopping.ServerConnection;
 
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import shopping.Model.Sale;
 import shopping.Model.User;
@@ -111,6 +116,7 @@ public interface ServerConnection {
      * @throws InternalServerErrorException
      * @throws UnrecognizedResponseException
      */
-    public List<Sale> GetSales(User myUser) throws UserNotAuthorizedException,
-            InternalServerErrorException, UnrecognizedResponseException;
+    public List<Sale> GetSales(User myUser) throws ParserConfigurationException, IOException,
+            UserNotAuthorizedException, InternalServerErrorException, UnrecognizedResponseException,
+            SAXException;
 }
