@@ -45,45 +45,37 @@
           </button>
           
 
-          <a class="navbar-brand" href="./Homepage.html">Shopping with Friends</a>
+          <a class="navbar-brand" href="./Logged In Homepage.html">Shopping with Friends</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="./Homepage.html">Home</a></li>
-            <li><a href="./About.html">About</a></li>
-            <li><a href="./Contact.html">Contact</a></li>
+            <li class="active"><a href="./Logged In Homepage.html">Deals</a></li>
           </ul>
-          <form class="navbar-form navbar-right">
-            <div class="form-group">
-              <input type="text" placeholder="Username" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
+          <div class="navbar-form navbar-right">
+          <a href="./Homepage.html" target="_parent"><button class="btn btn-success">Log Out</button></a>
+          </div>
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
     <div class="container">
-    
-      <div class="jumbotron">
-        <h1>Welcome to Shopping with Friends</h1>
-        <p> Click here to get started!
-            <br>
-            <button type="button" onclick="location.href='./Login Page.html'" class="btn btn-lg btn-primary">Login</button> 
-            <button type="button" onclick="location.href='./Registration.html'" class="btn btn-lg btn-success">Register</button>
-            <button type="button" onclick="location.href='./About.html'" class="btn btn-lg btn-default">Learn more »</button>
-            
-        </p>
-      </div>
-
       <div class="page-header">
-        <h1 align="center">About Shopping with Friends</h1>
-        <p class="lead">Shopping with Friends is an easy way to save money when you shop.<br><br>Now, you can see all the great deals your friends are getting and use the app to get the same great deals! Also, if you are going to go shopping soon, you can request certain items and your friends will be able to respond with the deals they got!<br><br>By using Shopping with Friends, you can easily find the same great deals all your friends are getting as well as spread the word about the ones you are getting! <br><br> Register now and save!</p>
-      </div>
-
+        <h1>Post Sale</h1>
+          <form>
+            <div class="form-group">
+              <label for="item">Item</label>
+              <input type="text" class="form-control" id="item" placeholder="Enter item">
+            </div>
+            <div class="form-group">
+              <label for="maxprice">Price</label>
+              <input type="number" class="form-control" id="price" placeholder="Enter price of item">
+            </div>
+            <div class="form-group">
+              <label for="maxprice">Location</label>
+              <input type="text" class="form-control" id="location" placeholder="Enter location of item">
+            </div>
+            <button type="submit" class="btn btn-default">Confirm</button>
+          </form>
+      </div><!-- /.page-header -->
     </div><!-- /.container -->
 
 

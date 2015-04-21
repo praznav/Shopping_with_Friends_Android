@@ -1,0 +1,7 @@
+places where you need to insert a value:
+
+Login page		- input
+Registration page	- input
+
+Logged In Homepage:
+list-group	66
