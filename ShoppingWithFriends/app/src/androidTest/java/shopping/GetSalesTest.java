@@ -5,9 +5,7 @@ import junit.framework.TestCase;
 import java.util.List;
 
 import shopping.Model.Sale;
-import shopping.ServerConnection.AgaviServerConnection;
 import shopping.ServerConnection.InternalServerErrorException;
-import shopping.ServerConnection.ServerConnection;
 import shopping.ServerConnection.ServerXMLParser;
 import shopping.ServerConnection.UnrecognizedResponseException;
 import shopping.ServerConnection.UserNotAuthorizedException;

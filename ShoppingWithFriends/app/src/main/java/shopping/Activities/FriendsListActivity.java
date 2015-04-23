@@ -48,6 +48,7 @@ import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import shopping.ServerConnection.ServerXMLParser;
 
 import shopping.R;
 
@@ -284,12 +285,8 @@ public class FriendsListActivity extends Activity {
                         if (cNode.getLastChild() != null) {
                             String content = cNode.getLastChild().getTextContent().trim();
                             if (cNode.getNodeName().equals("friend")) {
-                                int parenthesisPosition = content.indexOf("(");
-                                String name = content.substring(0, parenthesisPosition);
-                                String username = content.substring(parenthesisPosition + 1, content.length() - 1);
-                                String friendsListEntry = name + " --- " + username;
+                                String friendsListEntry = ServerXMLParser.ParseFriendsListXML(content);
                                 friendsList.add(friendsListEntry);
-                                Log.d("In XML parsing", friendsListEntry);
                             }
                         }
                     }

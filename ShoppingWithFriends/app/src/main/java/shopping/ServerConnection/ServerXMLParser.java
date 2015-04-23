@@ -100,4 +100,12 @@ public class ServerXMLParser {
             throw new UnrecognizedResponseException();
         }
     }
+
+    public static String ParseFriendsListXML(String FriendXMLResponse) {
+        int parenthesisPosition = FriendXMLResponse.indexOf("(");
+        String name = FriendXMLResponse.substring(0, parenthesisPosition);
+        String username = FriendXMLResponse.substring(parenthesisPosition + 1, FriendXMLResponse.length() - 1);
+        String friendsListEntry = name + " --- " + username;
+        return friendsListEntry;
+    }
 }
